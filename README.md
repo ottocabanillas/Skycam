@@ -1,2 +1,2 @@
-# SkyCam_v1.0
+# SkyCam
 UNSTA - Proyecto 4º año
