@@ -24,8 +24,8 @@ public class ArcamGUI : MonoBehaviour
     void Update()
     {
         Debug.Log(skycamController._currentSpeed_X.ToString());
-        uiLabelVx.text = "V: " + skycamController._currentSpeed_X.ToString("N2");
-        uiLabelVy.text = "V: " + skycamController._currentSpeed_Y.ToString("N2");
-        uiLabelVz.text = "V: " + skycamController._currentSpeed_Z.ToString("N2");
+        uiLabelVx.text = "Vx: " + skycamController._currentSpeed_X.ToString("N2");
+        uiLabelVy.text = "Vy: " + skycamController._currentSpeed_Y.ToString("N2");
+        uiLabelVz.text = "Vz: " + skycamController._currentSpeed_Z.ToString("N2");
     }
 }
