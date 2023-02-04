@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public class SkycamController : MonoBehaviour
 {
     // Internal Properties
@@ -20,7 +19,7 @@ public class SkycamController : MonoBehaviour
                   _heightLimitMax = 4.5f; // Altura Maxima
 
     // - Velocidades segun Eje
-    private float _speedMax = 8f, //V[m/s]
+    public float _speedMax = 8f, //V[m/s]
                   _currentSpeed_X = 0,
                   _currentSpeed_Z = 0,
                   _currentSpeed_Y = 0;
