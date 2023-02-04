@@ -5,9 +5,11 @@ using UnityEngine;
 public class RopeTwoController : MonoBehaviour
 {
     public GameObject cube, rope, pole; // Para asignar Skycam, cuerda y poste desde el inspector
-    private Vector3 rightTopVertex, ropeEnd, poleTop; 
-    private float ropeLength;
+    private Vector3 rightTopVertex, ropeEnd, poleTop, previousCubePosition, cubeDisplacement; 
+    private float ropeLength, ropeSpeed;
     private LineRenderer lineRenderer;
+    private int _sendDataFrequency = 30;
+    private int _frameCounter = 0;
 
     void Start()
     {
@@ -23,6 +25,8 @@ public class RopeTwoController : MonoBehaviour
 
         lineRenderer.SetPosition(0, ropeEnd);  // Set the start position of the rope
         lineRenderer.SetPosition(1, poleTop);  // Set the end position of the rope
+        
+        previousCubePosition = cube.transform.position; // Obtener la posicion inicial
     }
 
     void Update()
@@ -38,5 +42,17 @@ public class RopeTwoController : MonoBehaviour
         
         // Actualizar el largo de la cuerda mientras la Skycam se mueve
         ropeLength = Vector3.Distance(rightTopVertex, rope.transform.position);
+        
+        // Esto es para calcular la velocidad de la cuerda y luego enviarla
+        // a traves de RopeSpeedFormatter (mejorar el nombre)
+        cubeDisplacement = cube.transform.position - previousCubePosition;
+        previousCubePosition = cube.transform.position;
+
+        ropeSpeed = RopeSpeedCalculator.CalculateRopeSpeed(cubeDisplacement, rightTopVertex, previousCubePosition);
+        _frameCounter++;
+        if (_frameCounter % _sendDataFrequency == 0)
+        {
+            RopeSpeedFormatter.Instance.AddRope(1, ropeSpeed);
+        }
     }
 }
