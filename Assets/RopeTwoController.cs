@@ -8,7 +8,6 @@ public class RopeTwoController : MonoBehaviour
     private Vector3 rightTopVertex, ropeEnd, poleTop; 
     private float ropeLength;
     private LineRenderer lineRenderer;
-
     void Start()
     {
         // Get the top right vertex of the cube
