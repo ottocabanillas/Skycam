@@ -26,7 +26,7 @@ public class ArduinoController : MonoBehaviour
     }
 
     [SerializeField]
-    private string portName = "/dev/cu.usbmodem144301";
+    private string portName;
     [SerializeField]
     private int baudRate = 9600;
 

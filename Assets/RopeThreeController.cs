@@ -47,10 +47,12 @@ public class RopeThreeController : MonoBehaviour
         previousCubePosition = cube.transform.position;
 
         ropeSpeed = RopeSpeedCalculator.CalculateRopeSpeed(cubeDisplacement, rightTopVertex, previousCubePosition);
-        _frameCounter++;
-        if (_frameCounter % _sendDataFrequency == 0)
-        {
-            RopeSpeedFormatter.Instance.AddRope(2, ropeSpeed);
-        }
+        
+        // Descomentar despues cuando agreguemos el modelo matematico para calcular las velocidades de las cuerdas
+        // _frameCounter++;
+        // if (_frameCounter % _sendDataFrequency == 0)
+        // {
+        //     RopeSpeedFormatter.Instance.AddRope(2, ropeSpeed);
+        // }
     }
 }

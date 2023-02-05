@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18386945, g: 0.22901481, b: 0.3031116, a: 1}
+  m_IndirectSpecularColor: {r: 0.18386963, g: 0.22901538, b: 0.30311254, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 314478502}
   - component: {fileID: 314478506}
   - component: {fileID: 314478507}
+  - component: {fileID: 314478508}
   m_Layer: 0
   m_Name: SkyCam
   m_TagString: Untagged
@@ -622,6 +623,20 @@ MonoBehaviour:
   _currentSpeed_X: 0
   _currentSpeed_Z: 0
   _currentSpeed_Y: 0
+--- !u!114 &314478508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314478501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee0504d302cb4fdabe61c7df1359827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portName: /dev/cu.usbmodem143301
+  baudRate: 9600
 --- !u!1 &350231088
 GameObject:
   m_ObjectHideFlags: 0

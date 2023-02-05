@@ -47,11 +47,13 @@ public class RopeFourController : MonoBehaviour
 		// Calcular la velocidad para la cuerda
 		// Este es un calculo muy basico hasta que implementemos el modelo matematico
 		ropeSpeed = RopeSpeedCalculator.CalculateRopeSpeed(cubeDisplacement, rightTopVertex, previousCubePosition);
-		_frameCounter++;
-		if (_frameCounter % _sendDataFrequency == 0) 
-		{
-			RopeSpeedFormatter.Instance.AddRope(3, ropeSpeed);
-		}
+		
+		// Descomentar despues cuando agreguemos el modelo matematico para calcular las velocidades de las cuerdas
+		// _frameCounter++;
+		// if (_frameCounter % _sendDataFrequency == 0) 
+		// {
+		// 	RopeSpeedFormatter.Instance.AddRope(3, ropeSpeed);
+		// }
     }
 }
 
