@@ -25,7 +25,6 @@ public class ArcamGUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(skycamController._currentSpeed_X.ToString());
         uiLabelVx.text = "Vx: " + skycamController._currentSpeed_X.ToString("N2");
         uiLabelVy.text = "Vy: " + skycamController._currentSpeed_Y.ToString("N2");
         uiLabelVz.text = "Vz: " + skycamController._currentSpeed_Z.ToString("N2");           
