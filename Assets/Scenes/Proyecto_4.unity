@@ -633,7 +633,6 @@ GameObject:
   - component: {fileID: 350231089}
   - component: {fileID: 350231091}
   - component: {fileID: 350231090}
-  - component: {fileID: 350231092}
   m_Layer: 5
   m_Name: Vz
   m_TagString: Untagged
@@ -703,25 +702,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350231088}
   m_CullTransparentMesh: 1
---- !u!114 &350231092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350231088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb1af92cb13d46f3842aa52eb01c98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiLabelVx: {fileID: 0}
-  uiLabelVy: {fileID: 0}
-  uiLabelVz: {fileID: 0}
-  uiVxObject: {fileID: 0}
-  uiVyObject: {fileID: 0}
-  uiVzObject: {fileID: 0}
-  skycamController: {fileID: 0}
 --- !u!1 &459207855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,7 +1334,6 @@ GameObject:
   - component: {fileID: 1351728975}
   - component: {fileID: 1351728977}
   - component: {fileID: 1351728976}
-  - component: {fileID: 1351728978}
   m_Layer: 5
   m_Name: Vy
   m_TagString: Untagged
@@ -1424,25 +1403,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351728974}
   m_CullTransparentMesh: 1
---- !u!114 &1351728978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351728974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb1af92cb13d46f3842aa52eb01c98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiLabelVx: {fileID: 0}
-  uiLabelVy: {fileID: 0}
-  uiLabelVz: {fileID: 0}
-  uiVxObject: {fileID: 0}
-  uiVyObject: {fileID: 0}
-  uiVzObject: {fileID: 0}
-  skycamController: {fileID: 0}
 --- !u!1 &1382745962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1814,8 +1774,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1382745963}
-  - {fileID: 350231089}
   - {fileID: 1351728975}
+  - {fileID: 350231089}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1839,10 +1799,10 @@ MonoBehaviour:
   uiLabelVx: {fileID: 1382745964}
   uiLabelVy: {fileID: 1351728976}
   uiLabelVz: {fileID: 350231090}
-  uiVxObject: {fileID: 0}
-  uiVyObject: {fileID: 0}
-  uiVzObject: {fileID: 0}
-  skycamController: {fileID: 0}
+  uiVxObject: {fileID: 1382745962}
+  uiVyObject: {fileID: 1351728974}
+  uiVzObject: {fileID: 350231088}
+  skycamController: {fileID: 314478507}
 --- !u!1 &1952924493
 GameObject:
   m_ObjectHideFlags: 0
