@@ -7,9 +7,9 @@ public class ArcamGUI : MonoBehaviour
 {
     // Internal Properties
     public Text uiLabelVx, uiLabelVy, uiLabelVz;
-    public GameObject uiVxObject, uiVyObject, uiVzObject;
-    public SkycamController skycamController;
-    private string[] ropeSpeeds = new string[4];
+    private GameObject uiVxObject, uiVyObject, uiVzObject;
+    private SkycamController skycamController;
+    private float[] ropeSpeeds = new float[4];
     private int _sendDataFrequency = 30; // Para enviar datos cada 30 frames
     private int _frameCounter = 0;
     // Start is called before the first frame update
@@ -29,16 +29,13 @@ public class ArcamGUI : MonoBehaviour
         uiLabelVy.text = "Vy: " + skycamController._currentSpeed_Y.ToString("N2");
         uiLabelVz.text = "Vz: " + skycamController._currentSpeed_Z.ToString("N2");           
 
-        ropeSpeeds[0] = skycamController._currentSpeed_X.ToString("N2");
-        ropeSpeeds[1] = skycamController._currentSpeed_Y.ToString("N2");
-        ropeSpeeds[2] = skycamController._currentSpeed_Z.ToString("N2");
-        
 		_frameCounter++;
         
         if (_frameCounter % _sendDataFrequency == 0)
         {
-			ArduinoController.Instance.SendValue(ropeSpeeds[0] + "," + ropeSpeeds[1] + "," + ropeSpeeds[2]);
+            RopeSpeedFormatter.Instance.AddAxisVelocity(0, "Vx: " + skycamController._currentSpeed_X.ToString("N2"));
+            RopeSpeedFormatter.Instance.AddAxisVelocity(1, "Vz: " + skycamController._currentSpeed_Z.ToString("N2"));
+            RopeSpeedFormatter.Instance.AddAxisVelocity(2, "Vy: " + skycamController._currentSpeed_Y.ToString("N2"));
         }
-                              
     }
 }

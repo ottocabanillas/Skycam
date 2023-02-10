@@ -43,14 +43,18 @@ public class RopeTwoController : MonoBehaviour
         // Actualizar el largo de la cuerda mientras la Skycam se mueve
         ropeLength = Vector3.Distance(rightTopVertex, rope.transform.position);
         
+        // Las lineas comentadas de abajo las vamos a utilizar una vez implementado el modelo matematico
+        // capaz que cambian las variables que vamos a usar, pero a RopeSpeedCalculator seguro vamos a necesitarlo
+        // Hacer un buen refactor de esta parte.
+
         // Esto es para calcular la velocidad de la cuerda y luego enviarla
         // a traves de RopeSpeedFormatter (mejorar el nombre)
-        cubeDisplacement = cube.transform.position - previousCubePosition;
-        previousCubePosition = cube.transform.position;
+        // cubeDisplacement = cube.transform.position - previousCubePosition;
+        // previousCubePosition = cube.transform.position;
 
 
-		// Con esto vamos a calcular la velocidad de cada cuerda. Lo hacemos en cada script de las cuerdas.
-        ropeSpeed = RopeSpeedCalculator.CalculateRopeSpeed(cubeDisplacement, rightTopVertex, previousCubePosition);
+		// Este es un calculo muy basico hasta que implementemos el modelo matematico
+        // ropeSpeed = RopeSpeedCalculator.CalculateRopeSpeed(cubeDisplacement, rightTopVertex, previousCubePosition);
         
         // Descomentar despues cuando agreguemos el modelo matematico para calcular las velocidades de las cuerdas
         // _frameCounter++;

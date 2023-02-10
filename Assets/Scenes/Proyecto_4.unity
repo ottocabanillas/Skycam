@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee0504d302cb4fdabe61c7df1359827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName: /dev/cu.usbmodem143301
+  portName: /dev/cu.usbmodem142301
   baudRate: 9600
 --- !u!1 &350231088
 GameObject:
@@ -648,7 +648,6 @@ GameObject:
   - component: {fileID: 350231089}
   - component: {fileID: 350231091}
   - component: {fileID: 350231090}
-  - component: {fileID: 350231092}
   m_Layer: 5
   m_Name: Vz
   m_TagString: Untagged
@@ -718,25 +717,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350231088}
   m_CullTransparentMesh: 1
---- !u!114 &350231092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350231088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb1af92cb13d46f3842aa52eb01c98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiLabelVx: {fileID: 0}
-  uiLabelVy: {fileID: 0}
-  uiLabelVz: {fileID: 0}
-  uiVxObject: {fileID: 0}
-  uiVyObject: {fileID: 0}
-  uiVzObject: {fileID: 0}
-  skycamController: {fileID: 0}
 --- !u!1 &459207855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,7 +1069,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.15420128, y: -0, z: -0, w: 0.9880395}
-  m_LocalPosition: {x: 0.08, y: 8.775, z: -19.977}
+  m_LocalPosition: {x: -0.196, y: 8.937, z: -19.925}
   m_LocalScale: {x: 0.79671, y: 0.79671, z: 0.79671}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1246,8 +1226,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.09375
+        time: 0.0019187927
+        value: 0.052078247
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1369,7 +1349,6 @@ GameObject:
   - component: {fileID: 1351728975}
   - component: {fileID: 1351728977}
   - component: {fileID: 1351728976}
-  - component: {fileID: 1351728978}
   m_Layer: 5
   m_Name: Vy
   m_TagString: Untagged
@@ -1439,25 +1418,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351728974}
   m_CullTransparentMesh: 1
---- !u!114 &1351728978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1351728974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb1af92cb13d46f3842aa52eb01c98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiLabelVx: {fileID: 0}
-  uiLabelVy: {fileID: 0}
-  uiLabelVz: {fileID: 0}
-  uiVxObject: {fileID: 0}
-  uiVyObject: {fileID: 0}
-  uiVzObject: {fileID: 0}
-  skycamController: {fileID: 0}
 --- !u!1 &1382745962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,10 +1814,6 @@ MonoBehaviour:
   uiLabelVx: {fileID: 1382745964}
   uiLabelVy: {fileID: 1351728976}
   uiLabelVz: {fileID: 350231090}
-  uiVxObject: {fileID: 0}
-  uiVyObject: {fileID: 0}
-  uiVzObject: {fileID: 0}
-  skycamController: {fileID: 0}
 --- !u!1 &1952924493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,7 +1887,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1
+        value: 0.04999695
         inSlope: 0
         outSlope: 0
         tangentMode: 34
