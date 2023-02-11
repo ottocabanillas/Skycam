@@ -19,8 +19,8 @@ public class RopeOneController : MonoBehaviour
         poleTop = bounds.max;
 
         lineRenderer = rope.GetComponent<LineRenderer>();
-        lineRenderer.SetPosition(0, ropeEnd);  // Set the start position of the rope
-        lineRenderer.SetPosition(1, poleTop);  // Set the end position of the rope
+        lineRenderer.SetPosition(0, poleTop);  // Set the start position of the rope
+        lineRenderer.SetPosition(1, ropeEnd);  // Set the end position of the rope
     }
 
     void Update()
@@ -30,9 +30,9 @@ public class RopeOneController : MonoBehaviour
         
         Bounds bounds = pole.GetComponent<Renderer>().bounds;
         poleTop = bounds.max;
-        
+        Vector3 fakeVector = new Vector3 (x: 4.8f, y: 6.15f, z: -2.43f);
         lineRenderer.SetPosition(0, rightTopVertex);
-        lineRenderer.SetPosition(1, poleTop);
+        lineRenderer.SetPosition(1, fakeVector);
         
         // Update the rope length as the cube moves
         ropeLength = Vector3.Distance(rightTopVertex, rope.transform.position);
