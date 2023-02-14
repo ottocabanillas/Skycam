@@ -154,12 +154,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1266719016}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 480, y: -420}
-  m_SizeDelta: {x: 295, y: 122}
+  m_SizeDelta: {x: 550, y: 122}
   m_Pivot: {x: 0.50000006, y: 0.50000036}
 --- !u!114 &13981945
 MonoBehaviour:
@@ -188,7 +188,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 100
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -541,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163167143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.167295, y: 3.3744414, z: 10.287057}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -779,6 +779,8 @@ MonoBehaviour:
   _currentSpeed_X: 0
   _currentSpeed_Z: 0
   _currentSpeed_Y: 0
+  currentHeight: 
+  currentSpeed: 
 --- !u!114 &314478508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1407,8 +1409,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 434645296}
-  - {fileID: 13981944}
   - {fileID: 2011482959}
+  - {fileID: 13981944}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1430,8 +1432,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 434645297}
+  skycamHeight: {fileID: 13981945}
+  skycamSpeed: {fileID: 2011482960}
   cameraObject: {fileID: 434645295}
+  skycamObject: {fileID: 314478501}
   cameraController: {fileID: 314478508}
+  skycamController: {fileID: 314478507}
 --- !u!1 &1333730848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1596,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333730848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.167295, y: 3.3744414, z: 10.287057}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2117,12 +2123,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1266719016}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -480, y: -420}
-  m_SizeDelta: {x: 492, y: 122}
+  m_SizeDelta: {x: 760, y: 122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2011482960
 MonoBehaviour:

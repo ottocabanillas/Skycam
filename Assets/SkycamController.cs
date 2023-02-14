@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class SkycamController : MonoBehaviour
 {
+//public GameObject skycam;
+
     // Internal Properties
     // -Ejes X y Z
     private float _horizontalInput, 
@@ -20,10 +22,13 @@ public class SkycamController : MonoBehaviour
                   _heightLimitMax = 4.5f; // Altura Maxima
 
     // - Velocidades segun Eje
-    public float _speedMax = 8f, //V[m/s]
+    public float _speedMax = 8f,  //V[m/s]
                   _currentSpeed_X = 0,
                   _currentSpeed_Z = 0,
                   _currentSpeed_Y = 0;
+
+    public string currentHeight,
+                  currentSpeed;
 
     // Functions
     void Update()
@@ -58,7 +63,9 @@ public class SkycamController : MonoBehaviour
         CheckBoundaries(ref tempPos.z, _zNegativeBoundary, _zPositiveBoundary);
         CheckBoundaries(ref tempPos.y, _heightLimitMin, _heightLimitMax);
         transform.position = tempPos;
-        
+
+        currentHeight = transform.position.y.ToString("N2");
+        currentSpeed = movement.sqrMagnitude.ToString("N2");
     }
     
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary)
