@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CamareController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public GameObject[] listaCamaras;
+    public string cameraName;
     // Start is called before the first frame update
     void Start()
     {
         listaCamaras[0].gameObject.SetActive(true);
         listaCamaras[1].gameObject.SetActive(false);
+        cameraName = "Camara Frontal";
     }
 
     // Update is called once per frame
@@ -22,23 +24,27 @@ public class CamareController : MonoBehaviour
             {
                 listaCamaras[0].gameObject.SetActive(true);
                 listaCamaras[1].gameObject.SetActive(false);
+                cameraName = "Camara Frontal";
             }
 
             if (Gamepad.current.buttonWest.isPressed || Input.GetKey(KeyCode.Alpha2))
             {
                 listaCamaras[0].gameObject.SetActive(false);
                 listaCamaras[1].gameObject.SetActive(true);
+                cameraName = "Camara Superior";
             }
         } else {
             if (Input.GetKey(KeyCode.Alpha1))
             {
                 listaCamaras[0].gameObject.SetActive(true);
                 listaCamaras[1].gameObject.SetActive(false);
+                cameraName = "Camara Frontal";
             }
             if (Input.GetKey(KeyCode.Alpha2))
             {
                 listaCamaras[0].gameObject.SetActive(false);
                 listaCamaras[1].gameObject.SetActive(true);
+                cameraName = "Camara Superior";
             }
 
 
