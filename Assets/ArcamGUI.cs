@@ -30,5 +30,8 @@ public class ArcamGUI : MonoBehaviour
         skycamHeight.text = "Altura: " + skycamController.currentHeight;
         skycamSpeed.text = "Velocidad: " + skycamController.currentSpeed;
         //uiLabelVx.text = "Vx: " + skycamController._currentSpeed_X.ToString("N2");
+
+        RopeSpeedFormatter.Instance.AddAxisVelocity(0, "F," + ((Math.Abs(skycamController._currentSpeed_X)*255)/8).ToString("N0"));
+        RopeSpeedFormatter.Instance.AddAxisVelocity(1, "R," + ((Math.Abs(skycamController._currentSpeed_Z)*255)/8).ToString("N0"));
     }
 }

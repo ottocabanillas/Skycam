@@ -39,12 +39,12 @@ public class SkycamController : MonoBehaviour
         //Debug.Log(_verticalInput.ToString("N2"));
         float yAxisMovement = 0;
         
-        if (Gamepad.current.leftTrigger.isPressed)
+        if (Gamepad.current != null && Gamepad.current.leftTrigger.isPressed)
         {
             yAxisMovement = -Gamepad.current.leftTrigger.ReadValue(); // move down
         }
 
-        if (Gamepad.current.rightTrigger.isPressed)
+        if (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed)
         {
             yAxisMovement = Gamepad.current.rightTrigger.ReadValue(); // move up
         }
