@@ -8,7 +8,8 @@ public class SkycamController : MonoBehaviour
 {
     // Internal Properties
     // -Ejes X y Z
-    private float _horizontalInput, _verticalInput;
+    private float _horizontalInput, 
+                  _verticalInput;
     
     // - Limites del Area 
     private float _xPositiveBoundary = 4.50f, 
