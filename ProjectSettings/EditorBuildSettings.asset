@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/UI-Skycam.unity
     guid: 7e4bde7fd446248b28cb6735c589c691
   - enabled: 1
+    path: Assets/Scenes/UI-Configuration.unity
+    guid: 5425be4c085a146f29104dcf1959f0c2
+  - enabled: 1
     path: Assets/Scenes/Proyecto_4.unity
     guid: 6ebb9949ca2194d6ca95458e67c379da
+  - enabled: 1
+    path: Assets/Scenes/UI-ChangeConfig.unity
+    guid: 6e9d3cbbec96e4461a9d0bdcb4d34fe9
   m_configObjects: {}

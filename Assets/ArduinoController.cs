@@ -27,7 +27,7 @@ public class ArduinoController : MonoBehaviour
    
 
     private string portName;
-    private int baudRate = 115200;
+    private int baudRate;
 
     private SerialPort serialPort;
 
@@ -42,8 +42,9 @@ public class ArduinoController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+        baudRate = int.Parse(PlayerPrefs.GetString(CommonConfigKeys.BAUDIOS_ARDUINO_STRING.ToString()));
         portName = GetConnectedArduinoPort();
+        Debug.Log("Baud Rate " +baudRate);
     }
 
     private void Start()
@@ -90,7 +91,7 @@ public class ArduinoController : MonoBehaviour
                 }
                 catch (System.Exception)
                 {
-                    // No se encontro puerto
+                    Debug.Log("No se encontro puerto arduino");
                 }
             }
         return "";      

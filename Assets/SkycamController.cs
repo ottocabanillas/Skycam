@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class SkycamController : MonoBehaviour
 {
-//public GameObject skycam;
+    public GameObject floor;
 
     // Internal Properties
     // -Ejes X y Z
@@ -22,14 +22,26 @@ public class SkycamController : MonoBehaviour
                   _heightLimitMax = 4.5f; // Altura Maxima
 
     // - Velocidades segun Eje
-    public float _speedMax = 8f,  //V[m/s]
-                  _currentSpeed_X = 0,
+    public float  _currentSpeed_X = 0,
                   _currentSpeed_Z = 0,
-                  _currentSpeed_Y = 0;
-
+                  _currentSpeed_Y = 0,
+                  _acceleration,
+                  _speedMax; // V[m/s]
+                
     public string currentHeight,
                   currentSpeed;
 
+    void Start()
+    {
+        // Intenta traer el valor de velocidad máxima desde PlayerPrefs. Si no es nulo,
+        // se asigna el valor a _speedMax. De lo contrario, se asigna un valor predeterminado de 0.6f.
+        _speedMax = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxVelocity) ? maxVelocity : 0.6f;
+
+        // Intenta traer el valor de aceleración máxima desde PlayerPrefs. Si no es nulo,
+        // se asigna el valor a _acceleration. De lo contrario, se asigna un valor predeterminado de 0.8f.
+        _acceleration = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxAcceleration) ? maxAcceleration : 0.8f;
+    }
+    
     // Functions
     void Update()
     {
@@ -65,7 +77,7 @@ public class SkycamController : MonoBehaviour
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
-        currentSpeed = movement.sqrMagnitude.ToString("N2");
+        currentSpeed = movement.magnitude.ToString("N2");
     }
     
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary)
