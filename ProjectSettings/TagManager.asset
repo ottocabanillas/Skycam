@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Camera_Front
   - Camera_Up
+  - Camera_Isometrica
   layers:
   - Default
   - TransparentFX

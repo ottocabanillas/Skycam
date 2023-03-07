@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class SkycamController : MonoBehaviour
 {
-    public GameObject floor;
-
     // Internal Properties
     // -Ejes X y Z
     private float _horizontalInput, 

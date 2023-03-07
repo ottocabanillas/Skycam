@@ -11,7 +11,7 @@ public class RopeTwoController : MonoBehaviour
     void Start()
     {
         // Get the top right vertex of the cube
-        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.50f, 0.50f, -0.50f)); // Tenemos que re-nombrar esta variable en los scripts
+        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, -0.25f)); // Tenemos que re-nombrar esta variable en los scripts
         ropeEnd = rightTopVertex;
         ropeLength = Vector3.Distance(ropeEnd, rope.transform.position); 
         
@@ -27,7 +27,7 @@ public class RopeTwoController : MonoBehaviour
     void Update()
     {
         // Update the rope's end position to match the left top vertex of the cube
-        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.50f, 0.50f, -0.50f));
+        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, -0.25f));
 
 		Bounds bounds = pole.GetComponent<Renderer>().bounds;
         poleTop = bounds.max;
