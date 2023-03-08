@@ -26,6 +26,7 @@ public class ArcamGUI : MonoBehaviour
     {
         cameraController = FindAnyObjectByType<CameraController>();
         cameraPosition = cameraObject.GetComponent<Text>();
+        skycamController = FindAnyObjectByType<SkycamController>();
         //skycamHeight.text = skycamController.currentHeight;
         //skycamSpeed = skycamObject.GetComponent<Text>();
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18386963, g: 0.22901538, b: 0.30311254, a: 1}
+  m_IndirectSpecularColor: {r: 0.18386945, g: 0.22901481, b: 0.3031116, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -337,7 +337,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -401,7 +401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &130280841
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1869,7 +1869,7 @@ MonoBehaviour:
   skycamHeight: {fileID: 13981945}
   skycamSpeed: {fileID: 2011482960}
   cameraObject: {fileID: 434645295}
-  skycamObject: {fileID: 314478501}
+  skycamObject: {fileID: 73508843}
   cameraController: {fileID: 314478508}
   skycamController: {fileID: 314478507}
   green: {r: 0.18864112, g: 0.6698113, b: 0.072668225, a: 0}
