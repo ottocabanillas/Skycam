@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XInput;
 public class SkycamController : MonoBehaviour
 {
     // Internal Properties
@@ -49,12 +50,16 @@ public class SkycamController : MonoBehaviour
         //Debug.Log(_verticalInput.ToString("N2"));
         float yAxisMovement = 0;
 
-        if (Gamepad.current != null && Gamepad.current.leftTrigger.isPressed)
+        //Debug.Log("leftTrigger" + Input.GetAxis("rightTrigger"));
+        //Debug.Log("leftTrigger " + XboxOneGampadMacOSWireless.current.leftTrigger.ReadValue());
+        
+        if (Gamepad.current != null && Gamepad.current.leftTrigger.ReadValue() >= 0)
         {
             yAxisMovement = -Gamepad.current.leftTrigger.ReadValue(); // move down
+            Debug.Log("leftTrigger-Otto Genio! " + Gamepad.current.leftTrigger.ReadValue());
         }
 
-        if (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed)
+        if (Gamepad.current != null && Gamepad.current.leftTrigger.isPressed)
         {
             yAxisMovement = Gamepad.current.rightTrigger.ReadValue(); // move up
         }
@@ -81,14 +86,15 @@ public class SkycamController : MonoBehaviour
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary)
     {
         position = Mathf.Clamp(position, negativeBoundary, positiveBoundary);
-        Debug.Log("Position" + position.ToString("N2"));
+        //Debug.Log("Position" + position.ToString("N2"));
     }
 
     void CheckBoundaries1(ref float position, float minBoundary, float maxBoundary)
     {
         if ((position >= maxBoundary) || (position <= minBoundary)) {
-            currentSpeed = "0.00",
+            currentSpeed = "0.00";
         }
+
 
     }
 }
