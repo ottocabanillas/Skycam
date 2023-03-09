@@ -165,8 +165,6 @@ public class GUIConfigurationController : MonoBehaviour
         string ruta = EditorUtility.OpenFilePanel("Selecciona una imagen", "", "jpg");
 
         if (!string.IsNullOrEmpty(ruta)) {
-            Debug.Log("Seleccionaste la imagen: " + ruta);
-
             // Aquí cargamos la imagen seleccionada en un array de bytes.
             byte[] bytes = System.IO.File.ReadAllBytes(ruta);
             // Creamos una textura 2D

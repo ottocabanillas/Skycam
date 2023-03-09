@@ -13,10 +13,8 @@ public class Rope1Controller : MonoBehaviour
     private LineRenderer lineRenderer;
     void Start()
     {
-
         lineRenderer = rope.GetComponent<LineRenderer>();
     }
-
     void Update()
     {
         // Update the rope's end position to match the left top vertex of the cube
@@ -24,7 +22,7 @@ public class Rope1Controller : MonoBehaviour
 
 		Bounds bounds = pole.GetComponent<Renderer>().bounds;
         poleTop = bounds.max;
-        Vector3 ropePole = new Vector3 (x: 0.2f, y: 6f, z: 0.2f);
+        Vector3 ropePole = new Vector3 (x: 0.2f, y: 6f, z: 0.16f);
         lineRenderer.SetPosition(0, rightTopVertex);
         lineRenderer.SetPosition(1, ropePole);
         

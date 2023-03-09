@@ -67,7 +67,6 @@ public class RopeSpeedFormatter : MonoBehaviour
 
          //Aca leemos datos del puerto serie.
          string data = ArduinoController.Instance.ReadSerialPortData();
-         Debug.Log(data);
         }
     }
 

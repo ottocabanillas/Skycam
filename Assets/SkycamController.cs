@@ -8,24 +8,24 @@ public class SkycamController : MonoBehaviour
 {
     // Internal Properties
     // -Ejes X y Z
-    private float _horizontalInput, 
+    private float _horizontalInput,
                   _verticalInput;
-    
+
     // - Limites del Area 
-    private float _xPositiveBoundary = 9.35f, 
-                  _xNegativeBoundary = 0.65f, 
-                  _zPositiveBoundary = 4.3f, 
-                  _zNegativeBoundary = 0.7f, 
+    private float _xPositiveBoundary = 9.35f,
+                  _xNegativeBoundary = 0.65f,
+                  _zPositiveBoundary = 4.3f,
+                  _zNegativeBoundary = 0.7f,
                   _heightLimitMin = 0.5f, //Altura Minima
                   _heightLimitMax = 4.5f; // Altura Maxima
 
     // - Velocidades segun Eje
-    public float  _currentSpeed_X = 0,
+    public float _currentSpeed_X = 0,
                   _currentSpeed_Z = 0,
                   _currentSpeed_Y = 0,
                   _acceleration,
                   _speedMax; // V[m/s]
-                
+
     public string currentHeight,
                   currentSpeed;
 
@@ -39,7 +39,7 @@ public class SkycamController : MonoBehaviour
         // se asigna el valor a _acceleration. De lo contrario, se asigna un valor predeterminado de 0.8f.
         _acceleration = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxAcceleration) ? maxAcceleration : 0.8f;
     }
-    
+
     // Functions
     void Update()
     {
@@ -48,7 +48,7 @@ public class SkycamController : MonoBehaviour
         _verticalInput = Input.GetAxis("Vertical"); //(Axis +/- Z)
         //Debug.Log(_verticalInput.ToString("N2"));
         float yAxisMovement = 0;
-        
+
         if (Gamepad.current != null && Gamepad.current.leftTrigger.isPressed)
         {
             yAxisMovement = -Gamepad.current.leftTrigger.ReadValue(); // move down
@@ -58,15 +58,15 @@ public class SkycamController : MonoBehaviour
         {
             yAxisMovement = Gamepad.current.rightTrigger.ReadValue(); // move up
         }
-        
+
         //Velocidad de cada eje
         _currentSpeed_X = _speedMax * _horizontalInput;  // Velocidad en el eje X
         _currentSpeed_Z = _speedMax * _verticalInput; // Velocidad en el eje Z
         _currentSpeed_Y = _speedMax * yAxisMovement; // Velocidad en el eje Y
-        Vector3 movement = new Vector3(x:_currentSpeed_X, y: _currentSpeed_Y, z:_currentSpeed_Z);
-        
+        Vector3 movement = new Vector3(x: _currentSpeed_X, y: _currentSpeed_Y, z: _currentSpeed_Z);
+
         transform.Translate(movement * Time.deltaTime); //Para mover la Skycam
-        
+
         // Delimitador de posicion de posicion (eje x - eje z - eje y)
         Vector3 tempPos = transform.position;
         CheckBoundaries(ref tempPos.x, _xNegativeBoundary, _xPositiveBoundary);
@@ -77,9 +77,18 @@ public class SkycamController : MonoBehaviour
         currentHeight = transform.position.y.ToString("N2");
         currentSpeed = movement.magnitude.ToString("N2");
     }
-    
+
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary)
     {
         position = Mathf.Clamp(position, negativeBoundary, positiveBoundary);
+        Debug.Log("Position" + position.ToString("N2"));
+    }
+
+    void CheckBoundaries1(ref float position, float minBoundary, float maxBoundary)
+    {
+        if ((position >= maxBoundary) || (position <= minBoundary)) {
+            currentSpeed = "0.00",
+        }
+
     }
 }
