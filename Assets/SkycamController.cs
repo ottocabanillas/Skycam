@@ -12,10 +12,10 @@ public class SkycamController : MonoBehaviour
                   _verticalInput;
     
     // - Limites del Area 
-    private float _xPositiveBoundary = 4.50f, 
-                  _xNegativeBoundary = -4.50f, 
-                  _zPositiveBoundary = 2.0f, 
-                  _zNegativeBoundary = -2.0f, 
+    private float _xPositiveBoundary = 9.35f, 
+                  _xNegativeBoundary = 0.65f, 
+                  _zPositiveBoundary = 4.3f, 
+                  _zNegativeBoundary = 0.7f, 
                   _heightLimitMin = 0.5f, //Altura Minima
                   _heightLimitMax = 4.5f; // Altura Maxima
 
