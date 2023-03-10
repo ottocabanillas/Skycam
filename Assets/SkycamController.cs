@@ -59,7 +59,7 @@ public class SkycamController : MonoBehaviour
             Debug.Log("leftTrigger-Otto Genio! " + Gamepad.current.leftTrigger.ReadValue());
         }
 
-        if (Gamepad.current != null && Gamepad.current.leftTrigger.isPressed)
+        if (Gamepad.current != null && Gamepad.current.rightTrigger.ReadValue() >= 0.001)
         {
             yAxisMovement = Gamepad.current.rightTrigger.ReadValue(); // move up
         }
