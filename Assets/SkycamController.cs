@@ -88,7 +88,7 @@ public class SkycamController : MonoBehaviour
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary)
     {
         position = Mathf.Clamp(position, negativeBoundary, positiveBoundary);
-        //Debug.Log("Position" + position.ToString("N2"));
+        Debug.Log("Position" + position.ToString("N2"));
     }
 
     void CheckBoundaries1(ref float position, float minBoundary, float maxBoundary)
