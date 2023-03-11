@@ -30,6 +30,8 @@ public class SkycamController : MonoBehaviour
     public string currentHeight,
                   currentSpeed;
 
+    private bool isLeftTriggerPressed, // flag trigger izquierdo
+                 isRightTriggerPressed; // flag trigger derecho
     void Start()
     {
         // Intenta traer el valor de velocidad máxima desde PlayerPrefs. Si no es nulo,
@@ -39,29 +41,29 @@ public class SkycamController : MonoBehaviour
         // Intenta traer el valor de aceleración máxima desde PlayerPrefs. Si no es nulo,
         // se asigna el valor a _acceleration. De lo contrario, se asigna un valor predeterminado de 0.8f.
         _acceleration = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxAcceleration) ? maxAcceleration : 0.8f;
+
+        // Inicializamos ambos flags en false
+        isLeftTriggerPressed = isRightTriggerPressed = false;
     }
 
     // Functions
     void Update()
     {
         _horizontalInput = Input.GetAxis("Horizontal"); //(Axis +/- X)
-        //Debug.Log(_horizontalInput.ToString("N2"));
+        
         _verticalInput = Input.GetAxis("Vertical"); //(Axis +/- Z)
-        //Debug.Log(_verticalInput.ToString("N2"));
+        
         float yAxisMovement = 0;
 
-        //Debug.Log("leftTrigger" + Input.GetAxis("rightTrigger"));
-        //Debug.Log("leftTrigger " + XboxOneGampadMacOSWireless.current.leftTrigger.ReadValue());
-        
-        if (Gamepad.current != null && Gamepad.current.leftTrigger.ReadValue() >= 0)
+        if (Gamepad.current != null) 
         {
-            yAxisMovement = -Gamepad.current.leftTrigger.ReadValue(); // move down
-            Debug.Log("leftTrigger-Otto Genio! " + Gamepad.current.leftTrigger.ReadValue());
-        }
+            float leftTriggerValue = Gamepad.current.leftTrigger.ReadValue();
+            float rightTriggerValue = Gamepad.current.rightTrigger.ReadValue();
 
-        if (Gamepad.current != null && Gamepad.current.rightTrigger.ReadValue() >= 0.001)
-        {
-            yAxisMovement = Gamepad.current.rightTrigger.ReadValue(); // move up
+            isLeftTriggerPressed = leftTriggerValue >= 0.001f && !isRightTriggerPressed;
+            isRightTriggerPressed = rightTriggerValue >= 0.001f && !isLeftTriggerPressed;
+
+            yAxisMovement = isLeftTriggerPressed ? -leftTriggerValue : isRightTriggerPressed ? rightTriggerValue : 0f;
         }
 
         //Velocidad de cada eje
@@ -94,7 +96,5 @@ public class SkycamController : MonoBehaviour
         if ((position >= maxBoundary) || (position <= minBoundary)) {
             currentSpeed = "0.00";
         }
-
-
     }
 }
