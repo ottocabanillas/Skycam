@@ -8,7 +8,10 @@ using TMPro;
 public class GUIConfigurationController : MonoBehaviour
 {
     [SerializeField]
-    TMP_InputField maximumVelocityInput, accelerationInput;
+    TMP_InputField maximumVelocityInput,
+    altoInput,
+    largoInput,
+    anchoInput;
     
     [SerializeField]                      
     Button continueButton, uploadImageButton;
@@ -17,10 +20,12 @@ public class GUIConfigurationController : MonoBehaviour
     Text sceneTitle,
          velocityLabel,
          imageLabel,
-         accelerationLabel,
          uploadedImageButtonText,
          uploadButtonText,
-         transmissionVelocityLabel;
+         transmissionVelocityLabel,
+         altoLabel,
+         largoLabel,
+         anchoLabel;
 
     [SerializeField]
     TMP_Dropdown baudiosDropdownMenu;
@@ -28,8 +33,9 @@ public class GUIConfigurationController : MonoBehaviour
     [SerializeField]
     RawImage imagenPrevia;
 
-    private string maxVelocityValue, accelerationValue, dropdownValue;
+    private string maxVelocityValue, dropdownValue;
 
+    private float altoValue, largoValue, anchoValue;
     // Flag para determinar si es la primera vez viendo la pantalla de config inicial.
     private bool isUserChangingConfigValues;
 
@@ -72,14 +78,12 @@ public class GUIConfigurationController : MonoBehaviour
         {
             if (isUserChangingConfigValues)
             {
-                Debug.Log(PlayerPrefs.GetString(CommonConfigKeys.ACCELERATION.ToString()));
                 // Cambiamos los labels del titulo y del boton de cargar imagen del campo.
                 sceneTitle.text = "Ingrese los nuevos valores de configuración";
                 uploadButtonText.text = "Cargar nueva imagen del campo";
 
                 // Cargamos los valores guardados previamente de 
                 // velociad maxima, aceleracion y dropdown menu
-                accelerationInput.SetTextWithoutNotify(PlayerPrefs.GetString(CommonConfigKeys.ACCELERATION.ToString()));
                 maximumVelocityInput.SetTextWithoutNotify(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()));
                 baudiosDropdownMenu.value = PlayerPrefs.GetInt(CommonConfigKeys.BAUDIOS_ARDUINO_OPTION_INDEX.ToString());
 
@@ -112,8 +116,7 @@ public class GUIConfigurationController : MonoBehaviour
     public void CheckInputs()
     {
         // Habilitar el boton COMENZAR solamente si se completaron todos los parametros de la pantalla de config.
-        if (maximumVelocityInput.text != "" && baudiosDropdownMenu.value != 0 && accelerationInput.text != ""
-            && imagenPrevia.texture != null) 
+        if (maximumVelocityInput.text != "" && baudiosDropdownMenu.value != 0 && imagenPrevia.texture != null) 
         {
             continueButton.interactable = true;
         }
@@ -128,8 +131,14 @@ public class GUIConfigurationController : MonoBehaviour
         // Guardo en una variable el valor del input field de velocidad
         maxVelocityValue = maximumVelocityInput.text;
 
-        // Guardo en una variable el valor del input field de aceleracion
-        accelerationValue = accelerationInput.text;
+        // Guardo en una variable el valor del input field de alto
+        altoValue = float.Parse(altoInput.text);
+
+        // Guardo en una variable el valor del input field de ancho
+        anchoValue = float.Parse(anchoInput.text);
+
+        // Guardo en una variable el valor del input field de largo
+        largoValue = float.Parse(largoInput.text);
 
         // Guardo en una variable el valor del input field de velocidad de transmision
         dropdownValue = baudiosDropdownMenu.options[baudiosDropdownMenu.value].text;
@@ -137,7 +146,9 @@ public class GUIConfigurationController : MonoBehaviour
         // Guardamos la configuracion inicial en PlayerPrefs
         PlayerPrefs.SetString(CommonConfigKeys.MAX_VELOCITY.ToString(), maxVelocityValue);
         PlayerPrefs.SetString(CommonConfigKeys.BAUDIOS_ARDUINO_STRING.ToString(), dropdownValue);
-        PlayerPrefs.SetString(CommonConfigKeys.ACCELERATION.ToString(), accelerationValue);
+        PlayerPrefs.SetFloat(CommonConfigKeys.ALTO.ToString(), altoValue);
+        PlayerPrefs.SetFloat(CommonConfigKeys.LARGO.ToString(), anchoValue);
+        PlayerPrefs.SetFloat(CommonConfigKeys.ANCHO.ToString(), largoValue);
 
         // NO CUESTIONES ESTO, SI QUERES REFACTOREALO.
         // Es para saber el indice de la opcion elegida, y sirve para cuando volvemos a cambiar la configuracion.
@@ -147,16 +158,20 @@ public class GUIConfigurationController : MonoBehaviour
     {
         // Llamar a la función SaveData en los eventos "OnValueChanged" de los InputFields y del Dropdown
         maximumVelocityInput.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
-        accelerationInput.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
         baudiosDropdownMenu.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
+        altoInput.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
+        anchoInput.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
+        largoInput.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
     }
 
     private void OnDisable()
     {
         // Remover los listeners de los InputFields y del Dropdown al salir de la escena
         maximumVelocityInput.onValueChanged.RemoveAllListeners();
-        accelerationInput.onValueChanged.RemoveAllListeners();
         baudiosDropdownMenu.onValueChanged.RemoveAllListeners();
+        altoInput.onValueChanged.RemoveAllListeners();
+        anchoInput.onValueChanged.RemoveAllListeners();
+        largoInput.onValueChanged.RemoveAllListeners();
     }
 
     private void OnImageUploadButtonClicked()
