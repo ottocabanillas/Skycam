@@ -30,22 +30,16 @@ public class DirectKinematic : MonoBehaviour
         y = Calculate_Y_Value(x, z);
 
         Debug.Log("MODELO DE CINEMATICA DIRECTA");
-        // Debug.Log("Valor calculado de X: " + x);
-        // Debug.Log("Valor calculado de Z: " + z);
-        // Debug.Log("Valor calculado de Y: " + y);  
+        Debug.Log("Valor calculado de X: " + x);
+        Debug.Log("Valor calculado de Z: " + z);
+        Debug.Log("Valor calculado de Y: " + y);  
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        // x = Calculate_X_Value();
-        // z = Calculate_Z_Value();
-        // y = Calculate_Y_Value(x, z);
-
-        // Debug.Log("Valor calculado de X: " + x);
-        // Debug.Log("Valor calculado de Z: " + z);
-        // Debug.Log("Valor calculado de Y: " + y);   
+        
     }
 
     private double Calculate_X_Value() 
@@ -77,15 +71,6 @@ public class DirectKinematic : MonoBehaviour
         double primerTerminoRaiz = Math.Pow(L1, 2);
         double segundoTerminoRaiz = Math.Pow((x - mitadAlturaSkycam), 2);
         double tercerTerminoRaiz = Math.Pow((z - mitadAnchoSkycam), 2);
-
-        Debug.Log("a" + mitadAlturaSkycam);
-        Debug.Log("b" + mitadLargoSkycam);
-        Debug.Log("c" + mitadAnchoSkycam);
-
-
-        Debug.Log(primerTerminoRaiz);
-        Debug.Log(segundoTerminoRaiz);
-        Debug.Log(tercerTerminoRaiz);
 
         double temp_y = H + RoundNumber(mitadAnchoSkycam) - RoundNumber(Math.Sqrt(primerTerminoRaiz - segundoTerminoRaiz - tercerTerminoRaiz));
         

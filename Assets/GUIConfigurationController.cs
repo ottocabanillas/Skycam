@@ -41,12 +41,12 @@ public class GUIConfigurationController : MonoBehaviour
     void Awake()
     {
         // Descomentar lineas 38 a 41 si queres borrar lo guardado en PlayerPrefs y empezar con flujo inicial del programa.
-        //PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
-        //PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
-        //PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
-        //PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
-        //PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
-        //PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
 
         // Fue el unico workaround que encontre para que al volver a la pantalla para cambiar la configuracion
         // se pueda mantener el valor del flag isUserChangingConfigValue.
@@ -87,9 +87,9 @@ public class GUIConfigurationController : MonoBehaviour
                 // velociad maxima, aceleracion y dropdown menu
                 maximumVelocityInput.SetTextWithoutNotify(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()));
                 baudiosDropdownMenu.value = PlayerPrefs.GetInt(CommonConfigKeys.BAUDIOS_ARDUINO_OPTION_INDEX.ToString());
-                lengthInputField.SetTextWithoutNotify(PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()).ToString());
-                widthInputField.SetTextWithoutNotify(PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()).ToString());
-                heightInputField.SetTextWithoutNotify(PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()).ToString());
+                lengthInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()) * 2f).ToString());
+                widthInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()) * 2f).ToString());
+                heightInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) * 2f).ToString());
 
                 // Mostramos la imagen del campo guardada previamente
                 LoadFieldUploadedImage();
@@ -130,45 +130,45 @@ public class GUIConfigurationController : MonoBehaviour
         }
     }
 
-    private void SaveData()
+    private void SaveMaximunSpeed()
     {
         // Guardo en una variable el valor del input field de velocidad
         maxVelocityValue = maximumVelocityInput.text;
-
-        // Guardo en una variable el valor del input field de largo
-        lengthValue = float.Parse(lengthInputField.text) / 2;
-        //Debug.Log("Largo: " + lengthValue);
-        
-        // Guardo en una variable el valor del input field de ancho
-        widthValue = float.Parse(widthInputField.text) / 2;
-        //Debug.Log("Ancho: " + widthValue);
-        
-        // Guardo en una variable el valor del input field de alto
-        heightValue = float.Parse(heightInputField.text) / 2;
-        //Debug.Log("Alto: " + heightValue);
-        
+        PlayerPrefs.SetString(CommonConfigKeys.MAX_VELOCITY.ToString(), maxVelocityValue);
+    }
+    private void SaveBaudios()
+    {
         // Guardo en una variable el valor del input field de velocidad de transmision
         dropdownValue = baudiosDropdownMenu.options[baudiosDropdownMenu.value].text;
-
-        // Guardamos la configuracion inicial en PlayerPrefs
-        PlayerPrefs.SetString(CommonConfigKeys.MAX_VELOCITY.ToString(), maxVelocityValue);
         PlayerPrefs.SetString(CommonConfigKeys.BAUDIOS_ARDUINO_STRING.ToString(), dropdownValue);
-        PlayerPrefs.SetFloat(CommonConfigKeys.LENGTH.ToString(), lengthValue);
-        PlayerPrefs.SetFloat(CommonConfigKeys.WIDTH.ToString(), widthValue);
-        PlayerPrefs.SetFloat(CommonConfigKeys.HEIGHT.ToString(), heightValue);
-
-        // NO CUESTIONES ESTO, SI QUERES REFACTOREALO.
-        // Es para saber el indice de la opcion elegida, y sirve para cuando volvemos a cambiar la configuracion.
-        PlayerPrefs.SetInt(CommonConfigKeys.BAUDIOS_ARDUINO_OPTION_INDEX.ToString(), baudiosDropdownMenu.value);
     }
+    private void SaveHeight()
+    {
+        heightValue = float.Parse(heightInputField.text) / 2;
+        PlayerPrefs.SetFloat(CommonConfigKeys.HEIGHT.ToString(), heightValue);
+    }
+    private void SaveWidth()
+    {
+        // Guardo en una variable el valor del input field de ancho
+        widthValue = float.Parse(widthInputField.text) / 2;
+        PlayerPrefs.SetFloat(CommonConfigKeys.WIDTH.ToString(), widthValue);
+
+    }
+    private void SaveLenght()
+    {
+        // Guardo en una variable el valor del input field de largo
+        lengthValue = float.Parse(lengthInputField.text) / 2;
+        PlayerPrefs.SetFloat(CommonConfigKeys.LENGTH.ToString(), lengthValue);
+    }
+
     private void OnEnable()
     {
         // Llamar a la función SaveData en los eventos "OnValueChanged" de los InputFields y del Dropdown
-        maximumVelocityInput.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
-        baudiosDropdownMenu.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
-        heightInputField.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
-        widthInputField.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
-        lengthInputField.onValueChanged.AddListener(delegate { SaveData(); CheckInputs(); });
+        maximumVelocityInput.onValueChanged.AddListener(delegate { SaveMaximunSpeed(); CheckInputs(); });
+        baudiosDropdownMenu.onValueChanged.AddListener(delegate { SaveBaudios(); CheckInputs(); });
+        heightInputField.onValueChanged.AddListener(delegate { SaveHeight(); CheckInputs(); });
+        widthInputField.onValueChanged.AddListener(delegate { SaveWidth(); CheckInputs(); });
+        lengthInputField.onValueChanged.AddListener(delegate { SaveLenght(); CheckInputs(); });
     }
 
     private void OnDisable()
