@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Rope4Controller : MonoBehaviour
 {
-    public GameObject cube, rope, pole; // Para asignar Skycam, cuerda y poste desde el inspector
+    public GameObject cube,
+        rope,
+        pole; // Para asignar Skycam, cuerda y poste desde el inspector
     private Vector3 rightTopVertex,
-    ropeEnd,
-    ropePole,
-    poleTop;
+        ropePole,
+        poleTop;
     private float ropeLength;
     private LineRenderer lineRenderer;
-void Start()
+
+    void Start()
     {
         lineRenderer = rope.GetComponent<LineRenderer>();
     }
@@ -20,10 +22,9 @@ void Start()
     {
         // Update the rope's end position to match the left top vertex of the cube
         rightTopVertex = cube.transform.TransformPoint(new Vector3(0.25f, 0.25f, -0.25f));
-
+        ropePole = pole.transform.TransformPoint(new Vector3(-0.35f, 1.00f, 0.35f));
         Bounds bounds = pole.GetComponent<Renderer>().bounds;
         poleTop = bounds.max;
-        Vector3 ropePole = new Vector3(x: 9.8f, y: 6f, z: 0.16f);
         lineRenderer.SetPosition(0, rightTopVertex);
         lineRenderer.SetPosition(1, ropePole);
 
@@ -31,5 +32,3 @@ void Start()
         ropeLength = Vector3.Distance(rightTopVertex, rope.transform.position);
     }
 }
-
-

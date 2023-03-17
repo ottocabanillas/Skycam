@@ -16,9 +16,9 @@ public class ConfigurationUtilities
     public static bool AreRequiredConfigValuesSet()
     {
         return !string.IsNullOrEmpty(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString())) &&
-               //PlayerPrefs.GetFloat(CommonConfigKeys.ALTO.ToString()) != 0.0f &&
-               //PlayerPrefs.GetFloat(CommonConfigKeys.LARGO.ToString()) != 0.0f &&
-               //PlayerPrefs.GetFloat(CommonConfigKeys.ANCHO.ToString()) != 0.0f &&
+               PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()) != 0.0f &&
+               PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()) != 0.0f &&
+               PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) != 0.0f &&
                !string.IsNullOrEmpty(PlayerPrefs.GetString(CommonConfigKeys.BAUDIOS_ARDUINO_STRING.ToString())) &&
                !string.IsNullOrEmpty(PlayerPrefs.GetString(CommonConfigKeys.UPLOADED_IMAGE.ToString()));
     }

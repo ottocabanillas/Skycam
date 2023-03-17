@@ -41,9 +41,12 @@ public class GUIConfigurationController : MonoBehaviour
     void Awake()
     {
         // Descomentar lineas 38 a 41 si queres borrar lo guardado en PlayerPrefs y empezar con flujo inicial del programa.
-        PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
+        //PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
+        //PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
+        //PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
+        //PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
+        //PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
+        //PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
 
         // Fue el unico workaround que encontre para que al volver a la pantalla para cambiar la configuracion
         // se pueda mantener el valor del flag isUserChangingConfigValue.
@@ -62,6 +65,7 @@ public class GUIConfigurationController : MonoBehaviour
         // El boton 'COMENZAR' debe estar deshabilitado hasta que carguemos todos los valores.
         continueButton.interactable = false;
         continueButton.onClick.AddListener(OnContinueButtonClicked);
+        uploadImageButton.onClick.AddListener(OnImageUploadButtonClicked);
 
         // La ultima conficion !isUserChangingConfigValues es para saber cuando mostrar la pantalla
         // donde preguntamos si quiere cambiar o no la config guardada. Si elige cambiar la config, seteamos
@@ -83,6 +87,9 @@ public class GUIConfigurationController : MonoBehaviour
                 // velociad maxima, aceleracion y dropdown menu
                 maximumVelocityInput.SetTextWithoutNotify(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()));
                 baudiosDropdownMenu.value = PlayerPrefs.GetInt(CommonConfigKeys.BAUDIOS_ARDUINO_OPTION_INDEX.ToString());
+                lengthInputField.SetTextWithoutNotify(PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()).ToString());
+                widthInputField.SetTextWithoutNotify(PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()).ToString());
+                heightInputField.SetTextWithoutNotify(PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()).ToString());
 
                 // Mostramos la imagen del campo guardada previamente
                 LoadFieldUploadedImage();
@@ -105,7 +112,7 @@ public class GUIConfigurationController : MonoBehaviour
                 imagenPrevia.gameObject.SetActive(false);
             }
 
-            uploadImageButton.onClick.AddListener(OnImageUploadButtonClicked);
+            //uploadImageButton.onClick.AddListener(OnImageUploadButtonClicked);
         }
     }
 
@@ -130,22 +137,25 @@ public class GUIConfigurationController : MonoBehaviour
 
         // Guardo en una variable el valor del input field de largo
         lengthValue = float.Parse(lengthInputField.text) / 2;
-        Debug.Log("Largo: " + lengthValue);
+        //Debug.Log("Largo: " + lengthValue);
+        
         // Guardo en una variable el valor del input field de ancho
         widthValue = float.Parse(widthInputField.text) / 2;
-        Debug.Log("Ancho: " + widthValue);
+        //Debug.Log("Ancho: " + widthValue);
+        
         // Guardo en una variable el valor del input field de alto
         heightValue = float.Parse(heightInputField.text) / 2;
-        Debug.Log("Alto: " + heightValue);
+        //Debug.Log("Alto: " + heightValue);
+        
         // Guardo en una variable el valor del input field de velocidad de transmision
         dropdownValue = baudiosDropdownMenu.options[baudiosDropdownMenu.value].text;
 
         // Guardamos la configuracion inicial en PlayerPrefs
         PlayerPrefs.SetString(CommonConfigKeys.MAX_VELOCITY.ToString(), maxVelocityValue);
         PlayerPrefs.SetString(CommonConfigKeys.BAUDIOS_ARDUINO_STRING.ToString(), dropdownValue);
-        //PlayerPrefs.SetFloat(CommonConfigKeys.LENGTH.ToString(), lengthValue);
-        //PlayerPrefs.SetFloat(CommonConfigKeys.WIDTH.ToString(), widthValue);
-        //PlayerPrefs.SetFloat(CommonConfigKeys.HEIGHT.ToString(), heightValue);
+        PlayerPrefs.SetFloat(CommonConfigKeys.LENGTH.ToString(), lengthValue);
+        PlayerPrefs.SetFloat(CommonConfigKeys.WIDTH.ToString(), widthValue);
+        PlayerPrefs.SetFloat(CommonConfigKeys.HEIGHT.ToString(), heightValue);
 
         // NO CUESTIONES ESTO, SI QUERES REFACTOREALO.
         // Es para saber el indice de la opcion elegida, y sirve para cuando volvemos a cambiar la configuracion.

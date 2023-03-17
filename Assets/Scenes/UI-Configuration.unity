@@ -1529,7 +1529,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Largo
+  m_Text: Largo [mts]
 --- !u!222 &677220023
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3277,7 +3277,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Alto
+  m_Text: Alto [mts]
 --- !u!222 &1559777640
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3685,7 +3685,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Ancho
+  m_Text: 'Ancho [mts]
 
 '
 --- !u!222 &1862145797
