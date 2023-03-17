@@ -8,9 +8,9 @@ using UnityEngine;
 public enum CommonConfigKeys
 {
     MAX_VELOCITY,
-    ALTO,
-    LARGO,
-    ANCHO,
+    LENGTH,
+    WIDTH,
+    HEIGHT,
     BAUDIOS_ARDUINO_STRING,
     BAUDIOS_ARDUINO_OPTION_INDEX,
     UPLOADED_IMAGE,
