@@ -154,7 +154,7 @@ public class GUIConfigurationController : MonoBehaviour
         PlayerPrefs.SetFloat(CommonConfigKeys.WIDTH.ToString(), widthValue);
 
     }
-    private void SaveLenght()
+    private void SaveLength()
     {
         // Guardo en una variable el valor del input field de largo
         lengthValue = float.Parse(lengthInputField.text) / 2;
@@ -168,7 +168,7 @@ public class GUIConfigurationController : MonoBehaviour
         baudiosDropdownMenu.onValueChanged.AddListener(delegate { SaveBaudios(); CheckInputs(); });
         heightInputField.onValueChanged.AddListener(delegate { SaveHeight(); CheckInputs(); });
         widthInputField.onValueChanged.AddListener(delegate { SaveWidth(); CheckInputs(); });
-        lengthInputField.onValueChanged.AddListener(delegate { SaveLenght(); CheckInputs(); });
+        lengthInputField.onValueChanged.AddListener(delegate { SaveLength(); CheckInputs(); });
     }
 
     private void OnDisable()
