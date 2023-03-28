@@ -85,9 +85,9 @@ public class SkycamController : MonoBehaviour
 
         // Delimitador de posicion de posicion (eje x - eje z - eje y)
         Vector3 tempPos = transform.position;
-        CheckBoundaries(ref tempPos.x, _xNegativeBoundary, _xPositiveBoundary, ref xBoundaryReached, ref _horizontalInput);
-        CheckBoundaries(ref tempPos.z, _zNegativeBoundary, _zPositiveBoundary, ref zBoundaryReached, ref _verticalInput);
-        CheckBoundaries(ref tempPos.y, _heightLimitMin, _heightLimitMax, ref yBoundaryReached, ref yAxisMovement);
+        //CheckBoundaries(ref tempPos.x, _xNegativeBoundary, _xPositiveBoundary, ref xBoundaryReached, ref _horizontalInput);
+        //CheckBoundaries(ref tempPos.z, _zNegativeBoundary, _zPositiveBoundary, ref zBoundaryReached, ref _verticalInput);
+        //CheckBoundaries(ref tempPos.y, _heightLimitMin, _heightLimitMax, ref yBoundaryReached, ref yAxisMovement);
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
