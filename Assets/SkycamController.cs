@@ -13,9 +13,9 @@ public class SkycamController : MonoBehaviour
                   _verticalInput;
 
     // - Limites del Area 
-    private float _xPositiveBoundary = 9.35f,
+    private float _xPositiveBoundary = (GUIConfigurationController.lengthValue * 2) - 0.65f,
                   _xNegativeBoundary = 0.65f,
-                  _zPositiveBoundary = 4.3f,
+                  _zPositiveBoundary = (GUIConfigurationController.widthValue * 2) - 0.7f,
                   _zNegativeBoundary = 0.7f,
                   _heightLimitMin = 0.5f, //Altura Minima
                   _heightLimitMax = 4.5f; // Altura Maxima
@@ -85,9 +85,9 @@ public class SkycamController : MonoBehaviour
 
         // Delimitador de posicion de posicion (eje x - eje z - eje y)
         Vector3 tempPos = transform.position;
-        //CheckBoundaries(ref tempPos.x, _xNegativeBoundary, _xPositiveBoundary, ref xBoundaryReached, ref _horizontalInput);
-        //CheckBoundaries(ref tempPos.z, _zNegativeBoundary, _zPositiveBoundary, ref zBoundaryReached, ref _verticalInput);
-        //CheckBoundaries(ref tempPos.y, _heightLimitMin, _heightLimitMax, ref yBoundaryReached, ref yAxisMovement);
+        CheckBoundaries(ref tempPos.x, _xNegativeBoundary, _xPositiveBoundary, ref xBoundaryReached, ref _horizontalInput);
+        CheckBoundaries(ref tempPos.z, _zNegativeBoundary, _zPositiveBoundary, ref zBoundaryReached, ref _verticalInput);
+        CheckBoundaries(ref tempPos.y, _heightLimitMin, _heightLimitMax, ref yBoundaryReached, ref yAxisMovement);
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
