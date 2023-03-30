@@ -11,7 +11,7 @@ public class Rope2Controller : MonoBehaviour
         ropeEnd,
         ropePole,
         poleTop;
-    private float ropeLength;
+    private float ropeLength, previousRopeLength;
     private LineRenderer lineRenderer;
 
     void Start()
@@ -19,18 +19,29 @@ public class Rope2Controller : MonoBehaviour
         lineRenderer = rope.GetComponent<LineRenderer>();
         ropePole = pole.transform.TransformPoint(new Vector3(0.35f, 1.00f, -0.35f));
         lineRenderer.SetPosition(1, ropePole);
+
+        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, 0.25f));
+        previousRopeLength = Vector3.Distance(rightTopVertex, ropePole);
     }
 
     void Update()
     {
         // Update the rope's end position to match the left top vertex of the cube
         rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, 0.25f));
-        Bounds bounds = pole.GetComponent<Renderer>().bounds;
-        poleTop = bounds.max;
-        Vector3 ropePole = new Vector3(x: 0.2f, y: 6f, z: 4.84f);
         lineRenderer.SetPosition(0, rightTopVertex);
 
         // Update the rope length as the cube moves
-        ropeLength = Vector3.Distance(rightTopVertex, rope.transform.position);
+        ropeLength = Vector3.Distance(rightTopVertex, ropePole);
+        //float length = Vector3.Distance(rightTopVertex, ropePole);
+        Debug.Log("Largo cuerda 2: " + ropeLength);
+        // Parseamos si debemos soltar o contraer la cuerda y en base a esto le asignamos F o R
+        // RopeSpeedFormatter.Instance.RopeDirectionParser(
+        //     ropeLength,
+        //     previousRopeLength,
+        //     ropeIndex: 1
+        // );
+
+        // Actualizamos el valor previo
+        previousRopeLength = ropeLength;
     }
 }

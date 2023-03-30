@@ -18,8 +18,8 @@ public class StartUp : MonoBehaviour
         trueLength = 10f;
         trueWidth = 5.00f;
         trueHeight = 2.00f;
-        configHeightPole();
-        configFloor();
+        //configHeightPole();
+        //configFloor();
     }
 
     // Update is called once per frame

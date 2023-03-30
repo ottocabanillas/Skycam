@@ -5,64 +5,59 @@ using UnityEngine;
 
 public class DirectKinematic : MonoBehaviour
 {
+    private static readonly DirectKinematic instance = new DirectKinematic();
 
     // Valores externos
-    private double L, L1, L2, L3, L4, H, D;
+    private double L, L1, L2, L3, L4, H, W;
+    
     // Valores a calcular
     private double x, y, z;
+    
     // Valores constantes (dimensiones skycam)
     private double skycamHeight, skycamLenght, skycamWidth;
 
-    // Start is called before the first frame update
-    void Start()
+    private DirectKinematic()
     {
-        L = 100;
-        L1 = 36.24;
-        L2 = 42.57;
-        L3 = 76.18;
-        L4 = 72.84;
-        H = 20;
-        D = 50;
         skycamHeight = skycamLenght = skycamWidth = 0.2;
-
-        x = Calculate_X_Value();
-        z = Calculate_Z_Value();
-        y = Calculate_Y_Value(x, z);
-
-        Debug.Log("MODELO DE CINEMATICA DIRECTA");
-        Debug.Log("Valor calculado de X: " + x);
-        Debug.Log("Valor calculado de Z: " + z);
-        Debug.Log("Valor calculado de Y: " + y);  
-        
+        L = 10.0;
+        H = 6.0;
+        W = 5.0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static DirectKinematic Instance
     {
-        
+        get { return instance; }
     }
 
-    private double Calculate_X_Value() 
+    public void Initialize(double L1, double L2, double L3, double L4)
+    {
+        this.L1 = L1;
+        this.L2 = L2;
+        this.L3 = L3;
+        this.L4 = L4;
+    }
+
+    public double Calculate_X_Value() 
     {
         double numerador = Math.Pow(L, 2) + Math.Pow(L1, 2) - Math.Pow(L4, 2) - (L*skycamHeight);
         double denominador = 2 * (L - skycamHeight);
         
         double temp_x = numerador / denominador;
         
-        return RoundNumber(temp_x);
+        return temp_x;
     }
 
-    private double Calculate_Z_Value()
+    public double Calculate_Z_Value()
     {
-        double numerador = Math.Pow(D, 2) + Math.Pow(L4, 2) - Math.Pow(L3, 2) - (D*skycamLenght);
-        double denominador = 2 * (D-skycamLenght);
+        double numerador = Math.Pow(W, 2) + Math.Pow(L4, 2) - Math.Pow(L3, 2) - (W*skycamLenght);
+        double denominador = 2 * (W-skycamLenght);
         
         double temp_z = numerador / denominador;
         
-        return RoundNumber(temp_z);
+        return temp_z;
     }
 
-    private double Calculate_Y_Value(double x, double z)
+    public double Calculate_Y_Value(double x, double z)
     {
         double mitadAlturaSkycam = skycamHeight / 2;
         double mitadLargoSkycam = skycamLenght / 2;
@@ -72,9 +67,8 @@ public class DirectKinematic : MonoBehaviour
         double segundoTerminoRaiz = Math.Pow((x - mitadAlturaSkycam), 2);
         double tercerTerminoRaiz = Math.Pow((z - mitadAnchoSkycam), 2);
 
-        double temp_y = H + RoundNumber(mitadAnchoSkycam) - RoundNumber(Math.Sqrt(primerTerminoRaiz - segundoTerminoRaiz - tercerTerminoRaiz));
-        
-        return RoundNumber(temp_y);
+        double temp_y = H + mitadAnchoSkycam - Math.Sqrt(primerTerminoRaiz - segundoTerminoRaiz - tercerTerminoRaiz);
+        return temp_y;
 
     }
 

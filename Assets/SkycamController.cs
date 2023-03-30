@@ -92,6 +92,38 @@ public class SkycamController : MonoBehaviour
 
         currentHeight = transform.position.y.ToString("N2");
         currentSpeed = movement.magnitude.ToString("N2");
+
+        DirectKinematic.Instance.Initialize(
+            L1: 10.82,
+            L2: 10.10,
+            L3: 4.76,
+            L4: 6.13
+        );
+        
+        float x = (float) DirectKinematic.Instance.Calculate_X_Value();
+        float z = (float) DirectKinematic.Instance.Calculate_Z_Value();
+        float y = (float) DirectKinematic.Instance.Calculate_Y_Value(x, z);
+
+        Debug.Log("Posicion para x: " + x);
+        Debug.Log("Posicion para z: " + z);
+        Debug.Log("Posicion para y: " + y);
+
+        transform.position = new Vector3(x, y, z);
+
+
+        // Probando modelo de cinematica directa leyendo datos del puerto serie
+        // if (RopeSpeedFormatter.Instance.IsSkycamPositionReady)
+        // {
+        //     float x = (float) DirectKinematic.Instance.Calculate_X_Value();
+        //     float z = (float) DirectKinematic.Instance.Calculate_Z_Value();
+        //     float y = (float) DirectKinematic.Instance.Calculate_Y_Value(x, z);
+
+        //     Debug.Log("Position x: " + x);
+        //     Debug.Log("Position z: " + z);
+        //     Debug.Log("Position y: " + y);
+
+        //     transform.position = new Vector3(x, y, z);
+        // }
     }
 
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary, ref bool boundaryReached, ref float joystickInput)
