@@ -7,6 +7,7 @@ public class Rope3Controller : MonoBehaviour
     public GameObject cube,
         rope,
         pole;
+    public SkycamController skycamController;
     private Vector3 rightTopVertex,
         ropePole,
         poleTop;
@@ -31,13 +32,13 @@ public class Rope3Controller : MonoBehaviour
 
         // Update the rope length as the cube moves
         ropeLength = Vector3.Distance(rightTopVertex, ropePole);
-        //float length = Vector3.Distance(rightTopVertex, ropePole);
-        Debug.Log("Largo cuerda 3: " + ropeLength);
-        // RopeSpeedFormatter.Instance.RopeDirectionParser(
-        //     ropeLength,
-        //     previousRopeLength,
-        //     ropeIndex: 2
-        // );
+
+        //Debug.Log("Largo cuerda 3: " + ropeLength);
+        RopeSpeedFormatter.Instance.RopeDirectionParser(
+            ropeLength,
+            previousRopeLength,
+            ropeIndex: 2
+        );
 
         previousRopeLength = ropeLength;
     }

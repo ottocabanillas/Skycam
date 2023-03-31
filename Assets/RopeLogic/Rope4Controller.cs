@@ -34,11 +34,11 @@ public class Rope4Controller : MonoBehaviour
         // Update the rope length as the cube moves
         ropeLength = Vector3.Distance(rightTopVertex, ropePole);
         //Debug.Log("Largo cuerda 4: " + ropeLength);
-        // RopeSpeedFormatter.Instance.RopeDirectionParser(
-        //     ropeLength, 
-        //     previousRopeLength,
-        //     ropeIndex: 3
-        // );
+        RopeSpeedFormatter.Instance.RopeDirectionParser(
+            ropeLength, 
+            previousRopeLength,
+            ropeIndex: 3
+        );
 
         previousRopeLength = ropeLength;
     }

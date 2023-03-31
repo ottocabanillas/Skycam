@@ -42,8 +42,8 @@ public class ArcamGUI : MonoBehaviour
 
         SetSkycamHeightLabelColor(skycamHeight);
 
-        //RopeSpeedFormatter.Instance.AddAxisVelocity(0, "F," + ((Math.Abs(skycamController._currentSpeed_X)*255)/8).ToString("N0"));
-        //RopeSpeedFormatter.Instance.AddAxisVelocity(1, "R," + ((Math.Abs(skycamController._currentSpeed_Z)*255)/8).ToString("N0"));
+        // RopeSpeedFormatter.Instance.AddRope(Math.Abs(skycamController._currentSpeed_X)*255)/8.ToString("N0");
+        // RopeSpeedFormatter.Instance.AddRope(Math.Abs(skycamController._currentSpeed_Z)*255)/8.ToString("N0");
     }
 
 private void SetSkycamHeightLabelColor(Text skycamHeight)

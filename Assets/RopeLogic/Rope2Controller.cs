@@ -7,6 +7,7 @@ public class Rope2Controller : MonoBehaviour
     public GameObject cube,
         rope,
         pole; // Para asignar Skycam, cuerda y poste desde el inspector
+    public SkycamController skycamController;
     private Vector3 rightTopVertex,
         ropeEnd,
         ropePole,
@@ -32,14 +33,13 @@ public class Rope2Controller : MonoBehaviour
 
         // Update the rope length as the cube moves
         ropeLength = Vector3.Distance(rightTopVertex, ropePole);
-        //float length = Vector3.Distance(rightTopVertex, ropePole);
-        Debug.Log("Largo cuerda 2: " + ropeLength);
-        // Parseamos si debemos soltar o contraer la cuerda y en base a esto le asignamos F o R
-        // RopeSpeedFormatter.Instance.RopeDirectionParser(
-        //     ropeLength,
-        //     previousRopeLength,
-        //     ropeIndex: 1
-        // );
+
+        //Parseamos si debemos soltar o contraer la cuerda y en base a esto le asignamos F o R
+        RopeSpeedFormatter.Instance.RopeDirectionParser(
+            ropeLength,
+            previousRopeLength,
+            ropeIndex: 1
+        );
 
         // Actualizamos el valor previo
         previousRopeLength = ropeLength;

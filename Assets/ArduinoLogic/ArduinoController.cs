@@ -44,7 +44,7 @@ public class ArduinoController : MonoBehaviour
         }
         baudRate = int.Parse(PlayerPrefs.GetString(CommonConfigKeys.BAUDIOS_ARDUINO_STRING.ToString()));
         portName = GetConnectedArduinoPort();
-        Debug.Log("Baud Rate " +baudRate);
+        //Debug.Log("Baud Rate " +baudRate);
     }
 
     private void Start()

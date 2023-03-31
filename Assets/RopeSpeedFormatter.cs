@@ -13,6 +13,8 @@ public class RopeSpeedFormatter : MonoBehaviour
     // Flag para saber si la skycam puede
     // utilizar los valores calculados de la cinematica directa.
     private bool isSkycamPositionReady = true;
+
+    private SkycamController skycamController;
     public bool IsSkycamPositionReady
     {
         get { return isSkycamPositionReady; }
@@ -50,6 +52,7 @@ public class RopeSpeedFormatter : MonoBehaviour
     void Start()
     {
         frameCounter = 0;
+        skycamController = FindAnyObjectByType<SkycamController>();
     }
 
     public void AddRope(int ropeIndex, float ropeSpeed)
@@ -71,18 +74,19 @@ public class RopeSpeedFormatter : MonoBehaviour
 
          // Debo parsear el string data asi se lo paso al modelo matematico
          // vamos a recibir una cadena en formato "Long1,Long2,Long3,Long4,statusCode,%"
-        IsSkycamPositionReady = ParseArduinoResponse("10820,10100,4760,6130,0,%");
+        //IsSkycamPositionReady = ParseArduinoResponse("10820,10100,4760,6130,0,%");
         }
     }
 
     public void SendRopeSpeeds()
     {
         // Concatenamos la direccion de cada cuerda y su velocidad.
-        string payload = ropeDirections[0] + ropeSpeeds[0].ToString() + "," + 
-                         ropeDirections[1] + ropeSpeeds[1].ToString() + "," +
-                         ropeDirections[2] + ropeSpeeds[2].ToString() + "," + 
-                         ropeDirections[3] + ropeSpeeds[3].ToString() + "*";
-        
+        string payload = ropeDirections[0] + GenerarValorAleatorio().ToString() + "," + 
+                         ropeDirections[1] + GenerarValorAleatorio().ToString() + "," +
+                         ropeDirections[2] + GenerarValorAleatorio().ToString() + "," + 
+                         ropeDirections[3] + GenerarValorAleatorio().ToString() + "*";
+
+        Debug.Log("DATOS ENVIADOS: " + payload);                 
         ArduinoController.Instance.SendValue(payload);
     }
    public void RopeDirectionParser(float currentLength, float previousLength, int ropeIndex)
@@ -134,7 +138,10 @@ public class RopeSpeedFormatter : MonoBehaviour
         }
     }
 
-
+    public int GenerarValorAleatorio()
+    {
+        return skycamController.IsCameraStopped() ? 0 : UnityEngine.Random.Range(0, 256);
+    }
    public float RoundRopeDistance(float distance)
    {
     return MathF.Round(distance, 2);
