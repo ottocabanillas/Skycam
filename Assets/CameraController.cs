@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
         listaCamaras[0].gameObject.SetActive(true);
         listaCamaras[1].gameObject.SetActive(false);
         listaCamaras[2].gameObject.SetActive(false);
-        cameraName = "Camara Frontal";
+        cameraName = "Cámara Frontal";
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
                 listaCamaras[0].gameObject.SetActive(true);
                 listaCamaras[1].gameObject.SetActive(false);
                 listaCamaras[2].gameObject.SetActive(false);
-                cameraName = "Camara Frontal";
+                cameraName = "Cámara Frontal";
             }
 
             if (Gamepad.current.buttonWest.isPressed || Input.GetKey(KeyCode.Alpha2))
@@ -34,14 +34,14 @@ public class CameraController : MonoBehaviour
                 listaCamaras[0].gameObject.SetActive(false);
                 listaCamaras[1].gameObject.SetActive(true);
                 listaCamaras[2].gameObject.SetActive(false);
-                cameraName = "Camara Superior";
+                cameraName = "Cámara Superior";
             }
             if (Gamepad.current.buttonNorth.isPressed || Input.GetKey(KeyCode.Alpha3))
             {
                 listaCamaras[0].gameObject.SetActive(false);
                 listaCamaras[1].gameObject.SetActive(false);
                 listaCamaras[2].gameObject.SetActive(true);
-                cameraName = "Camara Isometrica";
+                cameraName = "Cámara Isométrica";
             }
         } else {
             if (Input.GetKey(KeyCode.Alpha1))
@@ -49,21 +49,21 @@ public class CameraController : MonoBehaviour
                 listaCamaras[0].gameObject.SetActive(true);
                 listaCamaras[1].gameObject.SetActive(false);
                 listaCamaras[2].gameObject.SetActive(false);
-                cameraName = "Camara Frontal";
+                cameraName = "Cámara Frontal";
             }
             if (Input.GetKey(KeyCode.Alpha2))
             {
                 listaCamaras[0].gameObject.SetActive(false);
                 listaCamaras[1].gameObject.SetActive(true);
                 listaCamaras[2].gameObject.SetActive(false);
-                cameraName = "Camara Superior";
+                cameraName = "Cámara Superior";
             }
             if (Input.GetKey(KeyCode.Alpha3))
             {
                 listaCamaras[0].gameObject.SetActive(false);
                 listaCamaras[1].gameObject.SetActive(false);
                 listaCamaras[2].gameObject.SetActive(true);
-                cameraName = "Camara Isometrica";
+                cameraName = "Cámara Isométrica";
             }
         }
     }

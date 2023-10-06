@@ -49,7 +49,17 @@ public class SkycamController : MonoBehaviour
         isLeftTriggerPressed = isRightTriggerPressed = false;
 
         // Inicializamos los flags de limites del campo en false
-        xBoundaryReached = yBoundaryReached = zBoundaryReached = false;    
+        xBoundaryReached = yBoundaryReached = zBoundaryReached = false;   
+
+        float x = (float) DirectKinematic.Instance.Calculate_X_Value();
+        float z = (float) DirectKinematic.Instance.Calculate_Z_Value();
+        float y = (float) DirectKinematic.Instance.Calculate_Y_Value(x, z);
+
+        Debug.Log("Posicion para x: " + x);
+        Debug.Log("Posicion para z: " + z);
+        Debug.Log("Posicion para y: " + y);
+
+        //transform.position = new Vector3(x, y, z); 
     }
 
     // Functions
@@ -91,7 +101,8 @@ public class SkycamController : MonoBehaviour
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
-        currentSpeed = movement.magnitude.ToString("N2");
+        //klcurrentSpeed = movement.magnitude.ToString("N2");
+        currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
 
         DirectKinematic.Instance.Initialize(
             L1: 10.82,
@@ -100,15 +111,7 @@ public class SkycamController : MonoBehaviour
             L4: 6.13
         );
         
-        float x = (float) DirectKinematic.Instance.Calculate_X_Value();
-        float z = (float) DirectKinematic.Instance.Calculate_Z_Value();
-        float y = (float) DirectKinematic.Instance.Calculate_Y_Value(x, z);
-
-        Debug.Log("Posicion para x: " + x);
-        Debug.Log("Posicion para z: " + z);
-        Debug.Log("Posicion para y: " + y);
-
-        transform.position = new Vector3(x, y, z);
+        
 
 
         // Probando modelo de cinematica directa leyendo datos del puerto serie

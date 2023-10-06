@@ -41,12 +41,12 @@ public class GUIConfigurationController : MonoBehaviour
     void Awake()
     {
         // Descomentar lineas 38 a 41 si queres borrar lo guardado en PlayerPrefs y empezar con flujo inicial del programa.
-        // PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
-        // PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
-        // PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
-        // PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
-        // PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
-        // PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
+         //PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
+         //PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
+         //PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
+         //PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
+         //PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
+         //PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
 
         // Fue el unico workaround que encontre para que al volver a la pantalla para cambiar la configuracion
         // se pueda mantener el valor del flag isUserChangingConfigValue.

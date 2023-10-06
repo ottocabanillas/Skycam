@@ -35,7 +35,7 @@ public class ArcamGUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cameraPosition.text = "Posicion: " + cameraController.cameraName;
+        cameraPosition.text = "Posición: " + cameraController.cameraName;
         skycamHeight.text = "Altura: " + skycamController.currentHeight;
         skycamSpeed.text = "Velocidad: " + skycamController.currentSpeed;
         //uiLabelVx.text = "Vx: " + skycamController._currentSpeed_X.ToString("N2");
