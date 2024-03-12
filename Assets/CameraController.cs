@@ -7,6 +7,9 @@ public class CameraController : MonoBehaviour
 {
     public GameObject[] listaCamaras;
     public string cameraName;
+
+    public GameObject dialogPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,11 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsPanelVisible())
+        {
+            return;
+        }
+
         if (Gamepad.current != null)
         {
             if (Gamepad.current.buttonSouth.isPressed || Input.GetKey(KeyCode.Alpha1))
@@ -43,7 +51,9 @@ public class CameraController : MonoBehaviour
                 listaCamaras[2].gameObject.SetActive(true);
                 cameraName = "Camara Isometrica";
             }
-        } else {
+        }
+        else
+        {
             if (Input.GetKey(KeyCode.Alpha1))
             {
                 listaCamaras[0].gameObject.SetActive(true);
@@ -66,5 +76,10 @@ public class CameraController : MonoBehaviour
                 cameraName = "Camara Isometrica";
             }
         }
+    }
+
+    public bool IsPanelVisible()
+    {
+        return dialogPanel.activeSelf;
     }
 }

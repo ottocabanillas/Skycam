@@ -30,6 +30,8 @@ public class SkycamController : MonoBehaviour
     public string currentHeight,
                   currentSpeed;
 
+    public GameObject dialogPanel;
+
     private bool isLeftTriggerPressed, // flag trigger izquierdo
                  isRightTriggerPressed, // flag trigger derecho
                  xBoundaryReached, // flag para limite del campo en el eje X (+/- X)
@@ -55,13 +57,13 @@ public class SkycamController : MonoBehaviour
     // Functions
     void Update()
     {
-        _horizontalInput = Input.GetAxis("Horizontal"); //(Axis +/- X)
+        _horizontalInput = IsPanelVisible() ? 0 : Input.GetAxis("Horizontal"); //(Axis +/- X)
 
-        _verticalInput = Input.GetAxis("Vertical"); //(Axis +/- Z)
+        _verticalInput = IsPanelVisible() ? 0 : Input.GetAxis("Vertical"); //(Axis +/- Z)
 
         float yAxisMovement = 0;
 
-        if (Gamepad.current != null) 
+        if (Gamepad.current != null && !IsPanelVisible())
         {
             float leftTriggerValue = Gamepad.current.leftTrigger.ReadValue();
             float rightTriggerValue = Gamepad.current.rightTrigger.ReadValue();
@@ -80,7 +82,7 @@ public class SkycamController : MonoBehaviour
         _currentSpeed_Y = yBoundaryReached ? 0 : _speedMax * yAxisMovement; // Velocidad en el eje Y
 
         Vector3 movement = new Vector3(x: _currentSpeed_X, y: _currentSpeed_Y, z: _currentSpeed_Z);
-        
+
         transform.Translate(movement * Time.deltaTime); //Para mover la Skycam
 
         // Delimitador de posicion de posicion (eje x - eje z - eje y)
@@ -104,11 +106,16 @@ public class SkycamController : MonoBehaviour
         if (position == negativeBoundary && joystickInput < 0 || position == positiveBoundary && joystickInput > 0)
         {
             boundaryReached = true;
-        } 
+        }
         else { boundaryReached = false; }
     }
     public Boolean IsCameraStopped()
     {
         return _currentSpeed_X == 0f && _currentSpeed_Y == 0f && _currentSpeed_Z == 0f;
+    }
+
+    public bool IsPanelVisible()
+    {
+        return dialogPanel.activeSelf;
     }
 }

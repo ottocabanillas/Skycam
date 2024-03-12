@@ -7,7 +7,7 @@ using System.IO.Ports;
 public class ArduinoController : MonoBehaviour
 {
     private static ArduinoController instance;
-    
+
     public static ArduinoController Instance
     {
         get
@@ -24,7 +24,7 @@ public class ArduinoController : MonoBehaviour
             return instance;
         }
     }
-   
+
 
     private string portName;
     private int baudRate;
@@ -66,7 +66,7 @@ public class ArduinoController : MonoBehaviour
     public string ReadSerialPortData()
     {
         string data = "";
-        if (serialPort.BytesToRead > 0) 
+        if (serialPort.BytesToRead > 0)
         {
             data = serialPort.ReadExisting();
         }
@@ -76,24 +76,61 @@ public class ArduinoController : MonoBehaviour
 
     private static string GetConnectedArduinoPort()
     {
-        string[] ports = System.IO.Directory.GetFiles("/dev/", "cu.usbmodem*");
-        foreach (string port in ports)
+        // Define the port for Windows
+        string targetPort = "COM4";
+
+        // Depending on the platform, set the appropriate search pattern
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+    // Windows-specific code
+    string[] ports = System.IO.Ports.SerialPort.GetPortNames();
+    foreach (string port in ports)
+    {
+        // Check if the current port is the target port (COM3)
+        if (port == targetPort)
+        {
+            try
             {
-                try
+                using (SerialPort arduinoPort = new SerialPort(port, 115200))
                 {
-                    SerialPort arduinoPort = new SerialPort(port, 9600);
                     arduinoPort.Open();
-                    if (arduinoPort != null) {
+                    if (arduinoPort.IsOpen)
+                    {
                         arduinoPort.Close();
                         return port;
                     }
-                       
-                }
-                catch (System.Exception)
-                {
-                    Debug.Log("No se encontro puerto arduino");
                 }
             }
-        return "";      
+            catch (System.Exception ex)
+            {
+                Debug.Log("Error opening port " + port + ": " + ex.Message);
+            }
+        }
     }
+#elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
+    // Unix-based systems specific code
+    string[] ports = System.IO.Directory.GetFiles("/dev/", "cu.usbmodem*");
+    foreach (string port in ports)
+    {
+        try
+        {
+            using (SerialPort arduinoPort = new SerialPort(port, 115200))
+            {
+                arduinoPort.Open();
+                if (arduinoPort.IsOpen)
+                {
+                    arduinoPort.Close();
+                    return port;
+                }
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log("Error opening port " + port + ": " + ex.Message);
+        }
+    }
+#endif
+        // If no ports found or error, return an empty string
+        return "";
+    }
+
 }
