@@ -54,18 +54,13 @@ public class DirectKinematic
         L3 = l3;
         L4 = l4;
 
-        Debug.Log("valor L1: " + l1);
-        Debug.Log("valor L2: " + l2);
-        Debug.Log("valor L3: " + l3);
-        Debug.Log("valor L4: " + l4);
-
         // Calculamos X, Y, Z inmediatamente después de inicializar
         _x = CalculateXValue();
         _z = CalculateZValue();
         _y = CalculateYValue(_x, _z);
-        Debug.Log("valor x:" + _x);
-        Debug.Log("valor z:" + _z);
-        Debug.Log("valor y:" + _y);
+        // Debug.Log("valor x:" + _x);
+        // Debug.Log("valor z:" + _z);
+        // Debug.Log("valor y:" + _y);
     }
 
     public double CalculateXValue()

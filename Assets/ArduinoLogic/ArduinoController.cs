@@ -63,21 +63,37 @@ public class ArduinoController : MonoBehaviour
         serialPort.Write(value);
     }
 
-    public string ReadSerialPortData()
+    public void ReadSerialPortData()
     {
-        string data = "";
-        if (serialPort.BytesToRead > 0)
+
+        if (CentralUnitParser.Instance.m_lastInputChar != '\0')
         {
-            data = serialPort.ReadExisting();
+            // caracter pendiente de procesar.
+            return;
         }
 
-        return data;
+        if (serialPort.BytesToRead <= 0)
+        {
+            // nada que leer del puerto serie
+            return;
+        }
+
+        try
+        {
+            int byteRead = serialPort.ReadByte(); // Lee un byte
+            CentralUnitParser.Instance.m_lastInputChar = (char)byteRead; // Convierte el byte a char
+        }
+        catch (TimeoutException)
+        {
+            Debug.Log("Serial read timeout");
+            CentralUnitParser.Instance.m_lastInputChar = '\0';
+        }
     }
 
     private static string GetConnectedArduinoPort()
     {
         // Define the port for Windows
-        string targetPort = "COM4";
+        string targetPort = "COM3";
 
         // Depending on the platform, set the appropriate search pattern
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
