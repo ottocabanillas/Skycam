@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
+using System.Text;
+
 
 public class ArduinoController : MonoBehaviour
 {
@@ -28,6 +30,8 @@ public class ArduinoController : MonoBehaviour
 
     private string portName;
     private int baudRate;
+
+    public static bool isSerialConnEstablished = false;
 
     private SerialPort serialPort;
 
@@ -112,6 +116,7 @@ public class ArduinoController : MonoBehaviour
                     if (arduinoPort.IsOpen)
                     {
                         arduinoPort.Close();
+                        isSerialConnEstablished = true;
                         return port;
                     }
                 }
@@ -135,17 +140,20 @@ public class ArduinoController : MonoBehaviour
                 if (arduinoPort.IsOpen)
                 {
                     arduinoPort.Close();
+                    isSerialConnEstablished = true;
                     return port;
                 }
             }
         }
         catch (System.Exception ex)
         {
+            isSerialConnEstablished = false;
             Debug.Log("Error opening port " + port + ": " + ex.Message);
         }
     }
 #endif
         // If no ports found or error, return an empty string
+        isSerialConnEstablished = false;
         return "";
     }
 

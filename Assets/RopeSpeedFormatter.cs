@@ -63,25 +63,19 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     private void Update()
     {
+        if (!ArduinoController.isSerialConnEstablished)
+        {
+            // No se establecio la conexion a traves del puerto serie, retornar
+            Debug.Log("Serial conn not established!");
+            return;
+        }
+
         SendRopeSpeeds();
 
         // Leemos la respuesta de Argos UC
         ArduinoController.Instance.ReadSerialPortData();
         // Parseamos la respuesta
         ParseIncomingDataFromArgosUc();
-        
-        
-        // frameCounter++;
-        // if (frameCounter % _sendDataFrequency == 0)
-        // {
-        //     frameCounter = 0;
-        //     SendRopeSpeeds();
-
-        //     // Leemos la respuesta de Argos UC
-        //     ArduinoController.Instance.ReadsSerialPortData();
-        //     // Parseamos la respuesta
-        //     ParseIncomingDataFromArgosUc();
-        // }
     }
 
     public void SendRopeSpeeds()
@@ -120,7 +114,7 @@ public class RopeSpeedFormatter : MonoBehaviour
         if (CentralUnitParser.isSkycamStatusOk)
         {
 
-            //Debug.Log("Central Unit stat OK");
+            Debug.Log("Central Unit stat OK");
             Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[0]);
             Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[1]);
             Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[2]);

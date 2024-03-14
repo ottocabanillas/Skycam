@@ -99,9 +99,8 @@ public class SkycamController : MonoBehaviour
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary, ref bool boundaryReached, ref float joystickInput)
     {
         position = Mathf.Clamp(position, negativeBoundary, positiveBoundary);
-        // Chequeamos si hemos alcanzado el limite de movimiento (ya sea positivo o negativo) en la direccion correspondiente, 
-        // y tambien si todavía estamos moviéndonos en esa dirección (es decir, el valor de entrada del joystick es negativo para el limite negativo o positivo para el limite positivo) 
-        // ya que si no hacemos este chequeo adicional, boundaryReached se establecera en verdadero y la velocidad del eje correspondiente se establece en cero, 
+        // Chequeamos si hemos alcanzado el limite de movimiento (ya sea positivo o negativo) en la direccion correspondiente, y tambien si todavía estamos moviéndonos en esa dirección
+        // ya que si no hacemos este chequeo adicional, boundaryReached se hace verdadero y la velocidad del eje correspondiente se establece en cero, 
         // lo que significa que no podemos movernos más en ninguna direccion para el eje correspondiente, y por lo tanto nunca mas cambia el valor de boundaryReached.
         if (position == negativeBoundary && joystickInput < 0 || position == positiveBoundary && joystickInput > 0)
         {
