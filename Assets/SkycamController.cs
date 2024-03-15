@@ -37,6 +37,9 @@ public class SkycamController : MonoBehaviour
                  xBoundaryReached, // flag para limite del campo en el eje X (+/- X)
                  yBoundaryReached, // flag para limite del campo en el eje Y (+/- Y)
                  zBoundaryReached; // flag para limite del campo en el eje Z (+/- Z)
+
+    public float smoothTime = 100.8F;
+    private Vector3 currentVelocity = Vector3.zero;
     void Start()
     {
         // Intenta traer el valor de velocidad máxima desde PlayerPrefs. Si no es nulo,
@@ -83,7 +86,8 @@ public class SkycamController : MonoBehaviour
 
         Vector3 movement = new Vector3(x: _currentSpeed_X, y: _currentSpeed_Y, z: _currentSpeed_Z);
 
-        transform.Translate(movement * Time.deltaTime); //Para mover la Skycam
+        // Aplica la velocidad suavizada para mover el objeto
+        transform.Translate(movement * Time.deltaTime);
 
         // Delimitador de posicion de posicion (eje x - eje z - eje y)
         Vector3 tempPos = transform.position;

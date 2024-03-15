@@ -11,15 +11,13 @@ public class RopeSpeedFormatter : MonoBehaviour
     private int _sendDataFrequency = 15;
 
 
-    // Flag para saber si la skycam puede
-    // utilizar los valores calculados de la cinematica directa.
-    private bool isSkycamPositionReady = true;
-
+    // Flag para determinar si la skycam ya se encuentra posicionada
+    private bool _IsSkycamPositioned;
     private SkycamController skycamController;
-    public bool IsSkycamPositionReady
+    public bool IsSkycamPositioned
     {
-        get { return isSkycamPositionReady; }
-        set { isSkycamPositionReady = value; }
+        get { return _IsSkycamPositioned; }
+        set { _IsSkycamPositioned = value; }
     }
     public static RopeSpeedFormatter Instance
     {
@@ -52,7 +50,7 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     void Start()
     {
-        frameCounter = 0;
+        _IsSkycamPositioned = false;
         skycamController = FindAnyObjectByType<SkycamController>();
     }
 
@@ -70,9 +68,20 @@ public class RopeSpeedFormatter : MonoBehaviour
             return;
         }
 
-        SendRopeSpeeds();
+        // Enviar '*' constantemente para evitar la desconexion con ArgosUC.
+        SendTimeToLive();
 
-        // Leemos la respuesta de Argos UC
+        if (_IsSkycamPositioned)
+        {
+            SendRopeSpeeds();
+        }
+        else
+        {
+            // Enviar comandos para el posicionamiento inicial?
+            // Enviar los largos de cada cuerda en Unity y una velocidad minima de giro???????
+        }
+
+        // Leemos constantemente el largo de los 4 VMUs y sus respectivos estados
         ArduinoController.Instance.ReadSerialPortData();
         // Parseamos la respuesta
         ParseIncomingDataFromArgosUc();
@@ -81,9 +90,9 @@ public class RopeSpeedFormatter : MonoBehaviour
     public void SendRopeSpeeds()
     {
         // Concatenamos la direccion de cada cuerda y su velocidad.
-        string payload = ropeDirections[0] + GenerarValorAleatorio().ToString() + "," +
-                         ropeDirections[1] + GenerarValorAleatorio().ToString() + "," +
-                         ropeDirections[2] + GenerarValorAleatorio().ToString() + "," +
+        string payload = ropeDirections[0] + GenerarValorAleatorio().ToString() +
+                         ropeDirections[1] + GenerarValorAleatorio().ToString() +
+                         ropeDirections[2] + GenerarValorAleatorio().ToString() +
                          ropeDirections[3] + GenerarValorAleatorio().ToString() + "*";
 
         //Debug.Log("DATOS ENVIADOS: " + payload);
@@ -91,7 +100,7 @@ public class RopeSpeedFormatter : MonoBehaviour
     }
     public void RopeDirectionParser(float currentLength, float previousLength, int ropeIndex)
     {
-        string direction = "";
+        string direction = "F"; // valor por defecto
         if (currentLength > previousLength)
         {
             direction = "F";
@@ -100,41 +109,45 @@ public class RopeSpeedFormatter : MonoBehaviour
         {
             direction = "R";
         }
+
         ropeDirections[ropeIndex] = direction;
     }
 
-    //Funcion para parsear lo que nos envia el sistema BatCam
+    //Funcion para parsear lo que nos envia ArgosUC
     private void ParseIncomingDataFromArgosUc()
     {
         // Comenzamos a parsear, caracter por caracter.
         CentralUnitParser.Instance.ProcessInput();
 
-        //Enviamos las longitudes al modelo de cinematica inversa
+        //Enviamos las longitudes al modelo de cinematica directa
         // solo si el estado de las 4 VMUs es OK!
         if (CentralUnitParser.isSkycamStatusOk)
         {
 
-            Debug.Log("Central Unit stat OK");
-            Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[0]);
-            Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[1]);
-            Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[2]);
-            Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[3]);
+            //Debug.Log("Central Unit stat OK");
 
             // Pasamos las 4 longitudes al constructor del modelo.
             DirectKinematic.Instance.Initialize(
-                CentralUnitParser.Instance.m_vmuLengthArr[0] / 1000,
-                CentralUnitParser.Instance.m_vmuLengthArr[1] / 1000,
-                CentralUnitParser.Instance.m_vmuLengthArr[2] / 1000,
-                CentralUnitParser.Instance.m_vmuLengthArr[3] / 1000
+                (double)CentralUnitParser.Instance.m_vmuLengthArr[0] / 1000.0,
+                (double)CentralUnitParser.Instance.m_vmuLengthArr[1] / 1000.0,
+                (double)CentralUnitParser.Instance.m_vmuLengthArr[2] / 1000.0,
+                (double)CentralUnitParser.Instance.m_vmuLengthArr[3] / 1000.0
             );
 
             // TODO: Hacer algo con los valores X,Y,Z del modelo matematico
+            // Debug.Log("X: " + DirectKinematic.Instance.X);
+            // Debug.Log("Y: " + DirectKinematic.Instance.Y);
+            // Debug.Log("Z: " + DirectKinematic.Instance.Z); 
 
         }
         else
         {
             //Manejar errores? Definirlo con Otto
-            //Debug.Log("SKYCAM POSITIONS not READY");
+            //Debug.Log("Central Unit stat not OK");
+            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[0]);
+            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[1]);
+            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[2]);
+            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[3]);
         }
     }
 
@@ -145,5 +158,11 @@ public class RopeSpeedFormatter : MonoBehaviour
     public float RoundRopeDistance(float distance)
     {
         return MathF.Round(distance, 2);
+    }
+
+    private void SendTimeToLive()
+    {
+        ArduinoController.Instance.SendValue("*");
+        return;
     }
 }

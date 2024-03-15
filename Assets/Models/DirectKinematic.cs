@@ -7,12 +7,13 @@ public class DirectKinematic
 {
     private static DirectKinematic _instance;
 
-    // Valores externos
-    public double L, H, W; // largo, alto y ancho del campo
+    public double L, // Largo del campo
+                  H, // Ancho del campo
+                  D; // ancho del campo
     public double L1, L2, L3, L4; // largo de las cuerdas: 1, 2, 3 y 4
     
     // Valores constantes (dimensiones skycam)
-    public double skycamLength, skycamWidth, skycamHeight;
+    public double a, b, c;
     
     // Valores calculados para X, Y, Z
     private double _x, _y, _z;
@@ -30,6 +31,7 @@ public class DirectKinematic
             if (_instance == null)
             {
                 _instance = new DirectKinematic();
+                _instance.Start(); // inicializamos los valores constantes
                 // Inicializa los valores por defecto aquí o asegúrate de llamar a Initialize antes de usar la instancia
             }
             return _instance;
@@ -39,12 +41,14 @@ public class DirectKinematic
     private void Start()
     {
         // Ejemplo de inicialización, puede variar según tu configuración
-        skycamLength = 0.2; // Longitud de la skycam (c)
-        skycamWidth = 0.2;  // ancho de la skycam (b)
-        skycamHeight = 0.2; // altura skycam (a)
+        a = 0.5; // Longitud de la skycam (a)
+        b = 0.5;  // ancho de la skycam (b)
+        c = 0.5; // altura skycam (c)
+       
+        // Medidas del campo
         L = 10.0; // Largo del campo
-        H = 6.0;  // Altura
-        W = 5.0;  // Ancho del campo
+        H = 6.0;  // Alto del campo
+        D = 5.0;  // Ancho del campo
     }
 
     public void Initialize(double l1, double l2, double l3, double l4)
@@ -53,6 +57,11 @@ public class DirectKinematic
         L2 = l2;
         L3 = l3;
         L4 = l4;
+
+        // Debug.Log("valor L1: " + l1);
+        // Debug.Log("valor L2: " + l2);
+        // Debug.Log("valor L3: " + l3);
+        // Debug.Log("valor L4: " + l4);
 
         // Calculamos X, Y, Z inmediatamente después de inicializar
         _x = CalculateXValue();
@@ -65,31 +74,32 @@ public class DirectKinematic
 
     public double CalculateXValue()
     {
-        double numerador = Math.Pow(L1, 2) - Math.Pow(L4, 2) - (L*skycamHeight);
-        double denominador = 2 * (L - skycamHeight);
+        double numerador = Math.Pow(L1, 2) - Math.Pow(L4, 2) + Math.Pow(L, 2) - (L*a);
+        double denominador = 2 * (L - a);
         
-        return numerador / denominador;
+        return RoundNumber(numerador / denominador);
     }
 
     public double CalculateZValue()
     {
-        double numerador = Math.Pow(L4, 2) - Math.Pow(L3, 2) + Math.Pow(W, 2) - (W*skycamLength);
-        double denominador = 2 * (W-skycamLength);
+        double numerador = Math.Pow(L4, 2) - Math.Pow(L3, 2) + Math.Pow(D, 2) - (D*b);
+        double denominador = 2 * (D-b);
         
-        return numerador / denominador;
+        return RoundNumber(numerador / denominador);
     }
 
     public double CalculateYValue(double x, double z)
     {
-        double mitadAlturaSkycam = skycamHeight / 2; // c/2
-        double mitadLargoSkycam = skycamLength / 2; // a/2
-        double mitadAnchoSkycam = skycamWidth / 2;  // b/2
+        double mitadAlturaSkycam = c / 2; // c/2
+        double mitadLargoSkycam = a / 2; // a/2
+        double mitadAnchoSkycam = b / 2;  // b/2
 
         double primerTerminoRaiz = Math.Pow(L1, 2);
-        double segundoTerminoRaiz = Math.Pow((x - mitadAlturaSkycam), 2);
+        double segundoTerminoRaiz = Math.Pow((x - mitadLargoSkycam), 2);
         double tercerTerminoRaiz = Math.Pow((z - mitadAnchoSkycam), 2);
 
-        return H - mitadAnchoSkycam - Math.Sqrt(primerTerminoRaiz - segundoTerminoRaiz - tercerTerminoRaiz);
+        double resultado = H - mitadAlturaSkycam - Math.Sqrt(primerTerminoRaiz - segundoTerminoRaiz - tercerTerminoRaiz);
+        return RoundNumber(resultado);
 
     }
 

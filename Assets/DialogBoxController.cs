@@ -28,20 +28,29 @@ public class DialogBoxController : MonoBehaviour
 
     private float m_initialDistance;
 
+    private Vector3 m_skycamPosition = new Vector3();
+
+    // Instancia unica de CentralUnitParser
+    private DirectKinematic m_mathModelDk = DirectKinematic.Instance;
+
+    // Instancia unica de RopeSpeedFormatter
+    private RopeSpeedFormatter m_ropeSpeedFormatter;
+
     void Start()
     {
+        m_ropeSpeedFormatter = RopeSpeedFormatter.Instance;
         ShowDialog(true);
         progressBar.SetActive(false);
         Slider slider = progressBar.GetComponent<Slider>();
         slider.value = 0;
-        optionButton.onClick.AddListener(OnInitButtonClicked);
+        optionButton.onClick.AddListener(OnInitSkycamPositioning);
     }
 
     void Update()
     {
-        // if (Gamepad.current.buttonSouth.isPressed || Input.GetKey(KeyCode.Alpha1))
+        // if (Gamepad.current.leftShoulder.isPressed || Input.GetKey(KeyCode.Alpha1))
         // {
-        //     ShowDialog(false);
+        //     OnInitSkycamPositioning();
         //     return;
         // }
 
@@ -52,7 +61,7 @@ public class DialogBoxController : MonoBehaviour
         dialogPanel.SetActive(show);
     }
 
-    private void OnInitButtonClicked()
+    private void OnInitSkycamPositioning()
     {
         // Comenzar posicionamiento
         Debug.Log("Btn clicked!");
@@ -61,20 +70,26 @@ public class DialogBoxController : MonoBehaviour
         progressBar.SetActive(true); // Hacer visible la barra de progreso
     }
 
-    // Metodo para iniciar la corutina.
     private void StartPositioning()
     {
-        // Initialize the initial distance here to ensure it's set before starting the positioning
-        m_initialDistance = Vector3.Distance(skycam.transform.position, m_targetPosition);
+        // Inicializamos la posicion de la Skycam con los valores X,Y,Z obtenidos a partir del modelo matematico
+        m_skycamPosition = new Vector3((float)m_mathModelDk.X, (float)m_mathModelDk.Y, (float)m_mathModelDk.Z);
+        Debug.Log("Skycam initial position: " + m_skycamPosition);
+        // La distancia inicial se calcula entre la posicion de la skycam real y la posicion establecida como punto inicial del programa
+        m_initialDistance = Vector3.Distance(m_skycamPosition, m_targetPosition);
+        // Comenzar el posicionamiento
         StartCoroutine(PositionSkycam());
     }
 
-    // Corutina para mover la Skycam
+    // Corutina para el proceso de posicionamiento
     IEnumerator PositionSkycam()
     {
-        while (Vector3.Distance(skycam.transform.position, m_targetPosition) > 0.01f)
+        // Repetir mientras no estemos ubicados en la posicion de inicio (m_targetPosition).
+        while (Vector3.Distance(m_skycamPosition, m_targetPosition) > 0.01f)
         {
-            skycam.transform.position = Vector3.MoveTowards(skycam.transform.position, m_targetPosition, m_speed * Time.deltaTime);
+            // actualizamos la posicion de la skycam en base a los valores calculados X,Y,Z del modelo
+            m_skycamPosition = new Vector3((float)m_mathModelDk.X, (float)m_mathModelDk.Y, (float)m_mathModelDk.Z);
+            Debug.Log("Skycam position: " + m_skycamPosition);
             UpdateProgressBar();
             yield return null; // Wait until the next frame
         }
@@ -82,6 +97,8 @@ public class DialogBoxController : MonoBehaviour
         // Llegado al punto de inicio
         SetProgressBar(1.0f); // Progress bar al 100%
         buttonText.text = "¡Posicionado!";
+        Debug.Log("Skycam real position: " + m_skycamPosition);
+        m_ropeSpeedFormatter.IsSkycamPositioned = true;
 
         // Esperar dos segundos antes de ocultar el panel de diálogo
         yield return new WaitForSeconds(2);
@@ -108,7 +125,7 @@ public class DialogBoxController : MonoBehaviour
 
     private void UpdateProgressBar()
     {
-        float remainingDistance = Vector3.Distance(skycam.transform.position, m_targetPosition);
+        float remainingDistance = Vector3.Distance(m_skycamPosition, m_targetPosition);
         float progress = 1 - (remainingDistance / m_initialDistance); // Calcular el progreso como porcentaje
         SetProgressBar(progress);
     }

@@ -247,8 +247,10 @@ public class CentralUnitParser
                 {
                     if (m_lastInputChar == '*')
                     {
-                        // fin del mensaje, chequear estados VMU
+                        // fin del mensaje
                         m_currentState = State.ST_INIT;
+                        //Debug.Log("Central Unit stat OK");
+                        //Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
                         break;
                     }
                     // Cualquier otro caracter, error
@@ -263,7 +265,7 @@ public class CentralUnitParser
                     if (m_lastInputChar == '\n')
                     {
                         m_isDebugModeOn = false;
-                        Debug.Log("Message received in debug mode: " + m_numberBuffer.ToString());
+                        Debug.Log("Unity Debug " + m_numberBuffer.ToString());
                         m_numberBuffer.Clear();
                         m_currentState = State.ST_INIT;
                         break;
