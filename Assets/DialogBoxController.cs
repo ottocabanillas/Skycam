@@ -74,7 +74,7 @@ public class DialogBoxController : MonoBehaviour
     {
         // Inicializamos la posicion de la Skycam con los valores X,Y,Z obtenidos a partir del modelo matematico
         m_skycamPosition = new Vector3((float)m_mathModelDk.X, (float)m_mathModelDk.Y, (float)m_mathModelDk.Z);
-        Debug.Log("Skycam initial position: " + m_skycamPosition);
+        //Debug.Log("Skycam initial position: " + m_skycamPosition);
         // La distancia inicial se calcula entre la posicion de la skycam real y la posicion establecida como punto inicial del programa
         m_initialDistance = Vector3.Distance(m_skycamPosition, m_targetPosition);
         // Comenzar el posicionamiento
