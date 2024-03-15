@@ -109,7 +109,6 @@ public class RopeSpeedFormatter : MonoBehaviour
         {
             direction = "R";
         }
-
         ropeDirections[ropeIndex] = direction;
     }
 

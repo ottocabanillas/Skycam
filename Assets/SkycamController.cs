@@ -77,6 +77,18 @@ public class SkycamController : MonoBehaviour
             yAxisMovement = isLeftTriggerPressed ? -leftTriggerValue : isRightTriggerPressed ? rightTriggerValue : 0f;
         }
 
+        // // Calcula la velocidad deseada basada en la entrada del usuario
+        // float desiredSpeedX = xBoundaryReached ? 0 : _speedMax * _horizontalInput;
+        // float desiredSpeedY = yBoundaryReached ? 0 : _speedMax * yAxisMovement;
+        // float desiredSpeedZ = zBoundaryReached ? 0 : _speedMax * _verticalInput;
+        // Vector3 desiredVelocity = new Vector3(desiredSpeedX, desiredSpeedY, desiredSpeedZ);
+
+        // // Suaviza la transición de la velocidad actual a la velocidad deseada
+        // Vector3 movement = Vector3.SmoothDamp(currentVelocity, desiredVelocity, ref currentVelocity, smoothTime);
+
+        // // Aplica la velocidad suavizada para mover el objeto
+        // transform.Translate(movement * Time.deltaTime);
+
         // Establecemos las velocidades actuales en los ejes X, Y y Z, teniendo en cuenta los limites del campo. 
         // Si se alcanzo un limite en un eje, la velocidad se establece en cero para ese eje. 
         // De lo contrario, la velocidad se calcula basandonos en la entrada de joystick correspondiente para ese eje multiplicada por la velocidad maxima correspondiente. 
@@ -86,8 +98,7 @@ public class SkycamController : MonoBehaviour
 
         Vector3 movement = new Vector3(x: _currentSpeed_X, y: _currentSpeed_Y, z: _currentSpeed_Z);
 
-        // Aplica la velocidad suavizada para mover el objeto
-        transform.Translate(movement * Time.deltaTime);
+        transform.Translate(movement * Time.deltaTime); //Para mover la Skycam
 
         // Delimitador de posicion de posicion (eje x - eje z - eje y)
         Vector3 tempPos = transform.position;

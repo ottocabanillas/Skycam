@@ -99,8 +99,8 @@ public class ArduinoController : MonoBehaviour
         // Define the port for Windows
         string targetPort = "COM3";
 
-        // Depending on the platform, set the appropriate search pattern
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+    // Depending on the platform, set the appropriate search pattern
+    #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
     // Windows-specific code
     string[] ports = System.IO.Ports.SerialPort.GetPortNames();
     foreach (string port in ports)
@@ -127,7 +127,7 @@ public class ArduinoController : MonoBehaviour
             }
         }
     }
-#elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
+    #elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
     // Unix-based systems specific code
     string[] ports = System.IO.Directory.GetFiles("/dev/", "cu.usbmodem*");
     foreach (string port in ports)
