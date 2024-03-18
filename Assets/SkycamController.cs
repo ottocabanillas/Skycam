@@ -19,6 +19,7 @@ public class SkycamController : MonoBehaviour
                   _zNegativeBoundary = 0.4f,
                   _heightLimitMin = 0.5f, //Altura Minima
                   _heightLimitMax = 1.8f; // Altura Maxima
+                  
 
     // - Velocidades segun Eje
     public float _currentSpeed_X = 0,
