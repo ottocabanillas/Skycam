@@ -13,12 +13,12 @@ public class SkycamController : MonoBehaviour
                   _verticalInput;
 
     // - Limites del Area 
-    private float _xPositiveBoundary = 9.35f,
-                  _xNegativeBoundary = 0.65f,
-                  _zPositiveBoundary = 4.3f,
-                  _zNegativeBoundary = 0.7f,
+    private float _xPositiveBoundary = 2.6f,
+                  _xNegativeBoundary = 0.55f,
+                  _zPositiveBoundary = 1.4f,
+                  _zNegativeBoundary = 0.4f,
                   _heightLimitMin = 0.5f, //Altura Minima
-                  _heightLimitMax = 4.5f; // Altura Maxima
+                  _heightLimitMax = 1.8f; // Altura Maxima
 
     // - Velocidades segun Eje
     public float _currentSpeed_X = 0,
@@ -38,13 +38,13 @@ public class SkycamController : MonoBehaviour
                  yBoundaryReached, // flag para limite del campo en el eje Y (+/- Y)
                  zBoundaryReached; // flag para limite del campo en el eje Z (+/- Z)
 
-    public float smoothTime = 100.8F;
+    public float smoothTime = 0.3F;
     private Vector3 currentVelocity = Vector3.zero;
     void Start()
     {
         // Intenta traer el valor de velocidad máxima desde PlayerPrefs. Si no es nulo,
         // se asigna el valor a _speedMax. De lo contrario, se asigna un valor predeterminado de 0.6f.
-        _speedMax = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxVelocity) ? maxVelocity : 0.6f;
+        _speedMax = 0.35f;
 
         // Intenta traer el valor de aceleración máxima desde PlayerPrefs. Si no es nulo,
         // se asigna el valor a _acceleration. De lo contrario, se asigna un valor predeterminado de 0.8f.
@@ -66,6 +66,12 @@ public class SkycamController : MonoBehaviour
 
         float yAxisMovement = 0;
 
+        if (Input.GetKey(KeyCode.Alpha4)) {
+            yAxisMovement = 0.5f;
+        }
+        if (Input.GetKey(KeyCode.Alpha5)) {
+            yAxisMovement = -0.5f;
+        }
         if (Gamepad.current != null && !IsPanelVisible())
         {
             float leftTriggerValue = Gamepad.current.leftTrigger.ReadValue();
@@ -77,21 +83,8 @@ public class SkycamController : MonoBehaviour
             yAxisMovement = isLeftTriggerPressed ? -leftTriggerValue : isRightTriggerPressed ? rightTriggerValue : 0f;
         }
 
-        // // Calcula la velocidad deseada basada en la entrada del usuario
-        // float desiredSpeedX = xBoundaryReached ? 0 : _speedMax * _horizontalInput;
-        // float desiredSpeedY = yBoundaryReached ? 0 : _speedMax * yAxisMovement;
-        // float desiredSpeedZ = zBoundaryReached ? 0 : _speedMax * _verticalInput;
-        // Vector3 desiredVelocity = new Vector3(desiredSpeedX, desiredSpeedY, desiredSpeedZ);
-
-        // // Suaviza la transición de la velocidad actual a la velocidad deseada
-        // Vector3 movement = Vector3.SmoothDamp(currentVelocity, desiredVelocity, ref currentVelocity, smoothTime);
-
-        // // Aplica la velocidad suavizada para mover el objeto
-        // transform.Translate(movement * Time.deltaTime);
-
         // Establecemos las velocidades actuales en los ejes X, Y y Z, teniendo en cuenta los limites del campo. 
         // Si se alcanzo un limite en un eje, la velocidad se establece en cero para ese eje. 
-        // De lo contrario, la velocidad se calcula basandonos en la entrada de joystick correspondiente para ese eje multiplicada por la velocidad maxima correspondiente. 
         _currentSpeed_X = xBoundaryReached ? 0 : _speedMax * _horizontalInput; // Velocidad en el eje X
         _currentSpeed_Z = zBoundaryReached ? 0 : _speedMax * _verticalInput; // Velocidad en el eje Z
         _currentSpeed_Y = yBoundaryReached ? 0 : _speedMax * yAxisMovement; // Velocidad en el eje Y

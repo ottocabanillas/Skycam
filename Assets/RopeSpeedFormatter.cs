@@ -10,7 +10,6 @@ public class RopeSpeedFormatter : MonoBehaviour
     private int frameCounter;
     private int _sendDataFrequency = 15;
 
-
     // Flag para determinar si la skycam ya se encuentra posicionada
     private bool _IsSkycamPositioned;
     private SkycamController skycamController;
@@ -19,6 +18,9 @@ public class RopeSpeedFormatter : MonoBehaviour
         get { return _IsSkycamPositioned; }
         set { _IsSkycamPositioned = value; }
     }
+
+    private GlobalVariables g_variables;
+
     public static RopeSpeedFormatter Instance
     {
         get
@@ -50,7 +52,10 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     void Start()
     {
+        g_variables = GlobalVariables.instance;
         _IsSkycamPositioned = false;
+        // Iniciar la corutina para mandar constantemente el TTL
+        StartCoroutine(SendTimeToLivePeriodically());
         skycamController = FindAnyObjectByType<SkycamController>();
     }
 
@@ -66,19 +71,6 @@ public class RopeSpeedFormatter : MonoBehaviour
             // No se establecio la conexion a traves del puerto serie, retornar
             Debug.Log("Serial conn not established!");
             return;
-        }
-
-        // Enviar '*' constantemente para evitar la desconexion con ArgosUC.
-        SendTimeToLive();
-
-        if (_IsSkycamPositioned)
-        {
-            SendRopeSpeeds();
-        }
-        else
-        {
-            // Enviar comandos para el posicionamiento inicial?
-            // Enviar los largos de cada cuerda en Unity y una velocidad minima de giro???????
         }
 
         // Leemos constantemente el largo de los 4 VMUs y sus respectivos estados
@@ -126,27 +118,18 @@ public class RopeSpeedFormatter : MonoBehaviour
             //Debug.Log("Central Unit stat OK");
 
             // Pasamos las 4 longitudes al constructor del modelo.
-            DirectKinematic.Instance.Initialize(
+            DirectKinematic.Instance.SetLengthsAndCalculateXYZ(
                 (double)CentralUnitParser.Instance.m_vmuLengthArr[0] / 1000.0,
                 (double)CentralUnitParser.Instance.m_vmuLengthArr[1] / 1000.0,
                 (double)CentralUnitParser.Instance.m_vmuLengthArr[2] / 1000.0,
                 (double)CentralUnitParser.Instance.m_vmuLengthArr[3] / 1000.0
             );
 
-            // TODO: Hacer algo con los valores X,Y,Z del modelo matematico
-            // Debug.Log("X: " + DirectKinematic.Instance.X);
-            // Debug.Log("Y: " + DirectKinematic.Instance.Y);
-            // Debug.Log("Z: " + DirectKinematic.Instance.Z); 
-
         }
         else
         {
             //Manejar errores? Definirlo con Otto
             //Debug.Log("Central Unit stat not OK");
-            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[0]);
-            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[1]);
-            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[2]);
-            // Debug.Log(CentralUnitParser.Instance.m_vmuLengthArr[3]);
         }
     }
 
@@ -163,5 +146,15 @@ public class RopeSpeedFormatter : MonoBehaviour
     {
         ArduinoController.Instance.SendValue("*");
         return;
+    }
+
+    private IEnumerator SendTimeToLivePeriodically()
+    {
+        // Bucle infinito. Asegúrate de tener una condición para detenerlo si es necesario
+        while (true)
+        {
+            SendTimeToLive();
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 }

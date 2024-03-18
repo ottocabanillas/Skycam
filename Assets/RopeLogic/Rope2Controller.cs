@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Rope2Controller : MonoBehaviour
 {
     public GameObject cube,
         rope,
         pole; // Para asignar Skycam, cuerda y poste desde el inspector
-    public SkycamController skycamController;
+    
+    [SerializeField]
+    private TMP_Text sp2Text; // Texto para mostrar el largo deseado L2
+
     private Vector3 rightTopVertex,
         ropeEnd,
         ropePole,
@@ -34,7 +38,9 @@ public class Rope2Controller : MonoBehaviour
         // Update the rope length as the cube moves
         ropeLength = Vector3.Distance(rightTopVertex, ropePole);
 
-        //Parseamos si debemos soltar o contraer la cuerda y en base a esto le asignamos F o R
+        sp2Text.SetText("SP2: " + (ropeLength * 1000).ToString("N0") + " mm");
+
+        // Determinar "F" o "R" de acuerdo al largo anterior y el largo actual
         RopeSpeedFormatter.Instance.RopeDirectionParser(
             ropeLength,
             previousRopeLength,

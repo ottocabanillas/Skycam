@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Rope4Controller : MonoBehaviour
 {
     public GameObject cube,
         rope,
         pole; // Para asignar Skycam, cuerda y poste desde el inspector
+
+    [SerializeField]
+    private TMP_Text sp4Text; // Texto para mostrar el largo deseado L4
+
     private Vector3 rightTopVertex,
         ropePole,
         poleTop;
@@ -33,7 +38,10 @@ public class Rope4Controller : MonoBehaviour
 
         // Update the rope length as the cube moves
         ropeLength = Vector3.Distance(rightTopVertex, ropePole);
-        //Debug.Log("Largo cuerda 4: " + ropeLength);
+
+        sp4Text.SetText("SP4: " + (ropeLength * 1000).ToString("N0") + " mm");
+
+        // Determinar "F" o "R" de acuerdo al largo anterior y el largo actuals
         RopeSpeedFormatter.Instance.RopeDirectionParser(
             ropeLength, 
             previousRopeLength,

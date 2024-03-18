@@ -27,8 +27,6 @@ public class ArcamGUI : MonoBehaviour
         cameraController = FindAnyObjectByType<CameraController>();
         cameraPosition = cameraObject.GetComponent<Text>();
         skycamController = FindAnyObjectByType<SkycamController>();
-        //skycamHeight.text = skycamController.currentHeight;
-        //skycamSpeed = skycamObject.GetComponent<Text>();
 
     }
 
@@ -38,18 +36,14 @@ public class ArcamGUI : MonoBehaviour
         cameraPosition.text = "Posicion: " + cameraController.cameraName;
         skycamHeight.text = "Altura: " + skycamController.currentHeight;
         skycamSpeed.text = "Velocidad: " + skycamController.currentSpeed;
-        //uiLabelVx.text = "Vx: " + skycamController._currentSpeed_X.ToString("N2");
 
         SetSkycamHeightLabelColor(skycamHeight);
-
-        // RopeSpeedFormatter.Instance.AddRope(Math.Abs(skycamController._currentSpeed_X)*255)/8.ToString("N0");
-        // RopeSpeedFormatter.Instance.AddRope(Math.Abs(skycamController._currentSpeed_Z)*255)/8.ToString("N0");
     }
 
 private void SetSkycamHeightLabelColor(Text skycamHeight)
     {
         Color currentColor = skycamHeight.color;
-        float skycamHeightAverage = (float.Parse(skycamController.currentHeight) * 100f) / 4.5f; //4.5f representa la altura maxima
+        float skycamHeightAverage = (float.Parse(skycamController.currentHeight) * 100f) / 2.28f; //4.5f representa la altura maxima
         Color targetColor;
         float lerpPosition; // Esta variable representa la posición en la interpolación lineal entre dos colores
 

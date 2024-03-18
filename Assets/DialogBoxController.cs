@@ -39,7 +39,7 @@ public class DialogBoxController : MonoBehaviour
     void Start()
     {
         m_ropeSpeedFormatter = RopeSpeedFormatter.Instance;
-        ShowDialog(true);
+        ShowDialog(false);
         progressBar.SetActive(false);
         Slider slider = progressBar.GetComponent<Slider>();
         slider.value = 0;
@@ -48,11 +48,11 @@ public class DialogBoxController : MonoBehaviour
 
     void Update()
     {
-        // if (Gamepad.current.leftShoulder.isPressed || Input.GetKey(KeyCode.Alpha1))
-        // {
-        //     OnInitSkycamPositioning();
-        //     return;
-        // }
+        if (Gamepad.current.leftShoulder.isPressed || Input.GetKey(KeyCode.Alpha1))
+        {
+            ShowDialog(false);
+            return;
+        }
 
     }
 

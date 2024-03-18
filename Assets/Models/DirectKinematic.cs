@@ -10,7 +10,7 @@ public class DirectKinematic
     public double L, // Largo del campo
                   H, // Ancho del campo
                   D; // ancho del campo
-    public double L1, L2, L3, L4; // largo de las cuerdas: 1, 2, 3 y 4
+    public double L1, L2, L3, L4; // largo de las cuerdas: 1, 2, 3 y 4 emitidas por ArgosUC
     
     // Valores constantes (dimensiones skycam)
     public double a, b, c;
@@ -40,18 +40,17 @@ public class DirectKinematic
 
     private void Start()
     {
-        // Ejemplo de inicialización, puede variar según tu configuración
-        a = 0.5; // Longitud de la skycam (a)
-        b = 0.5;  // ancho de la skycam (b)
-        c = 0.5; // altura skycam (c)
+        a = 0.15; // Longitud de la skycam (a)
+        b = 0.15;  // ancho de la skycam (b)
+        c = 0.3; // altura skycam (c)
        
         // Medidas del campo
-        L = 10.0; // Largo del campo
-        H = 6.0;  // Alto del campo
-        D = 5.0;  // Ancho del campo
+        L = 3.15; // Largo del campo
+        H = 2.28;  // Alto del campo
+        D = 1.85;  // Ancho del campo
     }
 
-    public void Initialize(double l1, double l2, double l3, double l4)
+    public void SetLengthsAndCalculateXYZ(double l1, double l2, double l3, double l4)
     {
         L1 = l1;
         L2 = l2;

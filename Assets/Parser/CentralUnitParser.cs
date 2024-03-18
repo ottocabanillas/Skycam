@@ -25,6 +25,7 @@ public class CentralUnitParser
     public char[] m_vmuStatArr = new char[4]; // Para el status de cada VMU
     public char m_lastInputChar = '\0'; // Ultimo caracter recibido de Unidad Central
 
+    private GlobalVariables g_variables = GlobalVariables.instance;
     private static bool m_isSkycamStatusOk = false; // Variable para determinar cuando los 4 VMUs estan OK
     public static bool isSkycamStatusOk // Getter de m_isSkycamStatusOk. Lo usamos en RopeSpeedFormatter
     {
@@ -248,7 +249,11 @@ public class CentralUnitParser
                     if (m_lastInputChar == '*')
                     {
                         // fin del mensaje
-                        m_currentState = State.ST_INIT;
+                        // m_currentState = State.ST_INIT;
+                        // g_variables.R1 = m_vmuLengthArr[0];
+                        // g_variables.R2 = m_vmuLengthArr[1];
+                        // g_variables.R3 = m_vmuLengthArr[2];
+                        // g_variables.R4 = m_vmuLengthArr[3];
                         //Debug.Log("Central Unit stat OK");
                         //Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
                         break;
