@@ -15,17 +15,17 @@ public class Rope1Controller : MonoBehaviour
     private float ropeLength, previousRopeLength;
     private LineRenderer lineRenderer;
 
-    private Vector3 m_t1;
-    //private GlobalVariables g_variables; 
+    private GlobalVariables g_variables; 
 
     [SerializeField]
     private TMP_Text sp1Text; // Texto para mostrar el largo deseado L1
 
     void Start()
     {
-        //g_variables = GlobalVariables.Instance;
-        
-        m_t1 = new Vector3(0f,0f,2.28f);
+        // Instancia unica de la clase para almacenar las variables globales
+        g_variables = GlobalVariables.Instance;
+        g_variables.mt1 = new Vector3(0f,0f,2.28f);
+
         lineRenderer = rope.GetComponent<LineRenderer>();
         ropePole = pole.transform.TransformPoint(new Vector3(0.35f, 1.00f, 0.35f));
         lineRenderer.SetPosition(1, ropePole);
@@ -41,12 +41,14 @@ public class Rope1Controller : MonoBehaviour
         lineRenderer.SetPosition(0, rightTopVertex);
 
         Vector3 centroCamara = new Vector3(cube.transform.position.x, cube.transform.position.z, cube.transform.position.y);
-        // Actualizar el largo de la cuerda mientras la Skycam se mueve
-        ropeLength = Vector3.Distance(m_t1, centroCamara);
+        
+        // Actualizar el largo de la cuerda 1 mientras la Skycam se mueve
+        ropeLength = Vector3.Distance(g_variables.mt1, centroCamara);
+        g_variables.sp1 = ropeLength * 1000; // milimetros
 
-        sp1Text.SetText("SP1: " + (ropeLength * 1000).ToString("N0") + " mm");
+        sp1Text.SetText("SP1: " + g_variables.sp1.ToString("N0") + " mm");
+
         // Aca establecemos F o R dependiendo si se debe soltar o contraer cuerda
-        // antes de pasarle el largo actual y el largo anterior redondeamos a dos decimales.
         RopeSpeedFormatter.Instance.RopeDirectionParser(
                 ropeLength,
                 previousRopeLength,

@@ -8,6 +8,8 @@ public class CentralUnitParser
     // Unica instancia de CentralUnitParser
     private static CentralUnitParser _instance;
 
+    private GlobalVariables g_variables;
+
     // Propiedad para acceder a la instancia.
     public static CentralUnitParser Instance
     {
@@ -19,6 +21,14 @@ public class CentralUnitParser
             }
             return _instance;
         }
+    }
+
+    // Constructor
+    private CentralUnitParser()
+    {
+        g_variables = GlobalVariables.Instance;
+        m_currentState = State.ST_INIT;
+        m_numberBuffer = new StringBuilder(20);
     }
 
     public long[] m_vmuLengthArr = new long[4]; // Para el largo de cada VMU
@@ -51,14 +61,6 @@ public class CentralUnitParser
     private StringBuilder m_numberBuffer; // Buffer para construir el número que representa la longitud de un VMU.
 
     private long m_vmuLength; // variable temporal para guardar el largo de cada VMU
-
-    // Constructor privado para el patrón Singleton.
-    private CentralUnitParser()
-    {
-        // Inicializa el estado de la CentralUnitParser.
-        m_currentState = State.ST_INIT;
-        m_numberBuffer = new StringBuilder(20);
-    }
 
     // Método para procesar la entrada y realizar transiciones de estado.
     public void ProcessInput()
@@ -248,8 +250,12 @@ public class CentralUnitParser
                     {
                         // fin del mensaje
                         m_numberBuffer.Clear();
-                        Debug.Log("Central Unit stat OK");
-                        Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
+                        //Debug.Log("Central Unit stat OK");
+                        g_variables.R1 = m_vmuLengthArr[0];
+                        g_variables.R2 = m_vmuLengthArr[1];
+                        g_variables.R3 = m_vmuLengthArr[2];
+                        g_variables.R4 = m_vmuLengthArr[3];
+                        //Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
                         m_currentState = State.ST_INIT;
                         break;
                     }

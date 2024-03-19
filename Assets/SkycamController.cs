@@ -45,15 +45,14 @@ public class SkycamController : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
     void Start()
     {
-        g_variables = GlobalVariables.instance;
-        Debug.Log("SkycamController max speed: " + g_variables.maxSpeed);
+        g_variables = GlobalVariables.Instance;
         // Intenta traer el valor de velocidad máxima desde PlayerPrefs. Si no es nulo,
-        // se asigna el valor a _speedMax. De lo contrario, se asigna un valor predeterminado de 0.6f.
-        _speedMax = 0.35f;
+        // se asigna el valor a _speedMax. De lo contrario, se asigna un valor predeterminado de 0.35f.
+        _speedMax = g_variables.maxSpeed;
 
         // Intenta traer el valor de aceleración máxima desde PlayerPrefs. Si no es nulo,
         // se asigna el valor a _acceleration. De lo contrario, se asigna un valor predeterminado de 0.8f.
-        _acceleration = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxAcceleration) ? maxAcceleration : 0.8f;
+        //_acceleration = float.TryParse(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()), out float maxAcceleration) ? maxAcceleration : 0.8f;
 
         // Inicializamos ambos flags en false
         isLeftTriggerPressed = isRightTriggerPressed = false;
@@ -106,8 +105,29 @@ public class SkycamController : MonoBehaviour
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
-        //g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
-        currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
+        // Guardamos la velocidad actual en una variable global
+        g_variables.currentSpeed = (float)Math.Clamp(movement.magnitude, 0.0, 0.35);
+        //currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
+
+        g_variables.spx = (float)transform.position.x; // Posicion en el eje X de la Skycam
+        g_variables.spy = (float)transform.position.z; // Posicion en el eje Y de la Skycam
+        g_variables.spz = (float)transform.position.y; // Posicion en el eje Z de la Skycam
+
+        // Calcular DX a partir de la diferencia entre Rx y SPx
+        g_variables.dX = g_variables.Rx - g_variables.spx;
+        // Calcular DY a partir de la diferencia entre Rx y SPx
+        g_variables.dY = g_variables.Rz - g_variables.spz;
+        // Calcular Dz a partir de la diferencia entre Rx y SPx
+        g_variables.dZ = g_variables.Ry - g_variables.spy;
+
+        Debug.Log("distancia DX: " + g_variables.dX);
+        Debug.Log("distancia DY: " + g_variables.dY);
+        Debug.Log("distancia DZ: " + g_variables.dZ);
+
+        g_variables.d = (float) (Math.Sqrt(Math.Pow(g_variables.dX, 2) + Math.Pow(g_variables.dY, 2) + Math.Pow(g_variables.dZ, 2)));
+        //Debug.Log("distancia D: " + g_variables.d);
+        g_variables.T = g_variables.d / g_variables.currentSpeed;
+        //Debug.Log("Tiempo T: " + g_variables.T);
     }
 
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary, ref bool boundaryReached, ref float joystickInput)

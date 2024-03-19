@@ -27,28 +27,43 @@ public class PilotInfoDisplay : MonoBehaviour
     private TMP_Text r4Text; // Texto para mostrar el largo real de cuerda de VMU4
 
     [SerializeField]
+    private TMP_Text rxText; // Texto para mostrar la posicion real del dispositivo en el eje X
+
+    [SerializeField]
+    private TMP_Text ryText; // Texto para mostrar la posicion real del dispositivo en el eje Y
+
+    [SerializeField]
+    private TMP_Text rzText; // Texto para mostrar la posicion real del dispositivo en el eje Z
+
+    [SerializeField]
     private GameObject skycam; // Skycam
 
     private DirectKinematic directKinematicModel;
 
-    //private GlobalVariables g_variables = GlobalVariables.instance;
+    private GlobalVariables g_variables;
 
     private Vector3 desiredPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        directKinematicModel = DirectKinematic.Instance;
+        g_variables = GlobalVariables.Instance;
+        //directKinematicModel = DirectKinematic.Instance;
         desiredPosition = skycam.transform.position;
         sp_xText.SetText("SPx: " + (desiredPosition.x * 1000).ToString("N0") + " mm");
         sp_yText.SetText("SPy: " + (desiredPosition.z * 1000).ToString("N0") + " mm");
         sp_zText.SetText("SPz: " + (desiredPosition.y * 1000).ToString("N0") + " mm");
 
         // Largos reales de cuerdas emitidos por ArgosUC
-        r1Text.SetText("R1: " + (directKinematicModel.L1 * 1000).ToString("N0") + " mm");
-        r2Text.SetText("R2: " + (directKinematicModel.L2 * 1000).ToString("N0") + " mm");
-        r3Text.SetText("R3: " + (directKinematicModel.L3 * 1000).ToString("N0") + " mm");
-        r4Text.SetText("R4: " + (directKinematicModel.L4 * 1000).ToString("N0") + " mm");
+        r1Text.SetText("R1: " + (g_variables.R1).ToString("N0") + " mm");
+        r2Text.SetText("R2: " + (g_variables.R2).ToString("N0") + " mm");
+        r3Text.SetText("R3: " + (g_variables.R3).ToString("N0") + " mm");
+        r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
+
+        // Posicion X,Y,Z real
+        rxText.SetText("Rx: " + (g_variables.Rx).ToString());
+        ryText.SetText("Ry: " + (g_variables.Rz).ToString());
+        rzText.SetText("Rz: " + (g_variables.Ry).ToString());
     }
 
     // Update is called once per frame
@@ -61,10 +76,15 @@ public class PilotInfoDisplay : MonoBehaviour
         sp_zText.SetText("SPz: " + (desiredPosition.y * 1000).ToString("N0") + " mm");
 
         // Largos reales de cuerdas emitidos por ArgosUC
-        r1Text.SetText("R1: " + (directKinematicModel.L1 * 1000).ToString("N0") + " mm");
-        r2Text.SetText("R2: " + (directKinematicModel.L2 * 1000).ToString("N0") + " mm");
-        r3Text.SetText("R3: " + (directKinematicModel.L3 * 1000).ToString("N0") + " mm");
-        r4Text.SetText("R4: " + (directKinematicModel.L4 * 1000).ToString("N0") + " mm");
+        r1Text.SetText("R1: " + (g_variables.R1).ToString("N0") + " mm");
+        r2Text.SetText("R2: " + (g_variables.R2).ToString("N0") + " mm");
+        r3Text.SetText("R3: " + (g_variables.R3).ToString("N0") + " mm");
+        r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
+
+        // Posicion X,Y,Z real
+        rxText.SetText("Rx: " + (g_variables.Rx).ToString() + " mm");
+        ryText.SetText("Ry: " + (g_variables.Rz).ToString() + " mm");
+        rzText.SetText("Rz: " + (g_variables.Ry).ToString() + " mm");
     }
 
 }

@@ -11,10 +11,10 @@ public class DirectKinematic
                   H, // Ancho del campo
                   D; // ancho del campo
     public double L1, L2, L3, L4; // largo de las cuerdas: 1, 2, 3 y 4 emitidas por ArgosUC
-    
+
     // Valores constantes (dimensiones skycam)
     public double a, b, c;
-    
+
     // Valores calculados para X, Y, Z
     private double _x, _y, _z;
 
@@ -22,6 +22,8 @@ public class DirectKinematic
     public double X { get { return _x; } }
     public double Y { get { return _y; } }
     public double Z { get { return _z; } }
+
+    private GlobalVariables g_variables;
 
     // Propiedad estática para acceder a la instancia
     public static DirectKinematic Instance
@@ -40,50 +42,58 @@ public class DirectKinematic
 
     private void Start()
     {
-        a = 0.15; // Longitud de la skycam (a)
-        b = 0.15;  // ancho de la skycam (b)
-        c = 0.3; // altura skycam (c)
-       
+        g_variables = GlobalVariables.Instance;
+    
+        a = g_variables.a; // Longitud de la skycam (a)
+        b = g_variables.b;  // ancho de la skycam (b)
+        c = g_variables.c; // altura skycam (c)
+
         // Medidas del campo
-        L = 3.15; // Largo del campo
-        H = 2.28;  // Alto del campo
-        D = 1.85;  // Ancho del campo
+        L = g_variables.L; // Largo del campo
+        H = g_variables.H;  // Alto del campo
+        D = g_variables.D;  // Ancho del campo
     }
 
-    public void SetLengthsAndCalculateXYZ(double l1, double l2, double l3, double l4)
+    public void SetLengthsAndCalculateXYZ()
     {
-        L1 = l1;
-        L2 = l2;
-        L3 = l3;
-        L4 = l4;
+        L1 = g_variables.R1;
+        L2 = g_variables.R2;
+        L3 = g_variables.R3;
+        L4 = g_variables.R4;
 
-        // Debug.Log("valor L1: " + l1);
-        // Debug.Log("valor L2: " + l2);
-        // Debug.Log("valor L3: " + l3);
-        // Debug.Log("valor L4: " + l4);
+        Debug.Log("valor L1: " + L1);
+        Debug.Log("valor L2: " + L2);
+        Debug.Log("valor L3: " + L3);
+        Debug.Log("valor L4: " + L4);
 
         // Calculamos X, Y, Z inmediatamente después de inicializar
         _x = CalculateXValue();
         _z = CalculateZValue();
         _y = CalculateYValue(_x, _z);
-        // Debug.Log("valor x:" + _x);
-        // Debug.Log("valor z:" + _z);
-        // Debug.Log("valor y:" + _y);
+
+        Debug.Log("valor x:" + _x);
+        Debug.Log("valor z:" + _z);
+        Debug.Log("valor y:" + _y);
+
+        // Valores reales X,Y,Z
+        g_variables.Rx = (float)_x;
+        g_variables.Ry = (float)_y;
+        g_variables.Rz = (float)_z;
     }
 
     public double CalculateXValue()
     {
-        double numerador = Math.Pow(L1, 2) - Math.Pow(L4, 2) + Math.Pow(L, 2) - (L*a);
+        double numerador = Math.Pow(L1, 2) - Math.Pow(L4, 2) + Math.Pow(L, 2) - (L * a);
         double denominador = 2 * (L - a);
-        
+
         return RoundNumber(numerador / denominador);
     }
 
     public double CalculateZValue()
     {
-        double numerador = Math.Pow(L4, 2) - Math.Pow(L3, 2) + Math.Pow(D, 2) - (D*b);
-        double denominador = 2 * (D-b);
-        
+        double numerador = Math.Pow(L4, 2) - Math.Pow(L3, 2) + Math.Pow(D, 2) - (D * b);
+        double denominador = 2 * (D - b);
+
         return RoundNumber(numerador / denominador);
     }
 

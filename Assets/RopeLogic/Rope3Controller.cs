@@ -19,9 +19,12 @@ public class Rope3Controller : MonoBehaviour
     private LineRenderer lineRenderer;
 
     private Vector3 m_t3;
+    private GlobalVariables g_variables; 
     void Start()
     {
-        m_t3 = new Vector3(3.15f, 1.85f, 2.28f);
+        g_variables = GlobalVariables.Instance;
+        g_variables.mt3 = new Vector3(3.15f, 1.85f, 2.28f);
+
         lineRenderer = rope.GetComponent<LineRenderer>();
         ropePole = pole.transform.TransformPoint(new Vector3(-0.35f, 1.00f, -0.35f));
         lineRenderer.SetPosition(1, ropePole);
@@ -35,14 +38,14 @@ public class Rope3Controller : MonoBehaviour
         // Update the rope's end position to match the left top vertex of the cube
         rightTopVertex = cube.transform.TransformPoint(new Vector3(0.25f, 0.25f, 0.25f));
         lineRenderer.SetPosition(0, rightTopVertex);
-        //lineRenderer.SetPosition(1, ropePole);
-
-        // Update the rope length as the cube moves
-        ropeLength = Vector3.Distance(rightTopVertex, ropePole);
 
         Vector3 centroCamara = new Vector3(cube.transform.position.x, cube.transform.position.z, cube.transform.position.y);
+        
+        // Actualiza el largo de la cuerda 3 mientras la Skycam se mueve
+        ropeLength = Vector3.Distance(g_variables.mt3, centroCamara);
+        g_variables.sp3 = ropeLength * 1000; // Milimetros
 
-        sp3Text.SetText("SP3: " + (ropeLength * 1000).ToString("N0") + " mm");
+        sp3Text.SetText("SP3: " + g_variables.sp3.ToString("N0") + " mm");
 
         // Determinar "F" o "R" de acuerdo al largo anterior y el largo actual
         RopeSpeedFormatter.Instance.RopeDirectionParser(
