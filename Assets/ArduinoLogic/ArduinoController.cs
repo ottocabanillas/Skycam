@@ -129,7 +129,7 @@ public class ArduinoController : MonoBehaviour
     }
     #elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_STANDALONE_LINUX || UNITY_EDITOR_LINUX
     // Unix-based systems specific code
-    string[] ports = System.IO.Directory.GetFiles("/dev/", "cu.usbmodem*");
+    string[] ports = System.IO.Directory.GetFiles("/dev/", "cu.usbserial-0001");
     foreach (string port in ports)
     {
         try

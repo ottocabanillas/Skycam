@@ -19,7 +19,7 @@ public class SkycamController : MonoBehaviour
                   _zNegativeBoundary = 0.4f,
                   _heightLimitMin = 0.5f, //Altura Minima
                   _heightLimitMax = 1.8f; // Altura Maxima
-                  
+
 
     // - Velocidades segun Eje
     public float _currentSpeed_X = 0,
@@ -33,6 +33,8 @@ public class SkycamController : MonoBehaviour
 
     public GameObject dialogPanel;
 
+    private GlobalVariables g_variables;
+
     private bool isLeftTriggerPressed, // flag trigger izquierdo
                  isRightTriggerPressed, // flag trigger derecho
                  xBoundaryReached, // flag para limite del campo en el eje X (+/- X)
@@ -43,6 +45,8 @@ public class SkycamController : MonoBehaviour
     private Vector3 currentVelocity = Vector3.zero;
     void Start()
     {
+        g_variables = GlobalVariables.instance;
+        Debug.Log("SkycamController max speed: " + g_variables.maxSpeed);
         // Intenta traer el valor de velocidad máxima desde PlayerPrefs. Si no es nulo,
         // se asigna el valor a _speedMax. De lo contrario, se asigna un valor predeterminado de 0.6f.
         _speedMax = 0.35f;
@@ -102,6 +106,7 @@ public class SkycamController : MonoBehaviour
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
+        //g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
         currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
     }
 

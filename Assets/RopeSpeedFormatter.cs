@@ -52,7 +52,6 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     void Start()
     {
-        g_variables = GlobalVariables.instance;
         _IsSkycamPositioned = false;
         // Iniciar la corutina para mandar constantemente el TTL
         StartCoroutine(SendTimeToLivePeriodically());
@@ -115,7 +114,7 @@ public class RopeSpeedFormatter : MonoBehaviour
         if (CentralUnitParser.isSkycamStatusOk)
         {
 
-            //Debug.Log("Central Unit stat OK");
+            Debug.Log("Central Unit stat OK");
 
             // Pasamos las 4 longitudes al constructor del modelo.
             DirectKinematic.Instance.SetLengthsAndCalculateXYZ(
@@ -153,8 +152,9 @@ public class RopeSpeedFormatter : MonoBehaviour
         // Bucle infinito. Asegúrate de tener una condición para detenerlo si es necesario
         while (true)
         {
+            Debug.Log("Sending TTL");
             SendTimeToLive();
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

@@ -21,9 +21,12 @@ public class ArcamGUI : MonoBehaviour
     [SerializeField]
     Color green, yellow, red;
 
+    private GlobalVariables g_variables;
+
     // Start is called before the first frame update
     void Start()
     {
+        g_variables = GlobalVariables.instance;
         cameraController = FindAnyObjectByType<CameraController>();
         cameraPosition = cameraObject.GetComponent<Text>();
         skycamController = FindAnyObjectByType<SkycamController>();
@@ -35,7 +38,7 @@ public class ArcamGUI : MonoBehaviour
     {
         cameraPosition.text = "Posicion: " + cameraController.cameraName;
         skycamHeight.text = "Altura: " + skycamController.currentHeight;
-        skycamSpeed.text = "Velocidad: " + skycamController.currentSpeed;
+        skycamSpeed.text = "Velocidad: " + g_variables.currentSpeed;
 
         SetSkycamHeightLabelColor(skycamHeight);
     }
