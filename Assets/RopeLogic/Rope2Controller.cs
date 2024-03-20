@@ -45,9 +45,9 @@ public class Rope2Controller : MonoBehaviour
 
         // Actualizar el largo de la cuerda 2 mientras la Skycam se mueve
         ropeLength = Vector3.Distance(g_variables.mt2, centroCamara);
-        g_variables.sp2 = ropeLength * 1000; // milimetros
+        g_variables.sp2 = ropeLength;
 
-        sp2Text.SetText("SP2: " + g_variables.sp2.ToString("N0") + " mm");
+        sp2Text.SetText("SP2: " + (g_variables.sp2 * 1000).ToString("N0") + " mm");
 
         // Determinar "F" o "R" de acuerdo al largo anterior y el largo actual
         RopeSpeedFormatter.Instance.RopeDirectionParser(

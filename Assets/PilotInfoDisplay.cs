@@ -61,9 +61,9 @@ public class PilotInfoDisplay : MonoBehaviour
         r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
 
         // Posicion X,Y,Z real
-        rxText.SetText("Rx: " + (g_variables.Rx).ToString());
-        ryText.SetText("Ry: " + (g_variables.Rz).ToString());
-        rzText.SetText("Rz: " + (g_variables.Ry).ToString());
+        rxText.SetText("Rx: " + (g_variables.Rx * 1000).ToString("N2") + " mm");
+        ryText.SetText("Ry: " + (g_variables.Rz * 1000).ToString("N2") + " mm");
+        rzText.SetText("Rz: " + (g_variables.Ry * 1000).ToString("N2") + " mm");
     }
 
     // Update is called once per frame
@@ -82,9 +82,9 @@ public class PilotInfoDisplay : MonoBehaviour
         r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
 
         // Posicion X,Y,Z real
-        rxText.SetText("Rx: " + (g_variables.Rx).ToString() + " mm");
-        ryText.SetText("Ry: " + (g_variables.Rz).ToString() + " mm");
-        rzText.SetText("Rz: " + (g_variables.Ry).ToString() + " mm");
+        rxText.SetText("Rx: " + (g_variables.Rx * 1000).ToString("N0") + " mm");
+        ryText.SetText("Ry: " + (g_variables.Rz * 1000).ToString("N0") + " mm");
+        rzText.SetText("Rz: " + (g_variables.Ry * 1000).ToString("N0") + " mm");
     }
 
 }

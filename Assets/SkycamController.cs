@@ -106,27 +106,27 @@ public class SkycamController : MonoBehaviour
 
         currentHeight = transform.position.y.ToString("N2");
         // Guardamos la velocidad actual en una variable global
-        g_variables.currentSpeed = (float)Math.Clamp(movement.magnitude, 0.0, 0.35);
-        //currentSpeed = Math.Clamp(movement.magnitude, 0, 0.6).ToString("N2");
+        g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0.0, 0.35);
 
-        g_variables.spx = (float)transform.position.x; // Posicion en el eje X de la Skycam
-        g_variables.spy = (float)transform.position.z; // Posicion en el eje Y de la Skycam
-        g_variables.spz = (float)transform.position.y; // Posicion en el eje Z de la Skycam
+        g_variables.spx = transform.position.x; // Posicion en el eje X de la Skycam
+        g_variables.spy = transform.position.z; // Posicion en el eje Y de la Skycam
+        g_variables.spz = transform.position.y; // Posicion en el eje Z de la Skycam
 
-        // Calcular DX a partir de la diferencia entre Rx y SPx
-        g_variables.dX = g_variables.Rx - g_variables.spx;
-        // Calcular DY a partir de la diferencia entre Rx y SPx
-        g_variables.dY = g_variables.Rz - g_variables.spz;
-        // Calcular Dz a partir de la diferencia entre Rx y SPx
-        g_variables.dZ = g_variables.Ry - g_variables.spy;
+        // Calcular DX, DY, DZ
+        g_variables.calculateDeltaX();
+        g_variables.calculateDeltaY();
+        g_variables.calculateDeltaZ();
 
-        Debug.Log("distancia DX: " + g_variables.dX);
-        Debug.Log("distancia DY: " + g_variables.dY);
-        Debug.Log("distancia DZ: " + g_variables.dZ);
+        //Debug.Log("distancia DX: " + g_variables.dX);
+        //Debug.Log("distancia DY: " + g_variables.dY);
+        //Debug.Log("distancia DZ: " + g_variables.dZ);
 
-        g_variables.d = (float) (Math.Sqrt(Math.Pow(g_variables.dX, 2) + Math.Pow(g_variables.dY, 2) + Math.Pow(g_variables.dZ, 2)));
+        // Calcular D
+        g_variables.calculateDistance();
+        // Calcular T
+        g_variables.calculateTime();
+        
         //Debug.Log("distancia D: " + g_variables.d);
-        g_variables.T = g_variables.d / g_variables.currentSpeed;
         //Debug.Log("Tiempo T: " + g_variables.T);
     }
 

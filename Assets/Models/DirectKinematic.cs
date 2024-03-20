@@ -43,7 +43,7 @@ public class DirectKinematic
     private void Start()
     {
         g_variables = GlobalVariables.Instance;
-    
+
         a = g_variables.a; // Longitud de la skycam (a)
         b = g_variables.b;  // ancho de la skycam (b)
         c = g_variables.c; // altura skycam (c)
@@ -54,31 +54,17 @@ public class DirectKinematic
         D = g_variables.D;  // Ancho del campo
     }
 
-    public void SetLengthsAndCalculateXYZ()
+    public void SetLengthsAndCalculateXYZ(double r1, double r2, double r3, double r4)
     {
-        L1 = g_variables.R1;
-        L2 = g_variables.R2;
-        L3 = g_variables.R3;
-        L4 = g_variables.R4;
+        L1 = r1;
+        L2 = r2;
+        L3 = r3;
+        L4 = r4;
 
-        Debug.Log("valor L1: " + L1);
-        Debug.Log("valor L2: " + L2);
-        Debug.Log("valor L3: " + L3);
-        Debug.Log("valor L4: " + L4);
-
-        // Calculamos X, Y, Z inmediatamente después de inicializar
-        _x = CalculateXValue();
-        _z = CalculateZValue();
-        _y = CalculateYValue(_x, _z);
-
-        Debug.Log("valor x:" + _x);
-        Debug.Log("valor z:" + _z);
-        Debug.Log("valor y:" + _y);
-
-        // Valores reales X,Y,Z
-        g_variables.Rx = (float)_x;
-        g_variables.Ry = (float)_y;
-        g_variables.Rz = (float)_z;
+        // Calculamos X, Y, Z cada vez que recibimos largos de cuerda desde ArgosUC
+        g_variables.Rx = CalculateXValue();
+        g_variables.Rz = CalculateZValue();
+        g_variables.Ry = CalculateYValue(g_variables.Rx, g_variables.Rz);
     }
 
     public double CalculateXValue()
