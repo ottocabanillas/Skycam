@@ -81,10 +81,21 @@ public class PilotInfoDisplay : MonoBehaviour
         r3Text.SetText("R3: " + (g_variables.R3).ToString("N0") + " mm");
         r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
 
-        // Posicion X,Y,Z real
-        rxText.SetText("Rx: " + (g_variables.Rx * 1000).ToString("N0") + " mm");
-        ryText.SetText("Ry: " + (g_variables.Rz * 1000).ToString("N0") + " mm");
-        rzText.SetText("Rz: " + (g_variables.Ry * 1000).ToString("N0") + " mm");
+        // Posicion X, Y, Z real
+        if (double.IsNaN(g_variables.Rx))
+            rxText.SetText("Rx: N/A");
+        else
+            rxText.SetText("Rx: " + (g_variables.Rx * 1000).ToString("N0") + " mm");
+
+        if (double.IsNaN(g_variables.Rz))
+            ryText.SetText("Ry: N/A");
+        else
+            ryText.SetText("Ry: " + (g_variables.Rz * 1000).ToString("N0") + " mm");
+
+        if (double.IsNaN(g_variables.Ry))
+            rzText.SetText("Rz: N/A");
+        else
+            rzText.SetText("Rz: " + (g_variables.Ry * 1000).ToString("N0") + " mm");
     }
 
 }
