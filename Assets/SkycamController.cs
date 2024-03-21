@@ -106,7 +106,9 @@ public class SkycamController : MonoBehaviour
 
         currentHeight = transform.position.y.ToString("N2");
         // Guardamos la velocidad actual en una variable global
-        g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0.0, 0.35);
+        //g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0.0, 0.35);
+
+        g_variables.currentSpeed = 0.05; // 50 mm/s
 
         g_variables.spx = transform.position.x; // Posicion en el eje X de la Skycam
         g_variables.spy = transform.position.z; // Posicion en el eje Y de la Skycam
