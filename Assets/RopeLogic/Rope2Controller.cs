@@ -48,15 +48,5 @@ public class Rope2Controller : MonoBehaviour
         g_variables.sp2 = ropeLength;
 
         sp2Text.SetText("SP2: " + (g_variables.sp2 * 1000).ToString("N0") + " mm");
-
-        // Determinar "F" o "R" de acuerdo al largo anterior y el largo actual
-        //RopeSpeedFormatter.Instance.RopeDirectionParser(
-        //    ropeLength,
-        //    previousRopeLength,
-        //    ropeIndex: 1
-        //);
-
-        // Actualizamos el valor previo
-        previousRopeLength = ropeLength;
     }
 }
