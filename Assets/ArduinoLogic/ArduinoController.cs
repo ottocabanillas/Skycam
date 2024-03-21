@@ -53,7 +53,7 @@ public class ArduinoController : MonoBehaviour
 
     private void Start()
     {
-        serialPort = new SerialPort(portName, baudRate);
+        serialPort = new SerialPort(portName, 115200);
         serialPort.Open();
     }
 
