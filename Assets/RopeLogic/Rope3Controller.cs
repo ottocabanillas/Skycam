@@ -46,14 +46,5 @@ public class Rope3Controller : MonoBehaviour
         g_variables.sp3 = ropeLength;
 
         sp3Text.SetText("SP3: " + (g_variables.sp3 * 1000).ToString("N0") + " mm");
-
-        // Determinar "F" o "R" de acuerdo al largo anterior y el largo actual
-        //RopeSpeedFormatter.Instance.RopeDirectionParser(
-        //    ropeLength,
-        //    previousRopeLength,
-        //    ropeIndex: 2
-        //);
-
-        previousRopeLength = ropeLength;
     }
 }

@@ -117,17 +117,10 @@ public class SkycamController : MonoBehaviour
         g_variables.calculateDeltaY();
         g_variables.calculateDeltaZ();
 
-        //Debug.Log("distancia DX: " + g_variables.dX);
-        //Debug.Log("distancia DY: " + g_variables.dY);
-        //Debug.Log("distancia DZ: " + g_variables.dZ);
-
         // Calcular D
         g_variables.calculateDistance();
         // Calcular T
         g_variables.calculateTime();
-        
-        //Debug.Log("distancia D: " + g_variables.d);
-        //Debug.Log("Tiempo T: " + g_variables.T);
     }
 
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary, ref bool boundaryReached, ref float joystickInput)

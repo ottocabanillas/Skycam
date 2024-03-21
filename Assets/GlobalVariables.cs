@@ -77,6 +77,13 @@ public class GlobalVariables
                  v3, // Velocidad motor 3. Obtenida a partir del cociente entre d3 y T
                  v4; // Velocidad motor 4. Obtenida a partir del cociente entre d4 y T
 
+    // Distancia inicial entre Skycam Unity y Skycam real
+    public Vector3 initialDistance;
+
+    // Posicion real de la skycam obtenida con el modelo de Cinematica Directa
+    public Vector3 realSkycamPosition;
+    public bool isSkycamPositioning = false;
+
     public string[] motorsDirections = new string[4];
 
     private GlobalVariables()
@@ -154,7 +161,6 @@ public class GlobalVariables
             v2 = 0;
             v3 = 0;
             v4 = 0;
-            //Debug.Log("T es 0");
             return;
         }
 
@@ -163,11 +169,6 @@ public class GlobalVariables
         v2 = Math.Round((d2 / T) * 1000, MidpointRounding.AwayFromZero);
         v3 = Math.Round((d3 / T) * 1000, MidpointRounding.AwayFromZero);
         v4 = Math.Round((d4 / T) * 1000, MidpointRounding.AwayFromZero);
-
-        Debug.Log("V1: " + v1);
-        Debug.Log("V2: " + v2);
-        Debug.Log("V3: " + v3);
-        Debug.Log("V4: " + v4);
         return;
     }
 

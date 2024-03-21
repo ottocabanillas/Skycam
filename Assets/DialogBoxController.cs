@@ -66,20 +66,25 @@ public class DialogBoxController : MonoBehaviour
 
     private void OnInitSkycamPositioning()
     {
-        // Comenzar posicionamiento
-        StartPositioning(); // Comenzar posicionamiento
-        StartCoroutine(ActualizarTextoPosicionando()); // Actualizar el texto del boton
-        progressBar.SetActive(true); // Hacer visible la barra de progreso
+        // Comenzar proceso de posicionamiento
+        StartPositioning();
+
+        // Actualizar el texto del boton
+        StartCoroutine(ActualizarTextoPosicionando());
+
+        // Hacer visible la barra de progreso
+        progressBar.SetActive(true);
     }
 
     private void StartPositioning()
     {
         // Inicializamos la posicion de la Skycam con los valores X,Y,Z obtenidos a partir del modelo matematico
-        m_skycamPosition = new Vector3((float)g_variables.Rx, (float)g_variables.Ry, (float)g_variables.Rz);
-        Debug.Log("Skycam initial position: " + m_skycamPosition);
+        g_variables.realSkycamPosition = new Vector3((float)g_variables.Rx, (float)g_variables.Ry, (float)g_variables.Rz);
         
-        // La distancia inicial se calcula entre la posicion de real de la skycam y la posicion establecida en Unity como punto inicial del programa
-        m_initialDistance = Vector3.Distance(m_skycamPosition, m_targetPosition);
+        // La distancia inicial se calcula entre la posicion de real de la skycam y la posicion establecida 
+        // en Unity como punto inicial del programa
+        //g_variables.initialDistance = Vector3.Distance(g_variables.realSkycamPosition, m_targetPosition);
+        
         // Comenzar el posicionamiento
         StartCoroutine(PositionSkycam());
     }
@@ -88,11 +93,10 @@ public class DialogBoxController : MonoBehaviour
     IEnumerator PositionSkycam()
     {
         // Repetir mientras no estemos ubicados en la posicion de inicio (m_targetPosition).
-        while (Vector3.Distance(m_skycamPosition, m_targetPosition) > 0.01f)
+        while (Vector3.Distance(g_variables.realSkycamPosition, m_targetPosition) > 0.01f)
         {
             // TODO: Mandar a ArgosUC las velocidades
 
-            Debug.Log("Skycam position: " + m_skycamPosition);
             UpdateProgressBar();
             yield return null; // Wait until the next frame
         }
@@ -100,8 +104,6 @@ public class DialogBoxController : MonoBehaviour
         // Llegado al punto de inicio
         SetProgressBar(1.0f); // Progress bar al 100%
         buttonText.text = "¡Posicionado!";
-        Debug.Log("Skycam real position: " + m_skycamPosition);
-        m_ropeSpeedFormatter.IsSkycamPositioned = true;
 
         // Esperar dos segundos antes de ocultar el panel de diálogo
         yield return new WaitForSeconds(2);
@@ -129,7 +131,7 @@ public class DialogBoxController : MonoBehaviour
     private void UpdateProgressBar()
     {
         float remainingDistance = Vector3.Distance(m_skycamPosition, m_targetPosition);
-        float progress = 1 - (remainingDistance / m_initialDistance); // Calcular el progreso como porcentaje
+        float progress = 1 ; // Calcular el progreso como porcentaje
         SetProgressBar(progress);
     }
 
