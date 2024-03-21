@@ -49,11 +49,11 @@ public class Rope1Controller : MonoBehaviour
         sp1Text.SetText("SP1: " + (g_variables.sp1 * 1000).ToString("N0") + " mm");
 
         // Aca establecemos F o R dependiendo si se debe soltar o contraer cuerda
-        RopeSpeedFormatter.Instance.RopeDirectionParser(
-                ropeLength,
-                previousRopeLength,
-                ropeIndex: 0
-        );
+        //RopeSpeedFormatter.Instance.RopeDirectionParser(
+        //        ropeLength,
+        //        previousRopeLength,
+        //        ropeIndex: 0
+        //);
 
         // Actualizo el valor del previousRopeLength
         previousRopeLength = ropeLength;

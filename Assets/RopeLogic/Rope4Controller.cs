@@ -51,11 +51,11 @@ public class Rope4Controller : MonoBehaviour
         sp4Text.SetText("SP4: " + (g_variables.sp4 * 1000).ToString("N0") + " mm");
 
         // Determinar "F" o "R" de acuerdo al largo anterior y el largo actuals
-        RopeSpeedFormatter.Instance.RopeDirectionParser(
-            ropeLength, 
-            previousRopeLength,
-            ropeIndex: 3
-        );
+        //RopeSpeedFormatter.Instance.RopeDirectionParser(
+        //    ropeLength, 
+        //    previousRopeLength,
+        //    ropeIndex: 3
+        //);
 
         previousRopeLength = ropeLength;
     }

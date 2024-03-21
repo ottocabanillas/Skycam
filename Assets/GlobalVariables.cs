@@ -77,7 +77,7 @@ public class GlobalVariables
                  v3, // Velocidad motor 3. Obtenida a partir del cociente entre d3 y T
                  v4; // Velocidad motor 4. Obtenida a partir del cociente entre d4 y T
 
-
+    public string[] motorsDirections = new string[4];
 
     private GlobalVariables()
     {
@@ -158,19 +158,28 @@ public class GlobalVariables
             return;
         }
 
-        // v1 = Math.Round((d1 / T), MidpointRounding.AwayFromZero);
-        // v2 = Math.Round((d2 / T), MidpointRounding.AwayFromZero);
-        // v3 = Math.Round((d3 / T), MidpointRounding.AwayFromZero);
-        // v4 = Math.Round((d4 / T), MidpointRounding.AwayFromZero);
-        v1 = d1 / T;
-        v2 = d2 / T;
-        v3 = d3 / T;
-        v4 = d4 / T;
+        // Velocidades de los 4 motores en [mm/s]
+        v1 = Math.Round((d1 / T) * 1000, MidpointRounding.AwayFromZero);
+        v2 = Math.Round((d2 / T) * 1000, MidpointRounding.AwayFromZero);
+        v3 = Math.Round((d3 / T) * 1000, MidpointRounding.AwayFromZero);
+        v4 = Math.Round((d4 / T) * 1000, MidpointRounding.AwayFromZero);
 
-        // Debug.Log("V1: " + v1);
-        // Debug.Log("V2: " + v2);
-        // Debug.Log("V3: " + v3);
-        // Debug.Log("V4: " + v4);
+        Debug.Log("V1: " + v1);
+        Debug.Log("V2: " + v2);
+        Debug.Log("V3: " + v3);
+        Debug.Log("V4: " + v4);
+        return;
+    }
+
+    /* Funcion encargada de establecer las direcciones de cada motor
+       de acuerdo al signo de cada velocidad calculada
+    */
+    public void SetMotorsDirections()
+    {
+        motorsDirections[0] = v1 >= 0 ? "F" : "R";
+        motorsDirections[1] = v2 >= 0 ? "F" : "R";
+        motorsDirections[2] = v3 >= 0 ? "F" : "R";
+        motorsDirections[3] = v4 >= 0 ? "F" : "R";
         return;
     }
 

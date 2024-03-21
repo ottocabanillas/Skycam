@@ -6,7 +6,7 @@ public class RopeSpeedFormatter : MonoBehaviour
 {
     private static RopeSpeedFormatter instance;
     private float[] ropeSpeeds = new float[4];
-    public string[] ropeDirections = new string[4];
+    public string[] motorsDirections = new string[4];
     private GlobalVariables g_variables;
 
     // Flag para determinar si la skycam ya se encuentra posicionada
@@ -60,10 +60,19 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     private void Update()
     {
+            // Calcular las distancias entre los largos reales y los esperados
+            g_variables.CalculateRopesDiff();
+
+            // Calcular la velocidad de giro de cada motor
+            g_variables.CalculateMotorVelocities();
+
+            // Establecer direcciones de acuerdo a las veloc de los motores
+            g_variables.SetMotorsDirections();
+
         if (!ArduinoController.isSerialConnEstablished)
         {
             // No se establecio la conexion a traves del puerto serie, retornar
-            Debug.Log("Serial conn not established!");
+            //Debug.Log("Serial conn not established!");
             return;
         }
 
@@ -84,12 +93,12 @@ public class RopeSpeedFormatter : MonoBehaviour
         {
             direction = "R";
         }
-        ropeDirections[ropeIndex] = direction;
+        motorsDirections[ropeIndex] = direction;
     }
 
     private void ParseIncomingDataFromArgosUc()
     {
-        // Comenzamos a parsear, caracter por caracter.
+        // Comenzar a parsear, caracter por caracter.
         CentralUnitParser.Instance.ProcessInput();
 
         //Enviamos las longitudes al modelo de cinematica directa, solo si el estado de las 4 VMUs es OK!
@@ -106,10 +115,13 @@ public class RopeSpeedFormatter : MonoBehaviour
             );
 
             // Calcular las distancias entre los largos reales y los esperados
-            g_variables.CalculateRopesDiff();
+            //g_variables.CalculateRopesDiff();
 
             // Calcular la velocidad de giro de cada motor
-            g_variables.CalculateMotorVelocities();
+            //g_variables.CalculateMotorVelocities();
+
+            // Establecer direcciones de acuerdo a las veloc de los motores
+            //g_variables.SetMotorsDirections();
         }
         else
         {
@@ -131,7 +143,7 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     private IEnumerator SendTimeToLivePeriodically()
     {
-        while (true)
+        while (ArduinoController.isSerialConnEstablished)
         {
             SendTimeToLive();
             yield return new WaitForSeconds(0.1f);
@@ -142,14 +154,14 @@ public class RopeSpeedFormatter : MonoBehaviour
     */
     private IEnumerator SendCommands()
     {
-        // Enviar comando siempre que la diferencia sea mayor a 10 mm 
-        while (true)
+        while (ArduinoController.isSerialConnEstablished)
         {
-            string payload = ropeDirections[0] + g_variables.v1.ToString() +
-                             ropeDirections[1] + g_variables.v2.ToString() +
-                             ropeDirections[2] + g_variables.v3.ToString() +
-                             ropeDirections[3] + g_variables.v4.ToString() + "*";
+            string payload = g_variables.motorsDirections[0] + g_variables.v1.ToString() +
+                             g_variables.motorsDirections[1] + g_variables.v2.ToString() +
+                             g_variables.motorsDirections[2] + g_variables.v3.ToString() +
+                             g_variables.motorsDirections[3] + g_variables.v4.ToString() + "*";
 
+            // Enviar comando siempre que la diferencia sea mayor a 10 mm 
             if (g_variables.d > 0.10)
             {
                 Debug.Log("D: " + g_variables.d);

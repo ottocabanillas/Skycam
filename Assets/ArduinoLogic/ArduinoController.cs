@@ -97,7 +97,7 @@ public class ArduinoController : MonoBehaviour
     private static string GetConnectedArduinoPort()
     {
         // Define the port for Windows
-        string targetPort = "COM3";
+        string targetPort = "COM4";
 
     // Depending on the platform, set the appropriate search pattern
     #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
