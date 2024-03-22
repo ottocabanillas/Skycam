@@ -51,7 +51,7 @@ public class RopeSpeedFormatter : MonoBehaviour
 
     private void Update()
     {
-        // Calcular las distancias entre los largos reales y los esperados
+        // Calcular D1, D2, D3 Y D4
         g_variables.CalculateRopesDiff();
 
         // Calcular la velocidad de giro de cada motor
@@ -92,7 +92,7 @@ public class RopeSpeedFormatter : MonoBehaviour
         }
         else
         {
-            //Manejar errores? Definirlo con Otto
+            //Manejar errores? Definirlo...
             //Debug.Log("Central Unit stat not OK");
         }
     }
@@ -128,6 +128,7 @@ public class RopeSpeedFormatter : MonoBehaviour
                              g_variables.motorsDirections[2] + Math.Abs(g_variables.v3).ToString() +
                              g_variables.motorsDirections[3] + Math.Abs(g_variables.v4).ToString() + "*";
 
+            //Debug.Log("Enviando: " + payload);
             // Enviar comando siempre que la diferencia sea mayor a 10 mm 
             if (g_variables.d > 0.01)
             {

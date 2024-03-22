@@ -59,7 +59,7 @@ public class GlobalVariables
                    mt4;
 
     public double currentSpeed; // Velocidad de vuelo. Entre 0 y 350 mm/s
-    public float maxSpeed = 0.35f; // Velocidad maxima. 350 mm/s
+    public float maxSpeed = 0.05f; // Velocidad maxima. 350 mm/s
 
     public double dX, // diferencia entre x real y x esperado. En milimetros
                  dY, // distaqncia entre y real e y esperado. En milimetros
@@ -102,6 +102,12 @@ public class GlobalVariables
     public void calculateDeltaX()
     {
         // Calcular DX a partir de la diferencia entre Rx y SPx
+        if (double.IsNaN(Rx) || double.IsNaN(spx))
+        {
+            dX = 0;
+            return;
+        }
+
         dX = Rx - spx;
         return;
     }
@@ -109,6 +115,12 @@ public class GlobalVariables
     public void calculateDeltaY()
     {
         // Calcular DY a partir de la diferencia entre Ry y SPy
+        if (double.IsNaN(Rz) || double.IsNaN(spz))
+        {
+            dY = 0;
+            return;
+        }
+
         dY = Rz - spz;
         return;
     }
@@ -116,6 +128,11 @@ public class GlobalVariables
     public void calculateDeltaZ()
     {
         // Calcular Dz a partir de la diferencia entre Rz y SPz
+        if (double.IsNaN(Ry) || double.IsNaN(spy))
+        {
+            dZ = 0;
+            return;
+        }
         dZ = Ry - spy;
         return;
     }

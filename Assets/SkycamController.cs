@@ -64,6 +64,8 @@ public class SkycamController : MonoBehaviour
     // Functions
     void Update()
     {
+        //g_variables.currentSpeed = 0.05; // 50 mm/s
+
         _horizontalInput = IsPanelVisible() ? 0 : Input.GetAxis("Horizontal"); //(Axis +/- X)
 
         _verticalInput = IsPanelVisible() ? 0 : Input.GetAxis("Vertical"); //(Axis +/- Z)
@@ -89,9 +91,13 @@ public class SkycamController : MonoBehaviour
 
         // Establecemos las velocidades actuales en los ejes X, Y y Z, teniendo en cuenta los limites del campo. 
         // Si se alcanzo un limite en un eje, la velocidad se establece en cero para ese eje. 
-        _currentSpeed_X = xBoundaryReached ? 0 : _speedMax * _horizontalInput; // Velocidad en el eje X
-        _currentSpeed_Z = zBoundaryReached ? 0 : _speedMax * _verticalInput; // Velocidad en el eje Z
-        _currentSpeed_Y = yBoundaryReached ? 0 : _speedMax * yAxisMovement; // Velocidad en el eje Y
+        //_currentSpeed_X = xBoundaryReached ? 0 : _speedMax * _horizontalInput; // Velocidad en el eje X
+        //_currentSpeed_Z = zBoundaryReached ? 0 : _speedMax * _verticalInput; // Velocidad en el eje Z
+        //_currentSpeed_Y = yBoundaryReached ? 0 : _speedMax * yAxisMovement; // Velocidad en el eje Y
+
+        _currentSpeed_X = xBoundaryReached ? 0 : _speedMax * (_horizontalInput >= 0.001f ? 1 : _horizontalInput == 0 ? 0 : -1); // Velocidad en el eje X
+        _currentSpeed_Z = zBoundaryReached ? 0 : _speedMax * (_verticalInput >= 0.001f ? 1 : _verticalInput == 0 ? 0 : -1) ; // Velocidad en el eje Z
+        _currentSpeed_Y = yBoundaryReached ? 0 : _speedMax * (yAxisMovement >= 0.001f ? 1 : yAxisMovement == 0 ? 0 : -1) ; // Velocidad en el eje Y
 
         Vector3 movement = new Vector3(x: _currentSpeed_X, y: _currentSpeed_Y, z: _currentSpeed_Z);
 
@@ -105,10 +111,8 @@ public class SkycamController : MonoBehaviour
         transform.position = tempPos;
 
         currentHeight = transform.position.y.ToString("N2");
-        // Guardamos la velocidad actual en una variable global
-        //g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0.0, 0.35);
-
-        g_variables.currentSpeed = 0.05; // 50 mm/s
+        
+        g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0.0, 0.35);
 
         g_variables.spx = transform.position.x; // Posicion en el eje X de la Skycam
         g_variables.spy = transform.position.z; // Posicion en el eje Y de la Skycam
