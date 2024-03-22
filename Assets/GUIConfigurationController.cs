@@ -41,12 +41,12 @@ public class GUIConfigurationController : MonoBehaviour
     void Awake()
     {
         // Descomentar lineas 38 a 41 si queres borrar lo guardado en PlayerPrefs y empezar con flujo inicial del programa.
-        PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
-        PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.MAX_VELOCITY.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.UPLOADED_IMAGE.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.IS_USER_CHANGING_CONFIG.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.LENGTH.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.WIDTH.ToString());
+        // PlayerPrefs.DeleteKey(CommonConfigKeys.HEIGHT.ToString());
 
         // Fue el unico workaround que encontre para que al volver a la pantalla para cambiar la configuracion
         // se pueda mantener el valor del flag isUserChangingConfigValue.
@@ -87,9 +87,9 @@ public class GUIConfigurationController : MonoBehaviour
                 // velociad maxima, aceleracion y dropdown menu
                 maximumVelocityInput.SetTextWithoutNotify(PlayerPrefs.GetString(CommonConfigKeys.MAX_VELOCITY.ToString()));
                 baudiosDropdownMenu.value = PlayerPrefs.GetInt(CommonConfigKeys.BAUDIOS_ARDUINO_OPTION_INDEX.ToString());
-                lengthInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()) * 2f).ToString());
-                widthInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()) * 2f).ToString());
-                heightInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) * 2f).ToString());
+                lengthInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString())).ToString());
+                widthInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString())).ToString());
+                heightInputField.SetTextWithoutNotify((PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString())).ToString());
 
                 // Mostramos la imagen del campo guardada previamente
                 LoadFieldUploadedImage();
@@ -144,20 +144,20 @@ public class GUIConfigurationController : MonoBehaviour
     }
     private void SaveHeight()
     {
-        heightValue = float.Parse(heightInputField.text) / 2;
+        heightValue = float.Parse(heightInputField.text);
         PlayerPrefs.SetFloat(CommonConfigKeys.HEIGHT.ToString(), heightValue);
     }
     private void SaveWidth()
     {
         // Guardo en una variable el valor del input field de ancho
-        widthValue = float.Parse(widthInputField.text) / 2;
+        widthValue = float.Parse(widthInputField.text);
         PlayerPrefs.SetFloat(CommonConfigKeys.WIDTH.ToString(), widthValue);
 
     }
     private void SaveLength()
     {
         // Guardo en una variable el valor del input field de largo
-        lengthValue = float.Parse(lengthInputField.text) / 2;
+        lengthValue = float.Parse(lengthInputField.text);
         PlayerPrefs.SetFloat(CommonConfigKeys.LENGTH.ToString(), lengthValue);
     }
 
