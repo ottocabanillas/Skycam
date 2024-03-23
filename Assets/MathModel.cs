@@ -65,12 +65,14 @@ public class MathModel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        calculateMotorVelocities()
+        setMotorsDirections()
 
     }
 
     void setupValues()
     {
-        // Se convierte el Alto x Ancho x Largo de [m] a [mm]
+        // Convert to mm 
         // Area de trabajo 
         heightValue = PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) * 1000.0f;
         widthValue = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()) * 1000.0f;
@@ -80,5 +82,41 @@ public class MathModel : MonoBehaviour
         Debug.Log(heightValue);
         Debug.Log(widthValue);
         Debug.Log(lengthValue);
+
+        // Convert to mm
+        r1sP, 
+        r2sP, 
+        r3sP, 
+        r4sP = r4sP * 1000.0f;
+
+
+    }
+
+    public void calculateMotorVelocities()
+    {
+        if (time <= 0)
+        {
+            v1 = 0;
+            v2 = 0;
+            v3 = 0;
+            v4 = 0;
+            return;
+        }
+
+        // Velocidades de los 4 motores en [mm/s]
+        v1 = Math.Round((dR1 / time) * 1000, MidpointRounding.AwayFromZero);
+        v2 = Math.Round((dR1 / time) * 1000, MidpointRounding.AwayFromZero);
+        v3 = Math.Round((dR1 / time) * 1000, MidpointRounding.AwayFromZero);
+        v4 = Math.Round((dR1 / time) * 1000, MidpointRounding.AwayFromZero);
+        return;
+    }
+
+    public void setMotorsDirections()
+    {
+        motorsDirections[0] = v1 >= 0 ? "F" : "R";
+        motorsDirections[1] = v2 >= 0 ? "F" : "R";
+        motorsDirections[2] = v3 >= 0 ? "F" : "R";
+        motorsDirections[3] = v4 >= 0 ? "F" : "R";
+        return;
     }
 }

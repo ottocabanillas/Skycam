@@ -113,7 +113,7 @@ public class RopeSpeedFormatter : MonoBehaviour
         while (ArduinoController.isSerialConnEstablished)
         {
             SendTimeToLive();
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
@@ -136,7 +136,7 @@ public class RopeSpeedFormatter : MonoBehaviour
                 ArduinoController.Instance.SendValue(payload);  
             }
             //Debug.Log("DATOS ENVIADOS: " + payload);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 }
