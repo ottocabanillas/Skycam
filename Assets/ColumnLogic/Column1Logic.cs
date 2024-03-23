@@ -15,9 +15,9 @@ public class Column1Logic : MonoBehaviour
     {
         columnHeightValue = PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) / 2.0f;
 
-        positionX = 0.05f;
+        positionX = -0.035f;
         positionY = columnHeightValue; 
-        positionZ = 0.05f;
+        positionZ = -0.035f;
 
         scaleChange = new Vector3(scaleX, columnHeightValue, scaleZ);
         column1Object.transform.localScale = scaleChange;
@@ -29,6 +29,7 @@ public class Column1Logic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        positionChange = new Vector3(positionX, columnHeightValue, positionZ);
+        column1Object.transform.position = positionChange;
     }
 }

@@ -12,9 +12,7 @@ public class Rope3Controller : MonoBehaviour
     [SerializeField]
     private TMP_Text sp3Text; // Texto para mostrar el largo deseado L3
 
-    private Vector3 rightTopVertex,
-        ropePole,
-        poleTop;
+    private Vector3 frontLeftTopVertex, ropePole, poleTop;
     private float ropeLength, previousRopeLength;
     private LineRenderer lineRenderer;
 
@@ -26,18 +24,20 @@ public class Rope3Controller : MonoBehaviour
         g_variables.mt3 = new Vector3(3.15f, 1.85f, 2.28f);
 
         lineRenderer = rope.GetComponent<LineRenderer>();
-        ropePole = pole.transform.TransformPoint(new Vector3(-0.35f, 1.00f, -0.35f));
-        lineRenderer.SetPosition(1, ropePole);
+        // ropePole = pole.transform.TransformPoint(new Vector3(-0.35f, 1.00f, -0.35f));
+        // lineRenderer.SetPosition(0, ropePole);
 
-        rightTopVertex = cube.transform.TransformPoint(new Vector3(0.25f, 0.25f, 0.25f));
-        previousRopeLength = Vector3.Distance(rightTopVertex, ropePole);
+        frontLeftTopVertex = cube.transform.TransformPoint(new Vector3(0.25f, 0.25f, 0.25f));
+        previousRopeLength = Vector3.Distance(frontLeftTopVertex, ropePole);
     }
 
     void Update()
     {
+        ropePole = pole.transform.TransformPoint(new Vector3(-0.35f, 1.00f, -0.35f));
+        lineRenderer.SetPosition(0, ropePole);
         // Update the rope's end position to match the left top vertex of the cube
-        rightTopVertex = cube.transform.TransformPoint(new Vector3(0.25f, 0.25f, 0.25f));
-        lineRenderer.SetPosition(0, rightTopVertex);
+        frontLeftTopVertex = cube.transform.TransformPoint(new Vector3(0.5f, 0.5f, 0.5f));
+        lineRenderer.SetPosition(1, frontLeftTopVertex);
 
         Vector3 centroCamara = new Vector3(cube.transform.position.x, cube.transform.position.z, cube.transform.position.y);
         
@@ -45,6 +45,9 @@ public class Rope3Controller : MonoBehaviour
         ropeLength = Vector3.Distance(g_variables.mt3, centroCamara);
         g_variables.sp3 = ropeLength;
 
-        sp3Text.SetText("SP3: " + (g_variables.sp3 * 1000).ToString("N0") + " mm");
+        ropeLength = Vector3.Distance(frontLeftTopVertex, ropePole);
+        Debug.Log("Cuerda 3: " + ropeLength);
+
+        sp3Text.SetText("SP3: " + (ropeLength * 1000.0f).ToString("N0") + " mm");
     }
 }

@@ -16,7 +16,7 @@ public class FloorLogic : MonoBehaviour
         scaleZ = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString());
 
         positionX = scaleX / 2.0f;
-        positionY = -0.05f; 
+        positionY = 0.0f; 
         positionZ = scaleZ / 2.0f;
 
         scaleChange = new Vector3(scaleX, scaleY, scaleZ);

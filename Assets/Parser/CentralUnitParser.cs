@@ -8,7 +8,7 @@ public class CentralUnitParser
     // Unica instancia de CentralUnitParser
     private static CentralUnitParser _instance;
 
-    private GlobalVariables g_variables;
+    public MathModel g_variables;
 
     // Propiedad para acceder a la instancia.
     public static CentralUnitParser Instance
@@ -26,12 +26,12 @@ public class CentralUnitParser
     // Constructor
     private CentralUnitParser()
     {
-        g_variables = GlobalVariables.Instance;
+        g_variables = MathModel.Instance;
         m_currentState = State.ST_INIT;
         m_numberBuffer = new StringBuilder(20);
     }
 
-    public long[] m_vmuLengthArr = new long[4]; // Para el largo de cada VMU
+    public float[] m_vmuLengthArr = new float[4]; // Para el largo de cada VMU
     public char[] m_vmuStatArr = new char[4]; // Para el status de cada VMU
     public char m_lastInputChar = '\0'; // Ultimo caracter recibido de Unidad Central
     private static bool m_isSkycamStatusOk = false; // Variable para determinar cuando los 4 VMUs estan OK
@@ -251,10 +251,10 @@ public class CentralUnitParser
                         // fin del mensaje
                         m_numberBuffer.Clear();
                         //Debug.Log("Central Unit stat OK");
-                        g_variables.R1 = m_vmuLengthArr[0];
-                        g_variables.R2 = m_vmuLengthArr[1];
-                        g_variables.R3 = m_vmuLengthArr[2];
-                        g_variables.R4 = m_vmuLengthArr[3];
+                        g_variables.r1Length = m_vmuLengthArr[0];
+                        g_variables.r2Length = m_vmuLengthArr[1];
+                        g_variables.r3Length = m_vmuLengthArr[2];
+                        g_variables.r4Length = m_vmuLengthArr[3];
                         //Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
                         m_currentState = State.ST_INIT;
                         break;

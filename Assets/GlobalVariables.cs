@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GlobalVariables
 {
-    // Instancia única de la clase
     private static GlobalVariables _instance;
 
     // Propiedad para acceder a la instancia.

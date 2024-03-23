@@ -16,8 +16,8 @@ public class Column4Logic : MonoBehaviour
         floorWidthValue = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString());
         floorLengthValue = PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString());
 
-        positionX = floorLengthValue - 0.05f;
-        positionZ = 0.05f;
+        positionX = floorLengthValue + 0.035f;
+        positionZ = -0.035f;
 
         scaleChange = new Vector3(scaleX, columnHeightValue, scaleZ);
         column4Object.transform.localScale = scaleChange;

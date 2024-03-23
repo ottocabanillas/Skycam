@@ -12,7 +12,7 @@ public class Rope2Controller : MonoBehaviour
     [SerializeField]
     private TMP_Text sp2Text; // Texto para mostrar el largo deseado L2
 
-    private Vector3 rightTopVertex,
+    private Vector3 rearRightTopVertex,
         ropeEnd,
         ropePole,
         poleTop;
@@ -28,25 +28,30 @@ public class Rope2Controller : MonoBehaviour
         g_variables.mt2 = new Vector3(0f, 1.85f, 2.28f);
         
         lineRenderer = rope.GetComponent<LineRenderer>();
-        ropePole = pole.transform.TransformPoint(new Vector3(0.35f, 1.00f, -0.35f));
-        lineRenderer.SetPosition(1, ropePole);
+        // ropePole = pole.transform.TransformPoint(new Vector3(0.5f, 0.5f, -0.5f));
+        // lineRenderer.SetPosition(0, ropePole);
 
-        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, 0.25f));
-        previousRopeLength = Vector3.Distance(rightTopVertex, ropePole);
+        rearRightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, 0.25f));
+        previousRopeLength = Vector3.Distance(rearRightTopVertex, ropePole);
     }
 
     void Update()
     {
+        ropePole = pole.transform.TransformPoint(new Vector3(0.35f, 1.00f, -0.35f));
+        lineRenderer.SetPosition(0, ropePole);
         // Update the rope's end position to match the left top vertex of the cube
-        rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, 0.25f));
-        lineRenderer.SetPosition(0, rightTopVertex);
+        rearRightTopVertex = cube.transform.TransformPoint(new Vector3(-0.5f, 0.5f, 0.5f));
+        lineRenderer.SetPosition(1, rearRightTopVertex);
 
         Vector3 centroCamara = new Vector3(cube.transform.position.x, cube.transform.position.y, cube.transform.position.z);
 
         // Actualizar el largo de la cuerda 2 mientras la Skycam se mueve
-        ropeLength = Vector3.Distance(g_variables.mt2, centroCamara);
-        g_variables.sp2 = ropeLength;
+        // ropeLength = Vector3.Distance(g_variables.mt2, centroCamara);
+        // g_variables.sp2 = ropeLength;
 
-        sp2Text.SetText("SP2: " + (g_variables.sp2 * 1000).ToString("N0") + " mm");
+        ropeLength = Vector3.Distance(rearRightTopVertex, ropePole);
+        Debug.Log("Cuerda 2: " + ropeLength);
+
+        sp2Text.SetText("SP2: " + (ropeLength * 1000.0f).ToString("N0") + " mm");
     }
 }

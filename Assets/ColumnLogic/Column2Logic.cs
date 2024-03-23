@@ -15,8 +15,8 @@ public class Column2Logic : MonoBehaviour
         columnHeightValue = PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) / 2.0f;
         floorWidthValue = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString());
 
-        positionX = 0.05f;
-        positionZ = floorWidthValue - 0.05f;
+        positionX = -0.035f;
+        positionZ = floorWidthValue + 0.035f;
 
         scaleChange = new Vector3(scaleX, columnHeightValue, scaleZ);
         column2Object.transform.localScale = scaleChange;
