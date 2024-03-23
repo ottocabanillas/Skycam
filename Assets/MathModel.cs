@@ -60,9 +60,9 @@ public class MathModel : MonoBehaviour
         directkinematics();
         calculateDeltaForDistance();
         calculateRopeLength();
-        setMotorsDirections();
+        calculateTime();
         calculateMotorVelocities();
-
+        setMotorsDirections();   
     }
 
     void setupValues()
@@ -175,23 +175,23 @@ public class MathModel : MonoBehaviour
     
     public void calculateRopeLength()
     {
-        newRopeLength = Math.Sqrt((dX*dX)+(dY*dY)+(dZ*dZ))
+        newRopeLength = Math.Sqrt((dX*dX)+(dY*dY)+(dZ*dZ));
     }
 
     public void calculateTime()
     {
-        time = newRopeLength / currentSpeed
+        time = newRopeLength / currentSpeed;
     }
     public void calculateMotorVelocities()
     {
-        if (time <= 0)
-        {
-            v1 = 0;
-            v2 = 0;
-            v3 = 0;
-            v4 = 0;
-            return;
-        }
+        // if (time <= 0)
+        // {
+        //     v1 = 0;
+        //     v2 = 0;
+        //     v3 = 0;
+        //     v4 = 0;
+        //     return;
+        // }
 
         // Velocidades de los 4 motores en [mm/s]
         // v1 = Math.Round((dR1 / time) * 1000, MidpointRounding.AwayFromZero);
@@ -199,11 +199,11 @@ public class MathModel : MonoBehaviour
         // v3 = Math.Round((dR3 / time) * 1000, MidpointRounding.AwayFromZero);
         // v4 = Math.Round((dR4 / time) * 1000, MidpointRounding.AwayFromZero);
 
-        // Velocidades de prueba seteadas en 50 mm/s
-        v1 = 50
-        v2 = 50
-        v3 = 50
-        v4 = 50
+        // Velocidades de prueba seteadas en 50 mm/s        
+        v1 = (dR1 >= 0 && dR1 < 10) ? 50 : -50;
+        v2 = (dR2 >= 0 && dR2 < 10) ? 50 : -50;
+        v3 = (dR3 >= 0 && dR3 < 10) ? 50 : -50;
+        v4 = (dR4 >= 0 && dR4 < 10) ? 50 : -50;
         return;
     }
     
