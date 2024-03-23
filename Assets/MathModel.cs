@@ -1,6 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using System;
 
 public class MathModel : MonoBehaviour
 {
@@ -54,9 +55,12 @@ public class MathModel : MonoBehaviour
     void Update()
     {
         setupValues();
-        calculateDeltaForDistance()
-        setMotorsDirections()
-        calculateMotorVelocities()
+        calculateDeltaForRope();
+        directkinematics();
+        calculateDeltaForDistance();
+        calculateRopeLength();
+        setMotorsDirections();
+        calculateMotorVelocities();
 
     }
 
@@ -98,6 +102,30 @@ public class MathModel : MonoBehaviour
 
     // Calcula la diferencia entre el largo de las cuerdas rXsP(1, 2 , 3, 4) rXLength(1, 2 , 3, 4)
     // -dRX(1, 2 , 3, 4) = rXsP(1, 2 , 3, 4) - rXLength(1, 2 , 3, 4)
+    public void calculateDeltaForRope()
+    {
+        dR1 = r1sP - r1Length;
+        dR2 = r2sP - r2Length; 
+        dR3 = r3sP - r3Length; 
+        dR4 = r4sP - r4Length;
+    }
+
+    // Cinemática directa (a partir de las cuerdas, calcula la posición de la cámara)
+    public void directkinematics()
+    {
+        aux1 = r1Length * r1Length;
+        aux2 = pX - (lengthSkyCam / 2); 
+        aux3 = pZ - (widthSkyCam / 2);
+
+        pX = ((r1Length * r1Length) - (r4Length * r4Length) + (lengthValue * lengthValue)-(lengthValue  * lengthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
+        pY = (heightValue) - (heightSkyCam / 2) - (Math.Sqrt((aux1) - (aux2 * aux2) - (aux3 * aux3)));
+        pZ = ((r4Length * r4Length) - (r3Length * r3Length) + (widthValue * widthValue)-(widthValue  * widthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
+
+        //Debug Valores en [mm]
+        // Debug.Log("Pto real de x: "pX);
+        // Debug.Log("Pto real de z: "pY);
+        // Debug.Log("Pto real de y: "pZ);
+    } 
 
     // Calcula la diferencia entre los puntos sP(x, y, z) y p(x, z y)
     // -d(x, y , z) = sP(x, y, z) - p(x, z y)
@@ -120,7 +148,7 @@ public class MathModel : MonoBehaviour
         return;
     }
 
-        public void calculateDeltaY()
+    public void calculateDeltaY()
     {
         if (double.IsNaN(pY) || double.IsNaN(sPY))
         {
@@ -132,7 +160,7 @@ public class MathModel : MonoBehaviour
         return;
     }   
 
-        public void calculateDeltaZ()
+    public void calculateDeltaZ()
     {
         if (double.IsNaN(pZ) || double.IsNaN(sPZ))
         {
@@ -144,6 +172,10 @@ public class MathModel : MonoBehaviour
         return;
     }       
     
+    public void calculateRopeLength()
+    {
+        
+    }
     public void calculateMotorVelocities()
     {
         if (time <= 0)
