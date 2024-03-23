@@ -219,10 +219,10 @@ public class MathModel : MonoBehaviour
         // v4 = Math.Round((dR4 / time) * 1000, MidpointRounding.AwayFromZero);
 
         // Velocidades de prueba seteadas en 50 mm/s        
-        v1 = (dR1 >= 0 && dR1 < 10) ? 50 : -50;
-        v2 = (dR2 >= 0 && dR2 < 10) ? 50 : -50;
-        v3 = (dR3 >= 0 && dR3 < 10) ? 50 : -50;
-        v4 = (dR4 >= 0 && dR4 < 10) ? 50 : -50;
+        v1 = (dR1 >= 10) ? 50 : (dR1 <= -10) ? -50 : 0;
+        v2 = (dR2 >= 10) ? 50 : (dR2 <= -10) ? -50 : 0;
+        v3 = (dR3 >= 10) ? 50 : (dR3 <= -10) ? -50 : 0;
+        v4 = (dR4 >= 10) ? 50 : (dR4 <= -10) ? -50 : 0;
         return;
     }
     
