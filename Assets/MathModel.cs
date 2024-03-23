@@ -39,7 +39,7 @@ public class MathModel : MonoBehaviour
     public float time;
     // -Diferencia entre el largo real (rXLength) y y esperado (rXsP) [mm]
     private float dR1, dR2, dR3, dR4;
-    public float distanceRope;
+    public float newRopeLength;
 
     // Objects used by unity
     public GameObject skyCamArgos, rope1, rope2, rope3, rope4;
@@ -174,7 +174,7 @@ public class MathModel : MonoBehaviour
     
     public void calculateRopeLength()
     {
-        
+        newRopeLength = Math.Sqrt((dX*dX)+(dY*dY)+(dZ*dZ))
     }
     public void calculateMotorVelocities()
     {
