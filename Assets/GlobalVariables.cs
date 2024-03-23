@@ -188,9 +188,9 @@ public class GlobalVariables
         return;
     }
 
-    /* Funcion encargada de establecer las direcciones de cada motor
-       de acuerdo al signo de cada velocidad calculada
-    */
+    // Funcion encargada de establecer las direcciones de cada motor
+    // de acuerdo al signo de cada velocidad calculada
+    
     public void SetMotorsDirections()
     {
         motorsDirections[0] = v1 >= 0 ? "F" : "R";
