@@ -11,12 +11,9 @@ public class Rope1Controller : MonoBehaviour
     private TMP_Text sp1Text; // Texto para mostrar el largo deseado L1    
     public GameObject cube, rope_1, column_1; // Para asignar Skycam, cuerda y poste desde el inspector
     private Vector3 frontRightTopVertex, ropePole, poleTop;
-    private float ropeLength, previousRopeLength;
+    public static float ropeLength, previousRopeLength;
     private LineRenderer lineRenderer;
     
-
-    
-
     void Start()
     {
         // Instancia unica de la clase para almacenar las variables globales
@@ -43,9 +40,10 @@ public class Rope1Controller : MonoBehaviour
         
         // Actualizar el largo de la cuerda 1 mientras la Skycam se mueve
         // ropeLength = Vector3.Distance(g_variables.mt1, centroCamara);
-        // g_variables.sp1 = ropeLength; 
+        
 
         ropeLength = Vector3.Distance(frontRightTopVertex, ropePole);
+        g_variables.sp1 = ropeLength; 
         // Debug.Log("Cuerda 1: " + ropeLength);
 
         sp1Text.SetText("SP1: " + (ropeLength * 1000.0f).ToString("N0") + " mm");

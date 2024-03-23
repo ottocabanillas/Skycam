@@ -5,6 +5,7 @@ using System;
 
 public class MathModel : MonoBehaviour
 {
+    private GlobalVariables g_variables;
     // Values for Field
     // -Size
     private float heightValue, widthValue, lengthValue;
@@ -51,13 +52,14 @@ public class MathModel : MonoBehaviour
 
     void Start()
     {
-        // setupValues();
+        g_variables = GlobalVariables.Instance;
+        setupValues();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // setupValues();
+        setupValues();
         // calculateDeltaForRope();
         // directkinematics();
         // calculateDeltaForDistance();
@@ -80,27 +82,41 @@ public class MathModel : MonoBehaviour
         // Debug.Log(widthValue);
         // Debug.Log(lengthValue);
         
-        // Length Rope
-        r1sP = r1sP * 1000.0f;
-        r2sP = r2sP * 1000.0f;
-        r3sP = r3sP * 1000.0f;
-        r4sP = r4sP * 1000.0f;
+        // Length Rope skycam
+        r1sP = (float)g_variables.sp1 * 1000.0f;
+        // r2sP = r2sP * 1000.0f;
+        // r3sP = r3sP * 1000.0f;
+        // r4sP = r4sP * 1000.0f;
 
         //Debug Valores en [mm]
-        // Debug.Log(r1sP);
+        Debug.Log("Largo de Cuerda r1sP" + r1sP);
         // Debug.Log(r2sP);
         // Debug.Log(r3sP);
         // Debug.Log(r4sP);
+
+        // Length Rope from UC
+        r1Length = (float)g_variables.sp1 * 1000.0f;
+        // r1Length = r1Length * 1000.0f;
+        // r1Length = r1Length * 1000.0f;
+        // r1Length = r1Length * 1000.0f;
+
+        //Debug Valores en [mm]
+        Debug.Log("Largo de Cuerda r1Length" + r1Length);
+        // Debug.("Largo de Cuerda r1Length" + r1Length);
+        // Debug.("Largo de Cuerda r1Length" + r1Length);
+        // Debug.("Largo de Cuerda r1Length" + r1Length);
         
         // Position Box
-        sPX = r1sP * 1000.0f;
-        sPY = r1sP * 1000.0f;
-        sPZ = r1sP * 1000.0f;
+        // sPX = r1sP * 1000.0f;
+        // sPY = r1sP * 1000.0f;
+        // sPZ = r1sP * 1000.0f;
 
         //Debug Valores en [mm]
         // Debug.Log(sPX);
         // Debug.Log(sPY);
         // Debug.Log(sPZ);
+
+
     }
 
     // Calcula la diferencia entre el largo de las cuerdas rXsP(1, 2 , 3, 4) rXLength(1, 2 , 3, 4)
