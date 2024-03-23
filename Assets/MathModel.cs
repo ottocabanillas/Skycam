@@ -39,6 +39,8 @@ public class MathModel : MonoBehaviour
     public float time;
     // -Diferencia entre el largo real (rXLength) y y esperado (rXsP) [mm]
     private float dR1, dR2, dR3, dR4;
+
+    private float aux1, aux2, aux3;
     // -New length of rope
     public float newRopeLength;
 
@@ -49,20 +51,20 @@ public class MathModel : MonoBehaviour
 
     void Start()
     {
-        setupValues();
+        // setupValues();
     }
 
     // Update is called once per frame
     void Update()
     {
-        setupValues();
-        calculateDeltaForRope();
-        directkinematics();
-        calculateDeltaForDistance();
-        calculateRopeLength();
-        calculateTime();
-        calculateMotorVelocities();
-        setMotorsDirections();   
+        // setupValues();
+        // calculateDeltaForRope();
+        // directkinematics();
+        // calculateDeltaForDistance();
+        // calculateRopeLength();
+        // calculateTime();
+        // calculateMotorVelocities();
+        // setMotorsDirections();   
     }
 
     void setupValues()
@@ -119,7 +121,7 @@ public class MathModel : MonoBehaviour
         aux3 = pZ - (widthSkyCam / 2);
 
         pX = ((r1Length * r1Length) - (r4Length * r4Length) + (lengthValue * lengthValue)-(lengthValue  * lengthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
-        pY = (heightValue) - (heightSkyCam / 2) - (Math.Sqrt((aux1) - (aux2 * aux2) - (aux3 * aux3)));
+        pY = (heightValue) - (heightSkyCam / 2) - (float)(Math.Sqrt((aux1) - (aux2 * aux2) - (aux3 * aux3)));
         pZ = ((r4Length * r4Length) - (r3Length * r3Length) + (widthValue * widthValue)-(widthValue  * widthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
 
         //Debug Valores en [mm]
@@ -175,13 +177,14 @@ public class MathModel : MonoBehaviour
     
     public void calculateRopeLength()
     {
-        newRopeLength = Math.Sqrt((dX*dX)+(dY*dY)+(dZ*dZ));
+        newRopeLength = (float)Math.Sqrt((dX*dX)+(dY*dY)+(dZ*dZ));
     }
 
     public void calculateTime()
     {
         time = newRopeLength / currentSpeed;
     }
+    
     public void calculateMotorVelocities()
     {
         // if (time <= 0)

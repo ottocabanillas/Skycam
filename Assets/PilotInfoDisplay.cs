@@ -58,14 +58,14 @@ public class PilotInfoDisplay : MonoBehaviour
 
     private DirectKinematic directKinematicModel;
 
-    private MathModel g_variables;
+    private GlobalVariables g_variables;
 
     private Vector3 desiredPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        g_variables = MathModel.Instance;
+        g_variables = GlobalVariables.Instance;
         //directKinematicModel = DirectKinematic.Instance;
         desiredPosition = skycam.transform.position;
         sp_xText.SetText("SPx: " + (desiredPosition.x * 1000).ToString("N0") + " mm");
@@ -73,21 +73,21 @@ public class PilotInfoDisplay : MonoBehaviour
         sp_zText.SetText("SPz: " + (desiredPosition.y * 1000).ToString("N0") + " mm");
 
         // Largos reales de cuerdas emitidos por ArgosUC
-        r1Text.SetText("R1: " + (g_variables.r1Length).ToString("N0") + " mm");
-        r2Text.SetText("R2: " + (g_variables.r2Length).ToString("N0") + " mm");
-        r3Text.SetText("R3: " + (g_variables.r3Length).ToString("N0") + " mm");
-        r4Text.SetText("R4: " + (g_variables.r4Length).ToString("N0") + " mm");
+        r1Text.SetText("R1: " + (g_variables.R1).ToString("N0") + " mm");
+        r2Text.SetText("R2: " + (g_variables.R2).ToString("N0") + " mm");
+        r3Text.SetText("R3: " + (g_variables.R3).ToString("N0") + " mm");
+        r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
 
         // Posicion X,Y,Z real
-        rxText.SetText("Rx: " + (g_variables.pX * 1000).ToString("N2") + " mm");
-        ryText.SetText("Ry: " + (g_variables.pY * 1000).ToString("N2") + " mm");
-        rzText.SetText("Rz: " + (g_variables.pZ * 1000).ToString("N2") + " mm");
+        rxText.SetText("Rx: " + (g_variables.Rx * 1000).ToString("N2") + " mm");
+        ryText.SetText("Ry: " + (g_variables.Rz * 1000).ToString("N2") + " mm");
+        rzText.SetText("Rz: " + (g_variables.Ry * 1000).ToString("N2") + " mm");
 
         // Texto distancia
-        distanceText.SetText("D: " + (g_variables.distanceRope * 1000).ToString("N0") + " mm");
+        distanceText.SetText("D: " + (g_variables.d * 1000).ToString("N0") + " mm");
 
         // Tiempo
-        timeText.SetText("T: " + (g_variables.time * 1000).ToString("N0") + " s");
+        timeText.SetText("T: " + (g_variables.T * 1000).ToString("N0") + " s");
         
         // Velocidades de los motores
         v1Text.SetText("V1: " + (g_variables.v1).ToString("N2") + " mm/s");
@@ -100,41 +100,38 @@ public class PilotInfoDisplay : MonoBehaviour
     void Update()
     {
         desiredPosition = skycam.transform.position;
-        MathModel.sPX = desiredPosition.x;
-        MathModel.sPY = desiredPosition.y;
-        MathModel.sPZ = desiredPosition.z;
         // Posicion deseada X,Y,Z
-        sp_xText.SetText("SPx: " + (MathModel.sPX * 1000).ToString("N0") + " mm");
-        sp_yText.SetText("SPy: " + (MathModel.sPZ * 1000).ToString("N0") + " mm");
-        sp_zText.SetText("SPz: " + (MathModel.sPY * 1000).ToString("N0") + " mm");
+        sp_xText.SetText("SPx: " + (desiredPosition.x * 1000).ToString("N0") + " mm");
+        sp_yText.SetText("SPy: " + (desiredPosition.z * 1000).ToString("N0") + " mm");
+        sp_zText.SetText("SPz: " + (desiredPosition.y * 1000).ToString("N0") + " mm");
 
         // Largos reales de cuerdas emitidos por ArgosUC
-        r1Text.SetText("R1: " + (g_variables.r1Length).ToString("N0") + " mm");
-        r2Text.SetText("R2: " + (g_variables.r2Length).ToString("N0") + " mm");
-        r3Text.SetText("R3: " + (g_variables.r3Length).ToString("N0") + " mm");
-        r4Text.SetText("R4: " + (g_variables.r4Length).ToString("N0") + " mm");
+        r1Text.SetText("R1: " + (g_variables.R1).ToString("N0") + " mm");
+        r2Text.SetText("R2: " + (g_variables.R2).ToString("N0") + " mm");
+        r3Text.SetText("R3: " + (g_variables.R3).ToString("N0") + " mm");
+        r4Text.SetText("R4: " + (g_variables.R4).ToString("N0") + " mm");
 
         // Posicion X, Y, Z real
-        if (double.IsNaN(g_variables.pX))
+        if (double.IsNaN(g_variables.Rx))
             rxText.SetText("Rx: N/A");
         else
-            rxText.SetText("Rx: " + (g_variables.pX * 1000).ToString("N0") + " mm");
+            rxText.SetText("Rx: " + (g_variables.Rx * 1000).ToString("N0") + " mm");
 
-        if (double.IsNaN(g_variables.pZ))
+        if (double.IsNaN(g_variables.Rz))
             ryText.SetText("Ry: N/A");
         else
-            ryText.SetText("Ry: " + (g_variables.pZ * 1000).ToString("N0") + " mm");
+            ryText.SetText("Ry: " + (g_variables.Rz * 1000).ToString("N0") + " mm");
 
-        if (double.IsNaN(g_variables.pY))
+        if (double.IsNaN(g_variables.Ry))
             rzText.SetText("Rz: N/A");
         else
-            rzText.SetText("Rz: " + (g_variables.pY * 1000).ToString("N0") + " mm");
+            rzText.SetText("Rz: " + (g_variables.Ry * 1000).ToString("N0") + " mm");
 
         // Texto distancia
-        distanceText.SetText("D: " + (g_variables.distanceRope * 1000).ToString("N0") + " mm");
+        distanceText.SetText("D: " + (g_variables.d * 1000).ToString("N0") + " mm");
 
         // Tiempo
-        timeText.SetText("T: " + (g_variables.time * 1000).ToString("N0") + " s");
+        timeText.SetText("T: " + (g_variables.T * 1000).ToString("N0") + " s");
         
         // Velocidades de los motores
         v1Text.SetText("V1: " + (g_variables.v1).ToString("N2") + " mm/s");

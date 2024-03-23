@@ -50,7 +50,7 @@ public class Rope2Controller : MonoBehaviour
         // g_variables.sp2 = ropeLength;
 
         ropeLength = Vector3.Distance(rearRightTopVertex, ropePole);
-        Debug.Log("Cuerda 2: " + ropeLength);
+        // Debug.Log("Cuerda 2: " + ropeLength);
 
         sp2Text.SetText("SP2: " + (ropeLength * 1000.0f).ToString("N0") + " mm");
     }
