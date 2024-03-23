@@ -12,9 +12,9 @@ public class Column3Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       columnHeightValue = PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) / 2.0f;
-       floorWidthValue = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString());
-       floorLengthValue = PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString());
+        columnHeightValue = PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) / 2.0f;
+        floorWidthValue = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString());
+        floorLengthValue = PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString());
 
         positionX = floorLengthValue - 0.05f;
         positionZ = floorWidthValue - 0.05f;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StartUp : MonoBehaviour
 {
+    private float columnHeightValue, floorWidthValue, floorLengthValue;
+    private Vector3 positionChangeSkycam;
+    private float positionX, positionY, positionZ; 
     public GameObject poste1,poste2, poste3, poste4;
     public GameObject skycamOtto;
     public GameObject floor;
@@ -15,6 +18,17 @@ public class StartUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        columnHeightValue = PlayerPrefs.GetFloat(CommonConfigKeys.HEIGHT.ToString()) / 2.0f;
+        floorWidthValue = PlayerPrefs.GetFloat(CommonConfigKeys.WIDTH.ToString()) / 2.0f;
+        floorLengthValue = PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()) / 2.0f;
+
+        positionX = floorLengthValue;
+        positionY = columnHeightValue;
+        positionZ = floorWidthValue;
+
+        positionChangeSkycam = new Vector3(positionX, positionY, positionZ);
+        skycamOtto.transform.position = positionChangeSkycam;  
+
         trueLength = 10f;
         trueWidth = 5.00f;
         trueHeight = 2.00f;

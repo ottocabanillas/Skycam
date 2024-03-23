@@ -5,20 +5,17 @@ using System;
 using TMPro;
 public class Rope1Controller : MonoBehaviour
 {
-    public GameObject cube,
-        rope,
-        pole; // Para asignar Skycam, cuerda y poste desde el inspector
-
+    [SerializeField]
+    private TMP_Text sp1Text; // Texto para mostrar el largo deseado L1    
+    public GameObject cube, rope_1, column_1; // Para asignar Skycam, cuerda y poste desde el inspector
     private Vector3 rightTopVertex,
         ropePole,
         poleTop;
     private float ropeLength, previousRopeLength;
     private LineRenderer lineRenderer;
-
-    private GlobalVariables g_variables; 
-
-    [SerializeField]
-    private TMP_Text sp1Text; // Texto para mostrar el largo deseado L1
+    
+    private GlobalVariables g_variables;
+    
 
     void Start()
     {
@@ -26,8 +23,8 @@ public class Rope1Controller : MonoBehaviour
         g_variables = GlobalVariables.Instance;
         g_variables.mt1 = new Vector3(0f,0f,2.28f);
 
-        lineRenderer = rope.GetComponent<LineRenderer>();
-        ropePole = pole.transform.TransformPoint(new Vector3(0.35f, 1.00f, 0.35f));
+        lineRenderer = rope_1.GetComponent<LineRenderer>();
+        ropePole = column_1.transform.TransformPoint(new Vector3(0.35f, 1.00f, 0.35f));
         lineRenderer.SetPosition(1, ropePole);
 
         rightTopVertex = cube.transform.TransformPoint(new Vector3(-0.25f, 0.25f, -0.25f));
