@@ -96,8 +96,11 @@ public class MathModel : MonoBehaviour
         // Debug.Log(sPZ);
     }
 
-    // Calcular la diferencia entre p(x, y, z) y sP(x, z y)
-    // -d(x, y ,z) = p(x, y, z) - sP(x, z y)
+    // Calcula la diferencia entre el largo de las cuerdas rXsP(1, 2 , 3, 4) rXLength(1, 2 , 3, 4)
+    // -dRX(1, 2 , 3, 4) = rXsP(1, 2 , 3, 4) - rXLength(1, 2 , 3, 4)
+
+    // Calcula la diferencia entre los puntos sP(x, y, z) y p(x, z y)
+    // -d(x, y , z) = sP(x, y, z) - p(x, z y)
     public void calculateDeltaForDistance()
     {
         calculateDeltaX();
@@ -113,7 +116,7 @@ public class MathModel : MonoBehaviour
             return;
         }
 
-        dX = pX - sPX;
+        dX = sPX - pX;
         return;
     }
 
@@ -121,11 +124,11 @@ public class MathModel : MonoBehaviour
     {
         if (double.IsNaN(pY) || double.IsNaN(sPY))
         {
-            dX = 0;
+            dY = 0;
             return;
         }
 
-        dY = pY - sPY;
+        dY = sPY - pY;
         return;
     }   
 
@@ -133,11 +136,11 @@ public class MathModel : MonoBehaviour
     {
         if (double.IsNaN(pZ) || double.IsNaN(sPZ))
         {
-            dX = 0;
+            dZ = 0;
             return;
         }
 
-        dZ = pZ - sPZ;
+        dZ = sPZ - pZ;
         return;
     }       
     
