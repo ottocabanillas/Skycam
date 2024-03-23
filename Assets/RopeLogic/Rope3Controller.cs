@@ -40,14 +40,9 @@ public class Rope3Controller : MonoBehaviour
         lineRenderer.SetPosition(1, frontLeftTopVertex);
 
         Vector3 centroCamara = new Vector3(cube.transform.position.x, cube.transform.position.z, cube.transform.position.y);
-        
-        // Actualiza el largo de la cuerda 3 mientras la Skycam se mueve
-        ropeLength = Vector3.Distance(g_variables.mt3, centroCamara);
-        g_variables.sp3 = ropeLength;
 
         ropeLength = Vector3.Distance(frontLeftTopVertex, ropePole);
+        g_variables.sp3 = ropeLength;
         // Debug.Log("Cuerda 3: " + ropeLength);
-
-        sp3Text.SetText("SP3: " + (ropeLength * 1000.0f).ToString("N0") + " mm");
     }
 }

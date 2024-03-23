@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class MathModel : MonoBehaviour
 {
@@ -48,7 +49,23 @@ public class MathModel : MonoBehaviour
     // Objects used by unity
     public GameObject skyCamArgos, rope1, rope2, rope3, rope4;
 
-    // Propiedad para acceder a la instancia.
+    // 
+    public TMP_Text sPXText, sPYText, sPZText;
+
+    public TMP_Text r1sPText, r2sPText, r3sPText, r4sPText;
+
+    // UI Text for real ropes length
+    public TMP_Text r1LengthText, r2LengthText, r3LengthText, r4LengthText;
+
+    // UI Text for motor velocities
+    public TMP_Text v1Text, v2Text, v3Text, v4Text;
+
+    // UI Text for real x,y,z positions
+    public TMP_Text pXText, pYText, pZText;
+
+    public TMP_Text distanceText;
+
+    public TMP_Text timeText;
 
     void Start()
     {
@@ -66,7 +83,8 @@ public class MathModel : MonoBehaviour
         // calculateRopeLength();
         // calculateTime();
         // calculateMotorVelocities();
-        // setMotorsDirections();   
+        // setMotorsDirections();  
+        showUI(); 
     }
 
     void setupValues()
@@ -84,37 +102,37 @@ public class MathModel : MonoBehaviour
         
         // Length Rope skycam
         r1sP = (float)g_variables.sp1 * 1000.0f;
-        // r2sP = r2sP * 1000.0f;
-        // r3sP = r3sP * 1000.0f;
-        // r4sP = r4sP * 1000.0f;
+        r2sP = (float)g_variables.sp2 * 1000.0f;
+        r3sP = (float)g_variables.sp3 * 1000.0f;
+        r4sP = (float)g_variables.sp3 * 1000.0f;
 
-        //Debug Valores en [mm]
-        Debug.Log("Largo de Cuerda r1sP" + r1sP);
+        // Debug Valores en [mm]
+        // Debug.Log("Largo de Cuerda r1sP" + r1sP);
         // Debug.Log(r2sP);
         // Debug.Log(r3sP);
         // Debug.Log(r4sP);
 
         // Length Rope from UC
-        r1Length = (float)g_variables.sp1 * 1000.0f;
-        // r1Length = r1Length * 1000.0f;
-        // r1Length = r1Length * 1000.0f;
-        // r1Length = r1Length * 1000.0f;
+        r1Length = (float)g_variables.R1;
+        r2Length = (float)g_variables.R2;
+        r3Length = (float)g_variables.R3;
+        r4Length = (float)g_variables.R4;
 
         //Debug Valores en [mm]
-        Debug.Log("Largo de Cuerda r1Length" + r1Length);
+        //Debug.Log("Largo de Cuerda r1Length" + r1Length);
         // Debug.("Largo de Cuerda r1Length" + r1Length);
         // Debug.("Largo de Cuerda r1Length" + r1Length);
         // Debug.("Largo de Cuerda r1Length" + r1Length);
         
         // Position Box
-        // sPX = r1sP * 1000.0f;
-        // sPY = r1sP * 1000.0f;
-        // sPZ = r1sP * 1000.0f;
+        sPX = (float)g_variables.spx * 1000.0f;
+        sPY = (float)g_variables.spz * 1000.0f;
+        sPZ = (float)g_variables.spy * 1000.0f;
 
         //Debug Valores en [mm]
-        // Debug.Log(sPX);
-        // Debug.Log(sPY);
-        // Debug.Log(sPZ);
+        // Debug.Log("sPX: " + sPX);
+        // Debug.Log("sPy: " + sPY);
+        // Debug.Log("sPz: " + sPZ);
 
 
     }
@@ -241,5 +259,40 @@ public class MathModel : MonoBehaviour
         // Debug.Log("Dir Motor 2: " + motorsDirections[1]);
         // Debug.Log("Dir Motor 3: " + motorsDirections[2]);
         // Debug.Log("Dir Motor 4: " + motorsDirections[3]);
+    }
+
+    public void showUI()
+    {
+        // UI Unity x,y,z
+        sPXText.SetText("SPx: " + (sPX).ToString("N0") + " mm");
+        sPYText.SetText("SPy: " + (sPY).ToString("N0") + " mm");
+        sPZText.SetText("SPz: " + (sPZ).ToString("N0") + " mm");
+
+        // UI unity rope lengths
+        r1sPText.SetText("SP1: " + (r1sP).ToString("N0") + " mm");
+        r2sPText.SetText("SP2: " + (r2sP).ToString("N0") + " mm");
+        r3sPText.SetText("SP3: " + (r3sP).ToString("N0") + " mm");
+        r4sPText.SetText("SP4: " + (r4sP).ToString("N0") + " mm");
+
+        // UI real rope lengths
+        r1LengthText.SetText("R1: " + (r1Length).ToString("N0") + " mm");
+        r2LengthText.SetText("R2: " + (r2Length).ToString("N0") + " mm");
+        r3LengthText.SetText("R3: " + (r3Length).ToString("N0") + " mm");
+        r4LengthText.SetText("R4: " + (r4Length).ToString("N0") + " mm");
+
+        // UI real x,y,z
+        pXText.SetText("Rx: " + (pX).ToString("N2") + " mm");
+        pYText.SetText("Ry: " + (pY).ToString("N2") + " mm");
+        pZText.SetText("Rz: " + (pZ).ToString("N2") + " mm");
+
+        distanceText.SetText("D: " + (newRopeLength).ToString("N0") + " mm");
+
+        timeText.SetText("T: " + (time).ToString("N0") + " s");
+        
+        // UI motor velocities
+        v1Text.SetText("V1: " + (v1).ToString("N2") + " mm/s");
+        v2Text.SetText("V2: " + (v2).ToString("N2") + " mm/s");
+        v3Text.SetText("V3: " + (v3).ToString("N2") + " mm/s");
+        v4Text.SetText("V4: " + (v4).ToString("N2") + " mm/s");
     }
 }
