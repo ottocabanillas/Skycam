@@ -44,8 +44,6 @@ public class Rope1Controller : MonoBehaviour
 
         ropeLength = Vector3.Distance(frontRightTopVertex, ropePole);
         g_variables.sp1 = ropeLength; 
-        // Debug.Log("Cuerda 1: " + ropeLength);
-
-        sp1Text.SetText("SP1: " + (ropeLength * 1000.0f).ToString("N0") + " mm");
+        Debug.Log("Cuerda 1: " + ropeLength);
     }
 }

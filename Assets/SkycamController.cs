@@ -115,18 +115,18 @@ public class SkycamController : MonoBehaviour
         g_variables.currentSpeed = Math.Clamp(movement.magnitude, 0.0, 0.35);
 
         g_variables.spx = transform.position.x; // Posicion en el eje X de la Skycam
-        g_variables.spy = transform.position.z; // Posicion en el eje Y de la Skycam
-        g_variables.spz = transform.position.y; // Posicion en el eje Z de la Skycam
+        g_variables.spy = transform.position.y; // Posicion en el eje Y de la Skycam
+        g_variables.spz = transform.position.z; // Posicion en el eje Z de la Skycam
 
         // Calcular DX, DY, DZ
-        g_variables.calculateDeltaX();
-        g_variables.calculateDeltaY();
-        g_variables.calculateDeltaZ();
+        //g_variables.calculateDeltaX();
+        //g_variables.calculateDeltaY();
+        //g_variables.calculateDeltaZ();
 
         // Calcular D
-        g_variables.calculateDistance();
+        //g_variables.calculateDistance();
         // Calcular T
-        g_variables.calculateTime();
+        //g_variables.calculateTime();
     }
 
     void CheckBoundaries(ref float position, float negativeBoundary, float positiveBoundary, ref bool boundaryReached, ref float joystickInput)
