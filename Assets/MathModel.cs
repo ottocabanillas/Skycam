@@ -5,80 +5,56 @@ using UnityEngine;
 public class MathModel : MonoBehaviour
 {
     // Values for Field
+    // -Size
     private float heightValue, widthValue, lengthValue;
 
     // Values for Argos - Skycam
-    // Size
+    // -Size
     private float heightSkyCam = 500.0f, widthSkyCam = 500.0f, lengthSkyCam = 500.0f;
-    // SP Position
+    // -SP Position
     public static float sPX, sPY, sPZ;
-    // SP lenght rope
+    // -SP lenght rope
     public float r1sP, r2sP, r3sP, r4sP;
 
     private float maxSpeed;
     private float currentSpeed;
 
     // Values from UC (ESP32)
-    // Calculate position
-    public float pX, pY, pZ;
-    // Real length rope
+    // -Real length rope
     public float r1Length, r2Length, r3Length, r4Length; 
     
     // Calculated values ​​for UC
-    // Velocidad del motor (X) ---> (dX/time)
+    // -Velocidad del motor (X) ---> (dX/time)
     public float v1, v2, v3, v4;
-    // Direccion de giro
+    // -Direccion de giro
     public string[] motorsDirections = new string[4];
 
-    public Vector3 mt1, mt2, mt3, mt4;
-
     // Values ​​to calculate
-    // Diferencia entre el pto (x, y, z) del real contra el esperado
+    // -Calculate position from real world
+    public float pX, pY, pZ;
+    // -Diferencia entre el pto (x, y, z) del real contra el esperado, SP
     private float dX, dY, dZ;
-    public float distanceRope;
-    // Time (D/V)
+    // -Time (D/V)
     public float time;
-    // Diferencia entre el largo real (rXLength) y y esperado (rXsP) [mm]
+    // -Diferencia entre el largo real (rXLength) y y esperado (rXsP) [mm]
     private float dR1, dR2, dR3, dR4;
+    public float distanceRope;
 
     // Objects used by unity
     public GameObject skyCamArgos, rope1, rope2, rope3, rope4;
 
     // Propiedad para acceder a la instancia.
-    public static MathModel _instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new MathModel();
-            }
-            return _instance;
-        }
-    }
-
-    // void Awake()
-    // {
-    //     if (instance == null)
-    //     {
-    //         instance = this;
-    //     }
-    //     else if (instance != this)
-    //     {
-    //         Destroy(gameObject);
-    //     }
-    // }
 
     void Start()
     {
-
         setupValues();
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        setupValues();
+        calculateDeltaForDistance()
         setMotorsDirections()
         calculateMotorVelocities()
 
@@ -93,22 +69,78 @@ public class MathModel : MonoBehaviour
         lengthValue = PlayerPrefs.GetFloat(CommonConfigKeys.LENGTH.ToString()) * 1000.0f;
 
         //Debug Valores en [mm]
-        Debug.Log(heightValue);
-        Debug.Log(widthValue);
-        Debug.Log(lengthValue);
+        // Debug.Log(heightValue);
+        // Debug.Log(widthValue);
+        // Debug.Log(lengthValue);
         
         // Length Rope
         r1sP = r1sP * 1000.0f;
         r2sP = r2sP * 1000.0f;
         r3sP = r3sP * 1000.0f;
         r4sP = r4sP * 1000.0f;
+
+        //Debug Valores en [mm]
+        // Debug.Log(r1sP);
+        // Debug.Log(r2sP);
+        // Debug.Log(r3sP);
+        // Debug.Log(r4sP);
         
         // Position Box
-        pX = r1sP * 1000.0f; 
-        pY = r1sP * 1000.0f; 
-        pZ = r1sP * 1000.0f;
+        sPX = r1sP * 1000.0f;
+        sPY = r1sP * 1000.0f;
+        sPZ = r1sP * 1000.0f;
+
+        //Debug Valores en [mm]
+        // Debug.Log(sPX);
+        // Debug.Log(sPY);
+        // Debug.Log(sPZ);
     }
 
+    // Calcular la diferencia entre p(x, y, z) y sP(x, z y)
+    // -d(x, y ,z) = p(x, y, z) - sP(x, z y)
+    public void calculateDeltaForDistance()
+    {
+        calculateDeltaX();
+        calculateDeltaY();
+        calculateDeltaZ();
+    }
+
+    public void calculateDeltaX()
+    {
+        if (double.IsNaN(pX) || double.IsNaN(sPX))
+        {
+            dX = 0;
+            return;
+        }
+
+        dX = pX - sPX;
+        return;
+    }
+
+        public void calculateDeltaY()
+    {
+        if (double.IsNaN(pY) || double.IsNaN(sPY))
+        {
+            dX = 0;
+            return;
+        }
+
+        dY = pY - sPY;
+        return;
+    }   
+
+        public void calculateDeltaZ()
+    {
+        if (double.IsNaN(pZ) || double.IsNaN(sPZ))
+        {
+            dX = 0;
+            return;
+        }
+
+        dZ = pZ - sPZ;
+        return;
+    }       
+    
     public void calculateMotorVelocities()
     {
         if (time <= 0)
