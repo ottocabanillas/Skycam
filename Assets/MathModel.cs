@@ -71,19 +71,23 @@ public class MathModel : MonoBehaviour
     {
         g_variables = GlobalVariables.Instance;
         setupValues();
+        
+        // Iniciar la corutina para mandar constantemente el TTL
+        StartCoroutine(sendTimeToLivePeriodically());
+        StartCoroutine(sendCommands());
     }
 
     // Update is called once per frame
     void Update()
     {
         setupValues();
-        // calculateDeltaForRope();
-        // directkinematics();
-        // calculateDeltaForDistance();
-        // calculateRopeLength();
-        // calculateTime();
-        // calculateMotorVelocities();
-        // setMotorsDirections();  
+        calculateDeltaForRope();
+        directkinematics();
+        calculateDeltaForDistance();
+        calculateRopeLength();
+        calculateTime();
+        calculateMotorVelocities();
+        setMotorsDirections();  
         showUI(); 
     }
 
@@ -150,13 +154,16 @@ public class MathModel : MonoBehaviour
     // Cinemática directa (a partir de las cuerdas, calcula la posición de la cámara)
     public void directkinematics()
     {
+    
+        pX = ((r1Length * r1Length) - (r4Length * r4Length) + (lengthValue * lengthValue)-(lengthValue  * lengthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
+        pZ = ((r4Length * r4Length) - (r3Length * r3Length) + (widthValue * widthValue)-(widthValue  * widthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
+
         aux1 = r1Length * r1Length;
         aux2 = pX - (lengthSkyCam / 2); 
         aux3 = pZ - (widthSkyCam / 2);
 
-        pX = ((r1Length * r1Length) - (r4Length * r4Length) + (lengthValue * lengthValue)-(lengthValue  * lengthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
         pY = (heightValue) - (heightSkyCam / 2) - (float)(Math.Sqrt((aux1) - (aux2 * aux2) - (aux3 * aux3)));
-        pZ = ((r4Length * r4Length) - (r3Length * r3Length) + (widthValue * widthValue)-(widthValue  * widthSkyCam)) / (2 * (lengthValue - lengthSkyCam));
+        
 
         //Debug Valores en [mm]
         // Debug.Log("Pto real de x: "pX);
@@ -221,7 +228,7 @@ public class MathModel : MonoBehaviour
     
     public void calculateMotorVelocities()
     {
-        // if (time <= 0)
+        // if (float.IsNaN(time))
         // {
         //     v1 = 0;
         //     v2 = 0;
@@ -231,10 +238,10 @@ public class MathModel : MonoBehaviour
         // }
 
         // Velocidades de los 4 motores en [mm/s]
-        // v1 = Math.Round((dR1 / time) * 1000, MidpointRounding.AwayFromZero);
-        // v2 = Math.Round((dR2 / time) * 1000, MidpointRounding.AwayFromZero);
-        // v3 = Math.Round((dR3 / time) * 1000, MidpointRounding.AwayFromZero);
-        // v4 = Math.Round((dR4 / time) * 1000, MidpointRounding.AwayFromZero);
+        v1 = Math.Round((dR1 / time), MidpointRounding.AwayFromZero);
+        v2 = Math.Round((dR2 / time), MidpointRounding.AwayFromZero);
+        v3 = Math.Round((dR3 / time), MidpointRounding.AwayFromZero);
+        v4 = Math.Round((dR4 / time), MidpointRounding.AwayFromZero);
 
         // Velocidades de prueba seteadas en 50 mm/s        
         v1 = (dR1 >= 10) ? 50 : (dR1 <= -10) ? -50 : 0;
@@ -294,5 +301,34 @@ public class MathModel : MonoBehaviour
         v2Text.SetText("V2: " + (v2).ToString("N2") + " mm/s");
         v3Text.SetText("V3: " + (v3).ToString("N2") + " mm/s");
         v4Text.SetText("V4: " + (v4).ToString("N2") + " mm/s");
+    }
+
+    private IEnumerator sendTimeToLivePeriodically()
+    {
+        while (ArduinoController.isSerialConnEstablished)
+        {
+            ArduinoController.Instance.SendValue("*");
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    /* Funcion encargada de mandar los comandos requeridos por ArgosUC
+    */
+    private IEnumerator sendCommands()
+    {
+        while (ArduinoController.isSerialConnEstablished)
+        {
+            Debug.Log("Send commands 2");
+            string payload = motorsDirections[0] + Math.Abs(v1).ToString() +
+                             motorsDirections[1] + Math.Abs(v2).ToString() +
+                             motorsDirections[2] + Math.Abs(v3).ToString() +
+                             motorsDirections[3] + Math.Abs(v4).ToString() + "*";
+
+        
+            Debug.Log("Enviando: " + payload);
+            ArduinoController.Instance.SendValue(payload);  
+            //Debug.Log("DATOS ENVIADOS: " + payload);
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 }

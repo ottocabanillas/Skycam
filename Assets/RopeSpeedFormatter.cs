@@ -44,22 +44,13 @@ public class RopeSpeedFormatter : MonoBehaviour
         g_variables = GlobalVariables.Instance;
 
         // Iniciar la corutina para mandar constantemente el TTL
-        StartCoroutine(SendTimeToLivePeriodically());
-        StartCoroutine(SendCommands());
+        //StartCoroutine(SendTimeToLivePeriodically());
+        //StartCoroutine(SendCommands());
         skycamController = FindAnyObjectByType<SkycamController>();
     }
 
     private void Update()
     {
-        // Calcular D1, D2, D3 Y D4
-        g_variables.CalculateRopesDiff();
-
-        // Calcular la velocidad de giro de cada motor
-        g_variables.CalculateMotorVelocities();
-
-        // Establecer direcciones de acuerdo a las veloc de los motores
-        g_variables.SetMotorsDirections();
-
         if (!ArduinoController.isSerialConnEstablished)
         {
             // No se establecio la conexion a traves del puerto serie, retornar
@@ -78,23 +69,23 @@ public class RopeSpeedFormatter : MonoBehaviour
         // Comenzar a parsear, caracter por caracter.
         CentralUnitParser.Instance.ProcessInput();
 
-        //Enviamos las longitudes al modelo de cinematica directa, solo si el estado de las 4 VMUs es OK!
-        if (CentralUnitParser.isSkycamStatusOk)
-        {
-            // Calculamos los valores X,Y,Z reales con el modelo de cinematica directa
-            DirectKinematic.Instance.SetLengthsAndCalculateXYZ(
-                (double)g_variables.R1 / 1000.0,
-                (double)g_variables.R2 / 1000.0,
-                (double)g_variables.R3 / 1000.0,
-                (double)g_variables.R4 / 1000.0
-            );
+        // //Enviamos las longitudes al modelo de cinematica directa, solo si el estado de las 4 VMUs es OK!
+        // if (CentralUnitParser.isSkycamStatusOk)
+        // {
+        //     // Calculamos los valores X,Y,Z reales con el modelo de cinematica directa
+        //     DirectKinematic.Instance.SetLengthsAndCalculateXYZ(
+        //         (double)g_variables.R1 / 1000.0,
+        //         (double)g_variables.R2 / 1000.0,
+        //         (double)g_variables.R3 / 1000.0,
+        //         (double)g_variables.R4 / 1000.0
+        //     );
 
-        }
-        else
-        {
-            //Manejar errores? Definirlo...
-            //Debug.Log("Central Unit stat not OK");
-        }
+        // }
+        // else
+        // {
+        //     //Manejar errores? Definirlo...
+        //     //Debug.Log("Central Unit stat not OK");
+        // }
     }
 
     public float RoundRopeDistance(float distance)
