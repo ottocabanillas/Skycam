@@ -59,9 +59,9 @@ public class RopeSpeedFormatter : MonoBehaviour
         }
 
         // Leemos constantemente el largo de los 4 VMUs y sus respectivos estados
-        ArduinoController.Instance.ReadSerialPortData();
+        //ArduinoController.Instance.ReadSerialPortData();
         // Parseamos la respuesta
-        ParseIncomingDataFromArgosUc();
+        //ParseIncomingDataFromArgosUc();
     }
 
     private void ParseIncomingDataFromArgosUc()

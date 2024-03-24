@@ -249,10 +249,10 @@ public class MathModel : MonoBehaviour
         v3 = (dR3 >= 10) ? 50 : (dR3 <= -10) ? -50 : 0;
         v4 = (dR4 >= 10) ? 50 : (dR4 <= -10) ? -50 : 0;
 
-        Debug.Log("Velocidad 1: "+ v1);
-        Debug.Log("Velocidad 2: "+ v2);
-        Debug.Log("Velocidad 3: "+ v3);
-        Debug.Log("Velocidad 4: "+ v4);
+        //Debug.Log("Velocidad 1: "+ v1);
+        //Debug.Log("Velocidad 2: "+ v2);
+        //Debug.Log("Velocidad 3: "+ v3);
+        //Debug.Log("Velocidad 4: "+ v4);
         return;
     }
     
@@ -321,19 +321,19 @@ public class MathModel : MonoBehaviour
     */
     private IEnumerator sendCommands()
     {
+        string l_lastPayload = "";
         while (ArduinoController.isSerialConnEstablished)
         {
-            Debug.Log("Send commands 2");
-            string payload = motorsDirections[0] + Math.Abs(v1).ToString() +
-                             motorsDirections[1] + Math.Abs(v2).ToString() +
-                             motorsDirections[2] + Math.Abs(v3).ToString() +
-                             motorsDirections[3] + Math.Abs(v4).ToString() + "*";
-
-        
-            Debug.Log("Enviando: " + payload);
-            ArduinoController.Instance.SendValue(payload);  
+            //Debug.Log("Send commands 2");
+            string payload = "S50," + Math.Round(r1sP).ToString() + "S50," + Math.Round(r2sP).ToString() + "S50," + Math.Round(r3sP).ToString() + "S50," + Math.Round(r4sP).ToString() + "*";
+            if (!payload.Equals(l_lastPayload))
+            {
+                l_lastPayload = payload;
+                Debug.Log("Enviando: " + payload);
+                ArduinoController.Instance.SendValue(payload); 
+            } 
             //Debug.Log("DATOS ENVIADOS: " + payload);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(1f);
         }
     }
 }
