@@ -238,16 +238,21 @@ public class MathModel : MonoBehaviour
         // }
 
         // Velocidades de los 4 motores en [mm/s]
-        v1 = Math.Round((dR1 / time), MidpointRounding.AwayFromZero);
-        v2 = Math.Round((dR2 / time), MidpointRounding.AwayFromZero);
-        v3 = Math.Round((dR3 / time), MidpointRounding.AwayFromZero);
-        v4 = Math.Round((dR4 / time), MidpointRounding.AwayFromZero);
+        // v1 = Math.Round((dR1 / time), MidpointRounding.AwayFromZero);
+        // v2 = Math.Round((dR2 / time), MidpointRounding.AwayFromZero);
+        // v3 = Math.Round((dR3 / time), MidpointRounding.AwayFromZero);
+        // v4 = Math.Round((dR4 / time), MidpointRounding.AwayFromZero);
 
         // Velocidades de prueba seteadas en 50 mm/s        
         v1 = (dR1 >= 10) ? 50 : (dR1 <= -10) ? -50 : 0;
         v2 = (dR2 >= 10) ? 50 : (dR2 <= -10) ? -50 : 0;
         v3 = (dR3 >= 10) ? 50 : (dR3 <= -10) ? -50 : 0;
         v4 = (dR4 >= 10) ? 50 : (dR4 <= -10) ? -50 : 0;
+
+        Debug.Log("Velocidad 1: "+ v1);
+        Debug.Log("Velocidad 2: "+ v2);
+        Debug.Log("Velocidad 3: "+ v3);
+        Debug.Log("Velocidad 4: "+ v4);
         return;
     }
     

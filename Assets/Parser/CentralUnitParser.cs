@@ -246,6 +246,7 @@ public class CentralUnitParser
 
             case State.ST_END:
                 {
+                    Debug.Log("ST_END");
                     if (m_lastInputChar == '*')
                     {
                         // fin del mensaje
@@ -255,7 +256,7 @@ public class CentralUnitParser
                         g_variables.R2 = m_vmuLengthArr[1];
                         g_variables.R3 = m_vmuLengthArr[2];
                         g_variables.R4 = m_vmuLengthArr[3];
-                        //Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
+                        Debug.Log("VMU 1: " + m_vmuLengthArr[0] + " VMU 2: " + m_vmuLengthArr[1] + " VMU 3: " + m_vmuLengthArr[1] + " VMU 4: " + m_vmuLengthArr[3]);
                         m_currentState = State.ST_INIT;
                         break;
                     }
