@@ -34,7 +34,7 @@ public class CentralUnitParser
     public long[] m_vmuLengthArr = new long[4]; // Para el largo de cada VMU
     public char[] m_vmuStatArr = new char[4]; // Para el status de cada VMU
     public char m_lastInputChar = '\0'; // Ultimo caracter recibido de Unidad Central
-    private static bool m_isSkycamStatusOk = false; // Variable para determinar cuando los 4 VMUs estan OK
+    public static bool m_isSkycamStatusOk = false; // Variable para determinar cuando los 4 VMUs estan OK
     public static bool isSkycamStatusOk // Getter de m_isSkycamStatusOk. Lo usamos en RopeSpeedFormatter
     {
         get { return m_isSkycamStatusOk; }
